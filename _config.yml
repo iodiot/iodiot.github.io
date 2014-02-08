@@ -6,14 +6,14 @@ pygments:	true
 permalink:	/blog/:title
 
 # Setup
-title:		Thinny
+title:		'We must know. We will know.' 
 tagline:	'blog'
 description:	'My personal blog.'
-url:		http://camporez.com
+url:		http://iodiot.github.io
 
 author:
-  name:		'Ian Camporez Brunelli'
-  url:		https://google.com/+IanCamporezBrunelli
+  name:		'Ignat Grob'
+  url:		https://google.com/
 
 paginate:	5
 
@@ -23,30 +23,26 @@ cover:		/assets/images/cover.jpg
 
 social:
   - icon:	twitter
-    url:	https://twitter.com/iancamporez
+    url:	https://twitter.com/iodiot
     desc:	Follow me on twitter
 
   - icon:	github
-    url:	https://github.com/camporez
+    url:	https://github.com/iodiot
     desc:	Fork me on github
 
-  - icon:	googleplus-alt
-    url:	https://google.com/+IanCamporezBrunelli
-    desc:	Add me on google+
-
   - icon:	feed
-    url:	http://camporez.com/atom.xml
+    url:	http://iodiot.github.io/atom.xml
     desc:	Subscribe to my feed
     
 menu:
   - title:	Home
-    url:	http://camporez.com
+    url:	http://iodiot.github.io
     
   - title:	About
-    url:	http://camporez.com/about
+    url:	http://iodiot.github.io/about
     
 copyright:
-  author:	Camporez
-  url:		http://camporez.com
+  author:	Ignat Grob
+  url:		http://iodiot.github.io
   type_title:	Some rights reserved
   type_url:	http://creativecommons.org/licenses/by-nc/2.5
