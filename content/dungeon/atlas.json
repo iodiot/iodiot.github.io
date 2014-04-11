@@ -1,0 +1,792 @@
+{
+	"image-path": "atlas.png",
+	"normal-map-path": "atlas-normals.png",
+	"width": "256",
+	"height": "368",
+	"sprites": [
+		{
+			"name": "arrow",
+			"x": "240",
+			"y": "64",
+			"width": "16",
+			"height": "16",
+			"normal-map": "false"
+		},
+		{
+			"name": "bat_1",
+			"x": "200",
+			"y": "40",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bat_2",
+			"x": "176",
+			"y": "40",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bat_3",
+			"x": "152",
+			"y": "40",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bat_4",
+			"x": "128",
+			"y": "40",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bat_5",
+			"x": "224",
+			"y": "40",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bat_6",
+			"x": "160",
+			"y": "296",
+			"width": "24",
+			"height": "24",
+			"normal-map": "true"
+		},
+		{
+			"name": "bone_1",
+			"x": "243",
+			"y": "296",
+			"width": "9",
+			"height": "10",
+			"normal-map": "true"
+		},
+		{
+			"name": "bone_2",
+			"x": "69",
+			"y": "328",
+			"width": "9",
+			"height": "10",
+			"normal-map": "true"
+		},
+		{
+			"name": "bone_3",
+			"x": "60",
+			"y": "328",
+			"width": "9",
+			"height": "10",
+			"normal-map": "true"
+		},
+		{
+			"name": "bone_4",
+			"x": "78",
+			"y": "328",
+			"width": "9",
+			"height": "10",
+			"normal-map": "true"
+		},
+		{
+			"name": "bone_5",
+			"x": "234",
+			"y": "296",
+			"width": "9",
+			"height": "10",
+			"normal-map": "true"
+		},
+		{
+			"name": "ceiling",
+			"x": "0",
+			"y": "0",
+			"width": "64",
+			"height": "64",
+			"normal-map": "true"
+		},
+		{
+			"name": "fire_1",
+			"x": "184",
+			"y": "296",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_2",
+			"x": "248",
+			"y": "80",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_3",
+			"x": "240",
+			"y": "80",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_4",
+			"x": "248",
+			"y": "40",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_5",
+			"x": "192",
+			"y": "296",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_6",
+			"x": "200",
+			"y": "296",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fire_7",
+			"x": "208",
+			"y": "296",
+			"width": "8",
+			"height": "18",
+			"normal-map": "false"
+		},
+		{
+			"name": "fireball_1",
+			"x": "128",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "fireball_2",
+			"x": "160",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "fireball_3",
+			"x": "192",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "fireball_4",
+			"x": "224",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "floor",
+			"x": "64",
+			"y": "0",
+			"width": "64",
+			"height": "64",
+			"normal-map": "true"
+		},
+		{
+			"name": "fragment_1",
+			"x": "216",
+			"y": "296",
+			"width": "9",
+			"height": "10",
+			"normal-map": "false"
+		},
+		{
+			"name": "fragment_2",
+			"x": "225",
+			"y": "296",
+			"width": "9",
+			"height": "10",
+			"normal-map": "false"
+		},
+		{
+			"name": "fragment_3",
+			"x": "51",
+			"y": "328",
+			"width": "9",
+			"height": "10",
+			"normal-map": "false"
+		},
+		{
+			"name": "ghost_purple_1",
+			"x": "128",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_1",
+			"x": "160",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_2",
+			"x": "96",
+			"y": "296",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_3",
+			"x": "64",
+			"y": "296",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_4",
+			"x": "32",
+			"y": "296",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_5",
+			"x": "0",
+			"y": "296",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_6",
+			"x": "96",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_7",
+			"x": "64",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_8",
+			"x": "32",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "hand_9",
+			"x": "0",
+			"y": "264",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "heart",
+			"x": "87",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "heart_empty",
+			"x": "96",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "heart_half",
+			"x": "132",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_crouch",
+			"x": "96",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_jump",
+			"x": "64",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_run_1",
+			"x": "32",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "player_run_2",
+			"x": "0",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "player_run_3",
+			"x": "128",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "player_run_4",
+			"x": "32",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "player_slime_1",
+			"x": "64",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_slime_2",
+			"x": "96",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_slime_3",
+			"x": "128",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_slime_4",
+			"x": "160",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_slime_cover_1",
+			"x": "192",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "player_slime_cover_2",
+			"x": "224",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "saw_1",
+			"x": "224",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "saw_2",
+			"x": "192",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "saw_3",
+			"x": "160",
+			"y": "232",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "shield",
+			"x": "123",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "shield_empty",
+			"x": "114",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "shield_half",
+			"x": "105",
+			"y": "328",
+			"width": "9",
+			"height": "9",
+			"normal-map": "false"
+		},
+		{
+			"name": "skeleton_die_1",
+			"x": "0",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_2",
+			"x": "32",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_3",
+			"x": "64",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_4",
+			"x": "96",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_5",
+			"x": "128",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_6",
+			"x": "128",
+			"y": "296",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_die_7",
+			"x": "192",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_walk_1",
+			"x": "224",
+			"y": "136",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_walk_2",
+			"x": "0",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_walk_3",
+			"x": "32",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "skeleton_walk_4",
+			"x": "64",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "slime_1",
+			"x": "96",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "slime_2",
+			"x": "0",
+			"y": "104",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "slime_3",
+			"x": "160",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "true"
+		},
+		{
+			"name": "slime_ball_1",
+			"x": "192",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_ball_2",
+			"x": "224",
+			"y": "168",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_ball_small_1",
+			"x": "0",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_ball_small_2",
+			"x": "32",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_drop_1",
+			"x": "64",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_drop_2",
+			"x": "96",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_drop_3",
+			"x": "128",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_drop_4",
+			"x": "160",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_small_1",
+			"x": "192",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "slime_small_2",
+			"x": "224",
+			"y": "200",
+			"width": "32",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "spike_1",
+			"x": "44",
+			"y": "328",
+			"width": "7",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "spike_2",
+			"x": "37",
+			"y": "328",
+			"width": "7",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "spike_3",
+			"x": "30",
+			"y": "328",
+			"width": "7",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "spike_4",
+			"x": "248",
+			"y": "0",
+			"width": "7",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "spike_5",
+			"x": "23",
+			"y": "328",
+			"width": "7",
+			"height": "32",
+			"normal-map": "false"
+		},
+		{
+			"name": "trap_1",
+			"x": "0",
+			"y": "328",
+			"width": "23",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_1",
+			"x": "120",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "true"
+		},
+		{
+			"name": "wall_2",
+			"x": "160",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_3",
+			"x": "200",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_4",
+			"x": "128",
+			"y": "0",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_5",
+			"x": "208",
+			"y": "0",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_6",
+			"x": "168",
+			"y": "0",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_7",
+			"x": "0",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_8",
+			"x": "80",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		},
+		{
+			"name": "wall_9",
+			"x": "40",
+			"y": "64",
+			"width": "40",
+			"height": "40",
+			"normal-map": "false"
+		}
+	]
+}
