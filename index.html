@@ -47,7 +47,7 @@
 
   <section id="demos">
     <h2><span>01</span> Featured demos</h2>
-    <p class="section-lead">Live in the browser. Requires a WebGPU-capable browser (recent Chrome or Edge).</p>
+    <p class="section-lead">Live in the browser. The crowd and ocean demos need a WebGPU-capable browser (recent Chrome or Edge). The globe dashboard runs on WebGL in any modern browser.</p>
     <div class="featured">
       <article class="card big">
         <a class="media" href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener" aria-label="Open webgpu-crowd live demo">
@@ -74,6 +74,20 @@
           <div class="actions">
             <a class="btn primary" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Live demo</a>
             <a class="btn" href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </article>
+      <article class="card big wide">
+        <a class="media" href="https://iodiot.github.io/globe-dashboard/" target="_blank" rel="noopener" aria-label="Open globe-dashboard live demo">
+          <img src="assets/shots/globe-dashboard.webp" alt="globe-dashboard screenshot: live earthquake dashboard around a 3D globe" width="960" height="540" loading="lazy">
+        </a>
+        <div class="body">
+          <h3>globe-dashboard</h3>
+          <p>Live earthquake dashboard built around a 3D globe, streaming the USGS real-time feed. Every event is drawn as one instanced marker, and recent events pulse in a shader. Hover or click an event to fly the camera to it. The virtualised event list, filters, KPI cards and SVG charts all stay in sync with the globe. Timeline playback, shareable URL state, dark and light themes, a responsive layout and full keyboard navigation. Falls back to a labelled snapshot when the feed is unreachable.</p>
+          <ul class="tags"><li>React</li><li>TypeScript</li><li>Three.js / R3F</li><li>zustand</li><li>Vite</li><li>Vitest</li></ul>
+          <div class="actions">
+            <a class="btn primary" href="https://iodiot.github.io/globe-dashboard/" target="_blank" rel="noopener">Live demo</a>
+            <a class="btn" href="https://github.com/iodiot/globe-dashboard" target="_blank" rel="noopener">Code</a>
           </div>
         </div>
       </article>
