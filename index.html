@@ -64,15 +64,13 @@
         </div>
       </article>
       <article class="card big">
-        <a class="media gradient ocean" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener" aria-label="Open webgpu-ocean live demo">
-          <!-- Screenshot slot: replace the span below with
-               <img src="assets/shots/webgpu-ocean.webp" alt="webgpu-ocean screenshot" loading="lazy"> -->
-          <span class="media-label">webgpu-ocean</span>
+        <a class="media" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener" aria-label="Open webgpu-ocean live demo">
+          <img src="assets/shots/webgpu-ocean.webp" alt="webgpu-ocean screenshot" width="960" height="540" loading="lazy">
         </a>
         <div class="body">
           <h3>webgpu-ocean</h3>
-          <p>Real-time FFT ocean built on the Three.js WebGPURenderer, with wave simulation running on the GPU.</p>
-          <ul class="tags"><li>Three.js</li><li>WebGPURenderer</li><li>FFT</li><li>TypeScript</li></ul>
+          <p>Real-time Tessendorf FFT ocean on the Three.js WebGPURenderer. The JONSWAP wave spectrum is evolved and inverse-FFT&rsquo;d in TSL compute shaders across 3 cascades (250&nbsp;m swell to 6&nbsp;cm ripples). The surface has choppy displacement, Jacobian-based whitecaps, Fresnel sky reflections, sun glint and subsurface scattering, with Calm / Breeze / Storm presets.</p>
+          <ul class="tags"><li>Three.js</li><li>WebGPURenderer</li><li>TSL compute</li><li>FFT</li><li>TypeScript</li></ul>
           <div class="actions">
             <a class="btn primary" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Live demo</a>
             <a class="btn" href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Code</a>
