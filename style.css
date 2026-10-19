@@ -78,6 +78,7 @@ h2 span{font:500 13px var(--mono);color:var(--accent)}
 .year:hover{border-color:#3a4258;background:var(--panel2)}
 .y{font:700 18px var(--mono)}
 .lang{justify-self:start;font:600 11px/1 var(--mono);padding:6px 9px;border-radius:999px;border:1px solid}
+.langs{display:flex;gap:6px;justify-self:start}
 .lang.ts{color:#7ab8ff;border-color:#2b4f7d;background:#0f1d30}
 .lang.js{color:#f5dd6b;border-color:#5f5424;background:#211e0e}
 .lang.cs{color:#c79bff;border-color:#4d3570;background:#1c1329}
