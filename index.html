@@ -1,18 +1,199 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>dungeon.js</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mike Smahin · Senior Frontend / 3D Engineer</title>
+<meta name="description" content="Mike Smahin, Senior Frontend / 3D Engineer in Barcelona. TypeScript, React, Three.js, WebGL/WebGPU, Unity/C#.">
+<meta property="og:title" content="Mike Smahin · Senior Frontend / 3D Engineer">
+<meta property="og:description" content="15+ years building interactive 3D for the web. TypeScript, React, Three.js, WebGL/WebGPU.">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0d12'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%237cf5d4'>MS</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
 
-		<script src="js/lib/stats.min.js"></script>
-		<script src="js/lib/prototype.js"></script>
-		<script src="js/lib/three.js"></script>
-		<script src="js/lib/utils.js"></script>
+<header class="nav">
+  <a class="brand" href="#top">Mike&nbsp;Smahin</a>
+  <nav>
+    <a href="#demos">Demos</a>
+    <a href="#work">Graphics</a>
+    <a href="#experience">Experience</a>
+    <a href="#aoc">Advent of Code</a>
+  </nav>
+</header>
 
-		<script src="js/config.js"></script>
-		<script data-main="../main" src="js/require.js"></script>
-	</head>
+<main id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Barcelona, Spain</p>
+      <h1>Mike Smahin</h1>
+      <p class="role">Senior Frontend / 3D Engineer</p>
+      <p class="lead">15+ years building software, with a focus on real-time 3D for the web and games.
+        TypeScript, React, Three.js, WebGL &amp; WebGPU, Unity / C#.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:iodiot@gmail.com">iodiot@gmail.com</a>
+        <a class="btn" href="https://github.com/iodiot" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/mike-smahin-48608226" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <p class="li">LinkedIn: <a href="https://www.linkedin.com/in/mike-smahin-48608226" target="_blank" rel="noopener">linkedin.com/in/mike-smahin-48608226</a></p>
+      <ul class="stack">
+        <li>TypeScript</li><li>React</li><li>Three.js</li><li>WebGL</li><li>WebGPU</li><li>Unity / C#</li>
+      </ul>
+    </div>
+  </section>
 
-	<body style="background-color: #000">
-	</body>
+  <section id="demos">
+    <h2><span>01</span> Featured demos</h2>
+    <p class="section-lead">Live in the browser. Requires a WebGPU-capable browser (recent Chrome or Edge).</p>
+    <div class="featured">
+      <article class="card big">
+        <a class="media" href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener" aria-label="Open webgpu-crowd live demo">
+          <img src="assets/shots/webgpu-crowd.webp" alt="webgpu-crowd screenshot" width="960" height="540">
+        </a>
+        <div class="body">
+          <h3>webgpu-crowd</h3>
+          <p>Crowd simulation running entirely on the GPU: boids flocking in WebGPU compute shaders (WGSL), with a spatial hash grid for neighbour lookups. Scales from 1k to 100k agents in real time, with live controls.</p>
+          <ul class="tags"><li>WebGPU</li><li>WGSL compute</li><li>Spatial hashing</li><li>TypeScript</li><li>Vite</li></ul>
+          <div class="actions">
+            <a class="btn primary" href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener">Live demo</a>
+            <a class="btn" href="https://github.com/iodiot/webgpu-crowd" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </article>
+      <article class="card big">
+        <a class="media gradient ocean" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener" aria-label="Open webgpu-ocean live demo">
+          <!-- Screenshot slot: replace the span below with
+               <img src="assets/shots/webgpu-ocean.webp" alt="webgpu-ocean screenshot" loading="lazy"> -->
+          <span class="media-label">webgpu-ocean</span>
+        </a>
+        <div class="body">
+          <h3>webgpu-ocean</h3>
+          <p>Real-time FFT ocean built on the Three.js WebGPURenderer, with wave simulation running on the GPU.</p>
+          <ul class="tags"><li>Three.js</li><li>WebGPURenderer</li><li>FFT</li><li>TypeScript</li></ul>
+          <div class="actions">
+            <a class="btn primary" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Live demo</a>
+            <a class="btn" href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2><span>02</span> Selected graphics work</h2>
+    <p class="section-lead">Earlier experiments in GPU rendering and simulation.</p>
+    <div class="grid">
+      <article class="card">
+        <a class="media" href="https://github.com/iodiot/bubbles.js" target="_blank" rel="noopener"><img src="assets/shots/bubbles.webp" alt="bubbles.js screenshot" loading="lazy" width="960" height="734"></a>
+        <div class="body">
+          <h3>bubbles.js <small>2021</small></h3>
+          <p>Thousands of bubbles drawn with GPU instancing in Three.js. Positions and velocities are simulated in GPGPU compute passes (fragment shaders over float textures).</p>
+          <ul class="tags"><li>Three.js</li><li>GLSL</li><li>Instancing</li><li>GPGPU</li></ul>
+          <a class="code-link" href="https://github.com/iodiot/bubbles.js" target="_blank" rel="noopener">View code →</a>
+        </div>
+      </article>
+      <article class="card">
+        <a class="media" href="https://github.com/iodiot/GpuFluid" target="_blank" rel="noopener"><img src="assets/shots/gpufluid.webp" alt="GpuFluid screenshot" loading="lazy" width="512" height="534"></a>
+        <div class="body">
+          <h3>GpuFluid <small>2014</small></h3>
+          <p>2D fluid simulator on the GPU: advection, buoyancy, divergence and a Jacobi pressure solve, each as a shader pass. Add force and fluid with the mouse.</p>
+          <ul class="tags"><li>C++</li><li>OpenGL</li><li>GLSL</li><li>Navier–Stokes</li></ul>
+          <a class="code-link" href="https://github.com/iodiot/GpuFluid" target="_blank" rel="noopener">View code →</a>
+        </div>
+      </article>
+      <article class="card">
+        <a class="media" href="https://github.com/iodiot/GpuRayTracer" target="_blank" rel="noopener"><img src="assets/shots/gpuraytracer.webp" alt="GpuRayTracer screenshot" loading="lazy" width="656" height="518"></a>
+        <div class="body">
+          <h3>GpuRayTracer <small>2015</small></h3>
+          <p>A ray tracer that runs in a fragment shader, with analytic ray–sphere, ray–plane and ray–cylinder intersections and point-light shading.</p>
+          <ul class="tags"><li>C++</li><li>OpenGL</li><li>GLSL</li><li>Ray tracing</li></ul>
+          <a class="code-link" href="https://github.com/iodiot/GpuRayTracer" target="_blank" rel="noopener">View code →</a>
+        </div>
+      </article>
+      <article class="card">
+        <a class="media" href="https://github.com/iodiot/GpuVoxels" target="_blank" rel="noopener"><img src="assets/shots/gpuvoxels.webp" alt="GpuVoxels screenshot" loading="lazy" width="960" height="520"></a>
+        <div class="body">
+          <h3>GpuVoxels <small>2015</small></h3>
+          <p>A voxel world generated on the CPU, uploaded as a 3D texture and ray-marched per pixel in a GLSL fragment shader.</p>
+          <ul class="tags"><li>C++</li><li>OpenGL</li><li>GLSL</li><li>3D textures</li></ul>
+          <a class="code-link" href="https://github.com/iodiot/GpuVoxels" target="_blank" rel="noopener">View code →</a>
+        </div>
+      </article>
+      <article class="card">
+        <a class="media" href="https://github.com/iodiot/dungeon.js" target="_blank" rel="noopener"><img src="assets/shots/dungeon.webp" alt="dungeon.js screenshot" loading="lazy" width="604" height="299"></a>
+        <div class="body">
+          <h3>dungeon.js <small>2015</small></h3>
+          <p>A 3D dungeon runner in the browser built on Three.js: normal-mapped sprite atlases, custom shaders, and a cast of bats, skeletons, ghosts, slimes and traps.</p>
+          <ul class="tags"><li>JavaScript</li><li>Three.js</li><li>GLSL</li><li>Game</li></ul>
+          <a class="code-link" href="https://github.com/iodiot/dungeon.js" target="_blank" rel="noopener">View code →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2><span>03</span> Professional highlights</h2>
+    <div class="highlights">
+      <article class="hl">
+        <p class="hl-org">Vimeo · Venues</p>
+        <h3>Owned the 3D component and simulation</h3>
+        <p>Scaled virtual venues to up to <strong>10,000 avatars at a stable 60+ FPS</strong> on regular hardware.</p>
+      </article>
+      <article class="hl">
+        <p class="hl-org">Eneminds · Redungeon</p>
+        <h3>Shipped a mobile game in Unity / C#</h3>
+        <p><strong>1M+ downloads per platform</strong> for Redungeon, built by a small team.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="aoc">
+    <h2><span>04</span> Advent of Code</h2>
+    <p class="section-lead">Solved by hand, year after year, across five languages. Day counts are the days with a solution committed in each repo.</p>
+    <div class="aoc">
+      <a class="year" href="https://github.com/iodiot/Advent-of-Code-2025" target="_blank" rel="noopener">
+        <span class="y">2025</span><span class="lang ts">TypeScript</span>
+        <span class="bar"><i style="--p:50%"></i></span><span class="days">6 / 12 days</span>
+      </a>
+      <a class="year" href="https://github.com/iodiot/Advent-of-Code-2024" target="_blank" rel="noopener">
+        <span class="y">2024</span><span class="lang js">JavaScript</span>
+        <span class="bar"><i style="--p:48%"></i></span><span class="days">12 / 25 days</span>
+      </a>
+      <a class="year" href="https://github.com/iodiot/Advent-of-Code-2023" target="_blank" rel="noopener">
+        <span class="y">2023</span><span class="lang js">JavaScript</span>
+        <span class="bar"><i style="--p:76%"></i></span><span class="days">19 / 25 days</span>
+      </a>
+      <a class="year" href="https://github.com/iodiot/Advent-of-Code-2022" target="_blank" rel="noopener">
+        <span class="y">2022</span><span class="lang js">JavaScript</span>
+        <span class="bar"><i style="--p:64%"></i></span><span class="days">16 / 25 days</span>
+      </a>
+      <a class="year full" href="https://github.com/iodiot/Advent-of-Code-2021" target="_blank" rel="noopener">
+        <span class="y">2021</span><span class="lang cs">C#</span>
+        <span class="bar"><i style="--p:100%"></i></span><span class="days">25 / 25 days ★</span>
+      </a>
+      <a class="year full" href="https://github.com/iodiot/Advent-of-Code-2020" target="_blank" rel="noopener">
+        <span class="y">2020</span><span class="lang py">Python</span>
+        <span class="bar"><i style="--p:100%"></i></span><span class="days">25 / 25 days ★</span>
+      </a>
+      <a class="year full" href="https://github.com/iodiot/Advent-of-Code-2019" target="_blank" rel="noopener">
+        <span class="y">2019</span><span class="lang rb">Ruby</span>
+        <span class="bar"><i style="--p:100%"></i></span><span class="days">25 / 25 days ★</span>
+      </a>
+      <a class="year" href="https://github.com/iodiot/Avent-of-Code-2015" target="_blank" rel="noopener">
+        <span class="y">2015</span><span class="lang cs">C#</span>
+        <span class="bar"><i style="--p:56%"></i></span><span class="days">14 / 25 days</span>
+      </a>
+    </div>
+    <p class="aoc-total">142 days of puzzles across 8 events · Ruby · Python · C# · JavaScript · TypeScript</p>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="y">2026</span> Mike Smahin · Barcelona</p>
+  <p><a href="mailto:iodiot@gmail.com">iodiot@gmail.com</a> · <a href="https://github.com/iodiot" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/mike-smahin-48608226" target="_blank" rel="noopener">LinkedIn</a></p>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
 </html>
