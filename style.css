@@ -108,3 +108,17 @@ footer a:hover{color:var(--text)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 .grid .card.wide.game .media img{object-fit:contain;object-position:50% 50%;background:#05060a}
+.posts{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 28px}
+.post{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.pt{text-decoration:none;font-weight:500}
+.pt:hover{color:var(--accent)}
+.pm{display:flex;align-items:center;gap:10px;flex-shrink:0;font:12px var(--mono);color:var(--dim)}
+.topic{font:600 10px/1 var(--mono);padding:5px 7px;border-radius:999px;border:1px solid}
+.topic.prog{color:#7ab8ff;border-color:#2b4f7d;background:#0f1d30}
+.topic.math{color:#c79bff;border-color:#4d3570;background:#1c1329}
+.topic.phys{color:#7ee0a0;border-color:#2b5a3b;background:#0f2216}
+.orig{color:var(--accent2);text-decoration:none}
+.orig:hover{text-decoration:underline}
+.writing-more{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0}
+@media (max-width:900px){.posts{grid-template-columns:1fr}}
+@media (max-width:600px){.post{flex-direction:column;gap:6px}}
