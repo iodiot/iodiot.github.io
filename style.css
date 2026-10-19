@@ -107,3 +107,4 @@ footer a:hover{color:var(--text)}
   .year{grid-template-columns:56px 1fr auto;gap:10px 12px}.bar{grid-column:1/-1;order:4}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.grid .card.wide.game .media img{object-fit:contain;object-position:50% 50%;background:#05060a}
