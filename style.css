@@ -122,3 +122,8 @@ footer a:hover{color:var(--text)}
 .writing-more{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0}
 @media (max-width:900px){.posts{grid-template-columns:1fr}}
 @media (max-width:600px){.post{flex-direction:column;gap:6px}}
+.writing-sub{margin:28px 0 10px;font-size:17px;letter-spacing:-.01em}
+.writing-sub:first-of-type{margin-top:0}
+.writing-sub small{font:400 12px var(--mono);color:var(--dim);margin-left:8px}
+.posts.tutorials{grid-template-columns:1fr}
+.topic.tut{color:#7cf5d4;border-color:#22584b;background:#0c221d}
