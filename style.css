@@ -127,3 +127,4 @@ footer a:hover{color:var(--text)}
 .writing-sub small{font:400 12px var(--mono);color:var(--dim);margin-left:8px}
 .posts.tutorials{grid-template-columns:1fr}
 .topic.tut{color:#7cf5d4;border-color:#22584b;background:#0c221d}
+@media (min-width:601px) and (max-width:900px){.grid>.card:not(.wide):last-child:nth-child(even){grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.grid>.card:not(.wide):last-child:nth-child(even) .media{aspect-ratio:auto;height:100%;min-height:260px;border-bottom:0;border-right:1px solid var(--line)}}
