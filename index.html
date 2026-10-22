@@ -9,7 +9,7 @@
 <meta property="og:description" content="15+ years in frontend engineering, real-time applications and 3D for the web. TypeScript, React, Three.js, WebGL/WebGPU.">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0d12'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%237cf5d4'>MS</text></svg>">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -51,7 +51,19 @@
     <h2><span>01</span> Featured demos</h2>
     <p class="section-lead">Live in the browser. Dungeon Dash runs in any modern browser, including phones; the globe dashboard and bubbles.js run on WebGL. The crowd and ocean demos need a WebGPU-capable browser (recent Chrome or Edge).</p>
     <div class="featured">
-      <article class="card big wide">
+      <article class="card big">
+        <a class="media fit-top" href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener" aria-label="Open Familiar Local on GitHub"><img src="assets/shots/familiar-local-dark-2026.webp" alt="Familiar Local in dark mode: a Mac chat window with a conversation list on the left and Apple's on-device model planning a calm three-day Kyoto trip" width="960" height="679"></a>
+        <div class="body">
+          <h3>Familiar Local <small>2026</small></h3>
+          <p>A private little chat app for your Mac that talks to Apple’s on-device Foundation Models, so nothing you type ever leaves the computer. A small Swift server listens only on 127.0.0.1 and serves a clean web chat, which opens in its own native window or in any browser. Keep separate conversations, each with its own memory, flip between light and dark themes, and grab a ready-made macOS app straight from the repo.</p>
+          <ul class="tags"><li>Swift</li><li>JavaScript</li><li>macOS</li><li>Apple Foundation Models</li><li>On-device AI</li></ul>
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/iodiot/familiar-local/raw/main/downloads/Familiar-macOS.zip" download>Download for macOS</a>
+            <a class="btn" href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </article>
+      <article class="card big">
         <a class="media" href="https://iodiot.github.io/dungeon-dash-proto/" target="_blank" rel="noopener" aria-label="Open Dungeon Dash live demo">
           <img src="assets/shots/dungeon-dash.webp" alt="Dungeon Dash screenshot: a torchlit stone corridor in a 3D browser dungeon" width="960" height="600">
         </a>
@@ -116,21 +128,6 @@
           <div class="actions">
             <a class="btn primary" href="https://iodiot.github.io/bubbles.js/" target="_blank" rel="noopener">Live demo</a>
             <a class="btn" href="https://github.com/iodiot/bubbles.js" target="_blank" rel="noopener">Code</a>
-          </div>
-        </div>
-      </article>
-      <article class="card big wide shots-card">
-        <div class="shots">
-          <a class="shot" href="assets/shots/familiar-local-1.webp" target="_blank" rel="noopener" aria-label="Open the light mode screenshot full size"><img src="assets/shots/familiar-local-1.webp" alt="Familiar Local in light mode: a chat window on a Mac with a conversation list on the left and an on-device model planning a calm three-day Kyoto trip" loading="lazy" width="960" height="603"></a>
-          <a class="shot" href="assets/shots/familiar-local-2.webp" target="_blank" rel="noopener" aria-label="Open the dark mode screenshot full size"><img src="assets/shots/familiar-local-2.webp" alt="Familiar Local in dark mode: the same Mac chat window with a dark theme, a conversation list and a reply from Apple's on-device model" loading="lazy" width="960" height="603"></a>
-        </div>
-        <div class="body">
-          <h3>Familiar Local <small>2026</small></h3>
-          <p>A private little chat app for your Mac that talks to Apple’s on-device Foundation Models, so nothing you type ever leaves the computer. A small Swift server listens only on 127.0.0.1 and serves a clean web chat, which opens in its own native window or in any browser. Keep separate conversations, each with its own memory, flip between light and dark themes, and grab a ready-made macOS app straight from the repo.</p>
-          <ul class="tags"><li>Swift</li><li>JavaScript</li><li>macOS</li><li>Apple Foundation Models</li><li>On-device AI</li></ul>
-          <div class="actions">
-            <a class="btn primary" href="https://github.com/iodiot/familiar-local/raw/main/downloads/Familiar-macOS.zip" download>Download for macOS</a>
-            <a class="btn" href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener">Code</a>
           </div>
         </div>
       </article>
