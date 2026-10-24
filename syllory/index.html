@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Syllory — A quieter place to read</title>
-  <meta name="description" content="Syllory is a thoughtful, local-first book reader for Mac. Bring your own EPUBs, make the page yours, and stay with the story.">
+  <meta name="description" content="Syllory is a thoughtful, local-first book reader for Mac. Bring your own EPUBs, keep your place, make the page yours, and stay with the story.">
   <meta name="theme-color" content="#0b0d12">
   <meta property="og:title" content="Syllory — A quieter place to read">
   <meta property="og:description" content="A quiet, local-first reading space for Mac.">
@@ -67,6 +67,11 @@
     .syllory-reading-card{padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#141923,#10131a)}
     .syllory-reading-card h3{margin:8px 0 10px;font-size:22px;letter-spacing:-.025em}
     .syllory-reading-card p{max-width:520px;color:var(--muted);margin:0}
+    .syllory-screen-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .syllory-screen-card{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#171b24,#10131a);box-shadow:0 24px 55px rgba(0,0,0,.22)}
+    .syllory-screen-card img{display:block;width:100%;height:auto;background:#22252a}
+    .syllory-screen-caption{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 17px;color:#dce1e9;font-size:12px}
+    .syllory-screen-caption span{color:var(--dim);font:10px var(--mono);text-transform:uppercase;letter-spacing:.07em}
     .syllory-layout-preview{display:flex;align-items:center;gap:15px;margin-top:24px}
     .syllory-layout-chip{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:#cbd2df}
     .syllory-layout-icon{display:flex;gap:2px}
@@ -89,7 +94,7 @@
     .syllory-footer{margin-top:76px}
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
     @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-stage{min-height:390px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-pages{min-height:220px;gap:12px;padding:25px 18px 18px;font-size:12px}.syllory-pages p:nth-child(n+3){display:none}.syllory-readerbar{padding:0 11px}.syllory-float{right:-4px;bottom:-4px;width:155px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-pages{min-height:220px;gap:12px;padding:25px 18px 18px;font-size:12px}.syllory-pages p:nth-child(n+3){display:none}.syllory-readerbar{padding:0 11px}.syllory-float{right:-4px;bottom:-4px;width:155px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
     @media(prefers-reduced-motion:reduce){.syllory-window{transform:none}}
   </style>
 </head>
@@ -101,6 +106,7 @@
       <a href="#ai">On-device AI</a>
       <a href="#features">Features</a>
       <a href="#reading">Reading</a>
+      <a href="#library">Library</a>
       <a href="#privacy">Privacy</a>
       <a class="btn" href="#top">About Syllory</a>
     </nav>
@@ -112,7 +118,7 @@
         <p class="eyebrow">Apple Foundation Models · On-device</p>
         <h1>A quieter place<br>to read.</h1>
         <p class="role">A little more context, right where you read.</p>
-        <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory uses Apple’s on-device Foundation Models, so you can get help and return straight to your book.</p>
+        <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory uses Apple’s on-device Foundation Models, remembers your place in every book, and lets you return straight to the story.</p>
         <div class="syllory-actions">
           <a class="btn primary" href="#reading">See the reader</a>
           <a class="btn" href="#features">Explore features</a>
@@ -158,8 +164,8 @@
         <p class="section-lead">A focused local reading space with just enough control to make it comfortable.</p>
       </div>
       <div class="syllory-tiles">
-        <article class="syllory-tile"><div class="syllory-tile-icon">▤</div><h3>Your library, on your Mac</h3><p>Add EPUB files from your own collection. Books stay in a local library, with no store or account in the app.</p></article>
-        <article class="syllory-tile"><div class="syllory-tile-icon">Aa</div><h3>A page that feels right</h3><p>Choose a typeface, adjust text size, and switch between one-page and two-page reading.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">▤</div><h3>Your library, on your Mac</h3><p>Add EPUB files from your own collection. Your place and reading settings are saved for each book, with no in-app store or account.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">Aa</div><h3>A page that feels right</h3><p>Choose a typeface and size, tune paragraph and line spacing, and set a one-page or two-page layout for each book.</p></article>
         <article class="syllory-tile"><div class="syllory-tile-icon">◉</div><h3>Four quiet themes</h3><p>Move between Light, Sepia, Midnight, and Mint across the library and the reading view.</p></article>
       </div>
     </section>
@@ -178,9 +184,27 @@
         </article>
         <div class="syllory-settings">
           <div class="syllory-setting"><small>Typeface</small><strong>Iowan Old Style</strong></div>
-          <div class="syllory-setting"><small>Text size</small><strong>22 pt</strong></div>
-          <div class="syllory-setting"><small>Reading theme</small><strong>Find your light</strong><div class="syllory-themes"><i class="syllory-theme-dot paper"></i><i class="syllory-theme-dot sepia"></i><i class="syllory-theme-dot night"></i><i class="syllory-theme-dot mint"></i></div></div>
+          <div class="syllory-setting"><small>Text size</small><strong>22 px</strong></div>
+          <div class="syllory-setting"><small>Spacing</small><strong>Minimal paragraphs · Standard lines</strong></div>
+          <div class="syllory-setting"><small>Reading theme</small><strong>Choose for this book</strong><div class="syllory-themes"><i class="syllory-theme-dot paper"></i><i class="syllory-theme-dot sepia"></i><i class="syllory-theme-dot night"></i><i class="syllory-theme-dot mint"></i></div></div>
         </div>
+      </div>
+    </section>
+
+    <section class="syllory-section" id="library">
+      <div class="syllory-section-head">
+        <h2><span>04</span> Pick up right where you left off</h2>
+        <p class="section-lead">Syllory keeps a separate place and reading setup for every book. A glance at the library shows what's waiting, what's in progress, and what you've finished.</p>
+      </div>
+      <div class="syllory-screen-grid" aria-label="Syllory app previews">
+        <figure class="syllory-screen-card">
+          <img src="library-preview.svg" alt="Syllory library preview with not started, reading, and finished books and a context menu for book actions">
+          <figcaption class="syllory-screen-caption"><strong>Your library, with progress at a glance</strong><span>Library preview</span></figcaption>
+        </figure>
+        <figure class="syllory-screen-card">
+          <img src="reader-preview.svg" alt="Syllory two-page reader preview showing the saved section and page, theme, and type controls">
+          <figcaption class="syllory-screen-caption"><strong>A quiet, configurable reading view</strong><span>Reader preview</span></figcaption>
+        </figure>
       </div>
     </section>
 

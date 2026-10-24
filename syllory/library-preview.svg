@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Syllory library preview</title>
+  <desc id="desc">A Syllory library with books marked not started, reading, and finished, plus the book context menu.</desc>
+  <defs>
+    <linearGradient id="appbg" x2="0" y2="1"><stop stop-color="#f8f6f1"/><stop offset="1" stop-color="#f0eee8"/></linearGradient>
+    <linearGradient id="cover1" x2="1" y2="1"><stop stop-color="#526d69"/><stop offset="1" stop-color="#263d3d"/></linearGradient>
+    <linearGradient id="cover2" x2="1" y2="1"><stop stop-color="#b78252"/><stop offset="1" stop-color="#624638"/></linearGradient>
+    <linearGradient id="cover3" x2="1" y2="1"><stop stop-color="#7885a4"/><stop offset="1" stop-color="#343d58"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#111827" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="1440" height="900" rx="28" fill="#22252a"/>
+  <g filter="url(#shadow)">
+    <rect x="22" y="22" width="1396" height="856" rx="21" fill="url(#appbg)"/>
+    <path d="M22 43a21 21 0 0 1 21-21h1354a21 21 0 0 1 21 21v33H22z" fill="#5f6060"/>
+    <circle cx="49" cy="49" r="8" fill="#ff625b"/><circle cx="76" cy="49" r="8" fill="#ffbd44"/><circle cx="103" cy="49" r="8" fill="#00ca4e"/>
+    <text x="720" y="55" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="17" font-weight="650" fill="#f2f2f2">Syllory</text>
+    <text x="72" y="151" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="34" font-weight="700" fill="#292a26">My Library</text>
+    <text x="73" y="184" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="16" fill="#7c7d75">Books: 3</text>
+    <rect x="1110" y="111" width="162" height="48" rx="13" fill="#657a55"/>
+    <text x="1191" y="141" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="15" font-weight="650" fill="#fff">＋  Add EPUB</text>
+    <rect x="1288" y="111" width="76" height="48" rx="13" fill="#fff" stroke="#d9d7d0"/>
+    <text x="1326" y="141" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="14" font-weight="600" fill="#657a55">Sepia⌄</text>
+    <path d="M22 211h1396" stroke="#dfddd7"/>
+    <g font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif">
+      <g transform="translate(74 253)">
+        <rect width="236" height="335" rx="13" fill="url(#cover1)"/>
+        <path d="M19 20h198v295H19z" fill="none" stroke="#c7d4c7" stroke-opacity=".36"/>
+        <circle cx="118" cy="111" r="45" fill="#d0c18c" fill-opacity=".82"/>
+        <path d="M27 225c47-49 91-58 182-2v92H27z" fill="#d8b78a" fill-opacity=".42"/>
+        <text x="118" y="187" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" letter-spacing="2" fill="#faf6e9">THE QUIET</text>
+        <text x="118" y="215" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="700" letter-spacing="2" fill="#faf6e9">SHORE</text>
+        <text x="118" y="286" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="2" fill="#f3e9d5">M. ELIAN</text>
+        <text x="0" y="371" font-size="17" font-weight="650" fill="#292a26">The Quiet Shore</text>
+        <text x="0" y="398" font-size="14" fill="#77796f">M. Elian</text>
+        <g transform="translate(0 420)">
+          <circle cx="5" cy="5" r="4" fill="#c76660"/><text x="17" y="9" font-size="12" font-weight="600" fill="#b45a55">Not started</text>
+          <rect y="22" width="236" height="5" rx="3" fill="#c76660" fill-opacity=".2"/>
+        </g>
+      </g>
+      <g transform="translate(363 253)">
+        <rect width="236" height="335" rx="13" fill="url(#cover2)"/>
+        <path d="M0 254c64-60 147-63 236-11v92H0z" fill="#e0c69a" fill-opacity=".46"/>
+        <path d="M18 31h200M18 44h200" stroke="#f2d4a8" stroke-opacity=".36"/>
+        <text x="118" y="104" text-anchor="middle" font-family="Georgia,serif" font-size="13" letter-spacing="3" fill="#f7e9cf">A NOVEL</text>
+        <text x="118" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="23" font-weight="700" fill="#fff5e2">A MAP</text>
+        <text x="118" y="195" text-anchor="middle" font-family="Georgia,serif" font-size="23" font-weight="700" fill="#fff5e2">OF ASH</text>
+        <text x="118" y="294" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="2" fill="#f7e9cf">R. VALE</text>
+        <text x="0" y="371" font-size="17" font-weight="650" fill="#292a26">A Map of Ash</text>
+        <text x="0" y="398" font-size="14" fill="#77796f">R. Vale</text>
+        <g transform="translate(0 420)">
+          <circle cx="5" cy="5" r="4" fill="#d59b38"/><text x="17" y="9" font-size="12" font-weight="600" fill="#a97317">Reading</text>
+          <rect y="22" width="236" height="5" rx="3" fill="#d59b38" fill-opacity=".22"/>
+          <rect y="22" width="104" height="5" rx="3" fill="#d59b38"/>
+          <text y="49" font-size="10" fill="#77796f">Section 6 of 18 · Page 4 of 12</text>
+        </g>
+      </g>
+      <g transform="translate(652 253)">
+        <rect width="236" height="335" rx="13" fill="url(#cover3)"/>
+        <circle cx="118" cy="129" r="69" fill="none" stroke="#c7cce2" stroke-opacity=".52" stroke-width="2"/>
+        <circle cx="118" cy="129" r="50" fill="none" stroke="#c7cce2" stroke-opacity=".38"/>
+        <path d="M42 129h152M118 53v152" stroke="#c7cce2" stroke-opacity=".32"/>
+        <text x="118" y="233" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#f3f2fa">THE LAST</text>
+        <text x="118" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#f3f2fa">ORCHARD</text>
+        <text x="118" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="11" letter-spacing="2" fill="#dfe4f4">S. KADE</text>
+        <text x="0" y="371" font-size="17" font-weight="650" fill="#292a26">The Last Orchard</text>
+        <text x="0" y="398" font-size="14" fill="#77796f">S. Kade</text>
+        <g transform="translate(0 420)">
+          <circle cx="5" cy="5" r="4" fill="#4e9c67"/><text x="17" y="9" font-size="12" font-weight="600" fill="#408354">Finished</text>
+          <rect y="22" width="236" height="5" rx="3" fill="#4e9c67" fill-opacity=".22"/>
+          <rect y="22" width="236" height="5" rx="3" fill="#4e9c67"/>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(916 496)" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" filter="url(#shadow)">
+      <rect width="340" height="205" rx="16" fill="#fcfbf8" stroke="#d9d5cb"/>
+      <text x="22" y="39" font-size="14" font-weight="650" fill="#292a26">A Map of Ash</text>
+      <path d="M20 58h300" stroke="#e8e5de"/>
+      <text x="24" y="96" font-size="14" fill="#2f302c">✓  Mark as Finished</text>
+      <text x="24" y="137" font-size="14" fill="#2f302c">↶  Mark as Unread</text>
+      <path d="M20 155h300" stroke="#e8e5de"/>
+      <text x="24" y="185" font-size="14" fill="#bf4b45">▱  Delete…</text>
+    </g>
+  </g>
+</svg>
