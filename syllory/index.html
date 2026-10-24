@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllory — A quieter place to read</title>
+  <meta name="description" content="Syllory is a thoughtful, local-first book reader for Mac. Bring your own EPUBs, make the page yours, and stay with the story.">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:title" content="Syllory — A quieter place to read">
+  <meta property="og:description" content="A quiet, local-first reading space for Mac.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css?v=6">
+  <style>
+    .syllory-nav .brand{display:flex;align-items:center;gap:10px}
+    .syllory-mark{width:26px;height:26px;display:block}
+    .syllory-nav nav{align-items:center}
+    .syllory-nav .btn{padding:8px 13px;font-size:13px}
+    .syllory-main{overflow:hidden}
+    .syllory-hero{max-width:none;min-height:640px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(430px,1.05fr);align-items:center;gap:42px;padding:80px 0 68px}
+    .syllory-hero-copy{max-width:560px}
+    .syllory-hero h1{max-width:560px;font-size:clamp(48px,7vw,78px);letter-spacing:-.055em}
+    .syllory-hero .lead{max-width:520px}
+    .syllory-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .syllory-note{color:var(--dim);font:12px var(--mono);margin:15px 0 0}
+    .syllory-stage{position:relative;min-height:430px;display:grid;place-items:center;isolation:isolate}
+    .syllory-glow{position:absolute;width:85%;height:78%;border-radius:50%;filter:blur(60px);background:radial-gradient(circle,rgba(124,245,212,.18),rgba(122,167,255,.12) 48%,transparent 72%);z-index:-1}
+    .syllory-window{position:relative;width:min(100%,610px);min-height:365px;border:1px solid #32394a;border-radius:18px;overflow:hidden;background:#f3e9d5;color:#493929;box-shadow:0 32px 90px rgba(0,0,0,.45);transform:perspective(1200px) rotateY(-5deg) rotateX(1deg)}
+    .syllory-windowbar{height:35px;background:#252a33;border-bottom:1px solid #353a43;display:flex;align-items:center;gap:7px;padding:0 13px}
+    .syllory-dot{width:9px;height:9px;border-radius:50%;background:#6c7077}
+    .syllory-windowtitle{position:absolute;left:50%;transform:translateX(-50%);color:#c4c8d0;font:600 10px var(--font)}
+    .syllory-readerbar{height:43px;display:flex;align-items:center;gap:10px;padding:0 17px;border-bottom:1px solid rgba(73,57,41,.12);font-size:11px}
+    .syllory-back{color:#94683f;font-size:10px}
+    .syllory-booktitle{font-weight:650;line-height:1.15}
+    .syllory-chapter{font-size:9px;color:#846f59;margin-top:3px}
+    .syllory-reader-icon{margin-left:2px;color:#94683f;font-size:13px}
+    .syllory-reader-tools{margin-left:auto;color:#94683f;letter-spacing:10px;font-size:11px}
+    .syllory-pages{min-height:285px;display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:38px 34px 27px;font:15px/1.65 Georgia,"Times New Roman",serif;letter-spacing:.005em}
+    .syllory-pages p{margin:0 0 14px;text-indent:1.1em}
+    .syllory-page-number{display:flex;justify-content:space-between;padding:0 28px 16px;color:#8c7d6c;font:10px var(--mono)}
+    .syllory-float{position:absolute;right:-8px;bottom:12px;width:174px;padding:14px;border:1px solid #31394a;border-radius:14px;background:rgba(18,21,29,.94);box-shadow:0 18px 46px rgba(0,0,0,.36);backdrop-filter:blur(12px)}
+    .syllory-float-label{display:flex;align-items:center;gap:7px;color:var(--accent);font:11px var(--mono)}
+    .syllory-float p{margin:8px 0 0;color:#c8ceda;font-size:11px;line-height:1.45}
+    .syllory-section{padding-top:74px}
+    .syllory-section-head{max-width:630px;margin-bottom:28px}
+    .syllory-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .syllory-tile{min-height:195px;padding:22px;background:linear-gradient(180deg,var(--panel),#10131a);border:1px solid var(--line);border-radius:var(--radius)}
+    .syllory-tile-icon{display:grid;place-items:center;width:38px;height:38px;margin-bottom:22px;border-radius:11px;background:#172c29;border:1px solid #244b43;color:var(--accent);font-size:16px}
+    .syllory-tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.02em}
+    .syllory-tile p{margin:0;color:var(--muted);font-size:14px}
+    .syllory-reading{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:stretch}
+    .syllory-reading-card{padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#141923,#10131a)}
+    .syllory-reading-card h3{margin:8px 0 10px;font-size:22px;letter-spacing:-.025em}
+    .syllory-reading-card p{max-width:520px;color:var(--muted);margin:0}
+    .syllory-layout-preview{display:flex;align-items:center;gap:15px;margin-top:24px}
+    .syllory-layout-chip{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:#cbd2df}
+    .syllory-layout-icon{display:flex;gap:2px}
+    .syllory-layout-icon i{display:block;width:7px;height:12px;border:1px solid var(--accent);border-radius:2px}
+    .syllory-layout-icon.double i{width:6px}
+    .syllory-settings{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .syllory-setting{padding:17px;border:1px solid var(--line);border-radius:12px;background:#11151d}
+    .syllory-setting small{display:block;color:var(--dim);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:9px}
+    .syllory-setting strong{font-size:14px;font-weight:550}
+    .syllory-settings .syllory-setting:last-child{grid-column:1/-1}
+    .syllory-themes{display:flex;gap:6px;margin-top:12px}
+    .syllory-theme-dot{width:17px;height:17px;border-radius:50%;border:1px solid rgba(255,255,255,.2)}
+    .syllory-theme-dot.paper{background:#f5f4f0}.syllory-theme-dot.sepia{background:#d7b98d}.syllory-theme-dot.night{background:#222830}.syllory-theme-dot.mint{background:#95cbb5}
+    .syllory-privacy{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:34px;align-items:center;padding:34px;border:1px solid #285347;border-radius:var(--radius);background:radial-gradient(600px 260px at 100% 0%,rgba(124,245,212,.09),transparent 60%),linear-gradient(135deg,#111a1b,#11151d)}
+    .syllory-privacy h2{display:block;margin:0 0 12px}
+    .syllory-privacy p{color:var(--muted);margin:0;max-width:600px}
+    .syllory-privacy-points{display:grid;gap:10px}
+    .syllory-privacy-points div{display:flex;gap:10px;align-items:center;color:#cdd7d3;font-size:13px}
+    .syllory-privacy-points span{color:var(--accent);font:12px var(--mono)}
+    .syllory-footer{margin-top:76px}
+    .syllory-footer-mark{display:flex;align-items:center;gap:8px}
+    @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-stage{min-height:390px}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-pages{min-height:220px;gap:12px;padding:25px 18px 18px;font-size:12px}.syllory-pages p:nth-child(n+3){display:none}.syllory-readerbar{padding:0 11px}.syllory-float{right:-4px;bottom:-4px;width:155px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}}
+    @media(prefers-reduced-motion:reduce){.syllory-window{transform:none}}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <header class="nav syllory-nav">
+    <a class="brand" href="../" aria-label="Mike Smahin home"><img class="syllory-mark" src="icon.svg" alt="">Syllory</a>
+    <nav aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#reading">Reading</a>
+      <a href="#privacy">Privacy</a>
+      <a class="btn" href="#top">About Syllory</a>
+    </nav>
+  </header>
+
+  <main class="syllory-main">
+    <section class="hero syllory-hero" id="top">
+      <div class="syllory-hero-copy">
+        <p class="eyebrow">A Mac reading app · In progress</p>
+        <h1>A quieter place<br>to read.</h1>
+        <p class="role">Your books. Your pace. Your page.</p>
+        <p class="lead">Syllory is a local-first reader for the books you already have. Open an EPUB, settle into a clean page, and make the reading space feel like yours.</p>
+        <div class="syllory-actions">
+          <a class="btn primary" href="#reading">See the reader</a>
+          <a class="btn" href="#features">Explore features</a>
+        </div>
+        <p class="syllory-note">macOS · Local library · EPUB support today</p>
+      </div>
+
+      <div class="syllory-stage" aria-label="Preview of Syllory's quiet two-page reading view">
+        <div class="syllory-glow"></div>
+        <div class="syllory-window">
+          <div class="syllory-windowbar"><i class="syllory-dot"></i><i class="syllory-dot"></i><i class="syllory-dot"></i><span class="syllory-windowtitle">Syllory</span></div>
+          <div class="syllory-readerbar"><span class="syllory-back">‹ Library</span><span class="syllory-booktitle">The Shape of Things<br><small class="syllory-chapter">Page 78 · Chapter 6</small></span><span class="syllory-reader-icon">◉</span><span class="syllory-reader-tools">⌄ ‹ ›</span></div>
+          <div class="syllory-pages">
+            <div><p>Somewhere, in the quiet between one thought and the next, the world seemed to make room for a different kind of attention.</p><p>It was not a grand discovery. Only the small, steady feeling that a good story could ask for nothing more than time.</p></div>
+            <div><p>The evening light travelled slowly across the room. Outside, the city carried on, while the page held its place.</p><p>And so she read on, one page, then another, until the noise fell away.</p></div>
+          </div>
+          <div class="syllory-page-number"><span>78</span><span>79</span></div>
+        </div>
+        <div class="syllory-float"><div class="syllory-float-label"><span>✦</span> On-device assistant</div><p>Choose a word to explain it or translate it in context.</p></div>
+      </div>
+    </section>
+
+    <section class="syllory-section" id="features">
+      <div class="syllory-section-head">
+        <h2><span>01</span> Made for the book you’re reading</h2>
+        <p class="section-lead">A focused reading space with just enough control to make it comfortable.</p>
+      </div>
+      <div class="syllory-tiles">
+        <article class="syllory-tile"><div class="syllory-tile-icon">▤</div><h3>Your library, on your Mac</h3><p>Add EPUB files from your own collection. Books stay in a local library, with no store or account in the app.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">Aa</div><h3>A page that feels right</h3><p>Choose a typeface, adjust text size, and switch between one-page and two-page reading.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">◉</div><h3>Four quiet themes</h3><p>Move between Light, Sepia, Midnight, and Mint across the library and the reading view.</p></article>
+      </div>
+    </section>
+
+    <section class="syllory-section" id="reading">
+      <div class="syllory-section-head">
+        <h2><span>02</span> Settle into your own rhythm</h2>
+        <p class="section-lead">Keep the book at the centre. Reading controls fade out of the way, then return when you move the pointer.</p>
+      </div>
+      <div class="syllory-reading">
+        <article class="syllory-reading-card">
+          <p class="eyebrow">Reading layout</p>
+          <h3>One page, or an open spread.</h3>
+          <p>Use a single page when you want a narrow, quiet column. Choose two pages for the feeling of an open book. The layout adapts as the window changes size.</p>
+          <div class="syllory-layout-preview"><div class="syllory-layout-chip"><span class="syllory-layout-icon"><i></i></span>Single page</div><div class="syllory-layout-chip"><span class="syllory-layout-icon double"><i></i><i></i></span>Two pages</div></div>
+        </article>
+        <div class="syllory-settings">
+          <div class="syllory-setting"><small>Typeface</small><strong>Iowan Old Style</strong></div>
+          <div class="syllory-setting"><small>Text size</small><strong>22 pt</strong></div>
+          <div class="syllory-setting"><small>Reading theme</small><strong>Find your light</strong><div class="syllory-themes"><i class="syllory-theme-dot paper"></i><i class="syllory-theme-dot sepia"></i><i class="syllory-theme-dot night"></i><i class="syllory-theme-dot mint"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="syllory-section" id="privacy">
+      <div class="syllory-privacy">
+        <div><p class="eyebrow">Private by design</p><h2>Your reading stays yours.</h2><p>Syllory is built around books stored on your Mac. When Apple’s on-device Foundation Models are available, selected text can be explained or translated in context on the device.</p></div>
+        <div class="syllory-privacy-points"><div><span>01</span> No in-app book store</div><div><span>02</span> Local book library</div><div><span>03</span> On-device help when supported</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="syllory-footer"><p class="syllory-footer-mark"><img class="syllory-mark" src="icon.svg" alt=""> Syllory · A small reading app in progress.</p><p><a href="../">Back to Mike Smahin’s site</a></p></footer>
+</body>
+</html>
