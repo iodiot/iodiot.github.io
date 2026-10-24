@@ -41,14 +41,11 @@
       </g>
     </g>
 
-    <g transform="translate(545 385)" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" filter="url(#shadow)">
-      <rect width="376" height="206" rx="16" fill="#fcfbf8" stroke="#d9d5cb"/>
-      <text x="24" y="42" font-size="16" font-weight="650" fill="#292a26">The Impossible Man</text>
-      <path d="M20 60h336" stroke="#e8e5de"/>
-      <text x="26" y="102" font-size="15" fill="#2f302c">✓  Mark as Finished</text>
-      <text x="26" y="145" font-size="15" fill="#2f302c">↶  Mark as Unread</text>
-      <path d="M20 163h336" stroke="#e8e5de"/>
-      <text x="26" y="193" font-size="15" fill="#bf4b45">▱  Delete…</text>
+    <g transform="translate(545 405)" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" filter="url(#shadow)">
+      <rect width="300" height="128" rx="14" fill="#fcfbf8" stroke="#d9d5cb"/>
+      <text x="22" y="48" font-size="15" fill="#2f302c">✓  Mark as Finished</text>
+      <path d="M16 66h268" stroke="#e8e5de"/>
+      <text x="22" y="100" font-size="15" fill="#bf4b45">▱  Delete…</text>
     </g>
   </g>
 </svg>

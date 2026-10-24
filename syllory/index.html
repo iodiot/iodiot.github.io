@@ -18,6 +18,8 @@
     .syllory-main{overflow:hidden}
     .syllory-hero{max-width:none;min-height:640px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(430px,1.05fr);align-items:center;gap:42px;padding:80px 0 68px}
     .syllory-hero-copy{max-width:560px}
+    .syllory-hero-copy>.eyebrow{display:flex;flex-wrap:wrap;gap:4px 10px}
+    .syllory-hero-copy>.eyebrow span{white-space:nowrap}
     .syllory-hero h1{max-width:560px;font-size:clamp(48px,7vw,78px);letter-spacing:-.055em}
     .syllory-hero .lead{max-width:520px}
     .syllory-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
@@ -110,7 +112,7 @@
   <main class="syllory-main">
     <section class="hero syllory-hero" id="top">
       <div class="syllory-hero-copy">
-        <p class="eyebrow">Next-generation e-book reader · Private on-device AI</p>
+        <p class="eyebrow"><span>Next-generation e-book reader</span><span>Private on-device AI</span></p>
         <h1>Read on.<br>Get the context.</h1>
         <p class="role">A local-first e-book reader with Apple Foundation Models on your Mac.</p>
         <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory runs Apple Foundation Models on device, so your selected text stays local. Bring your own EPUBs, make the page yours, and return to the same place in every book.</p>
@@ -193,7 +195,7 @@
       </div>
       <div class="syllory-screen-grid" aria-label="Syllory app previews">
         <figure class="syllory-screen-card">
-          <img src="library-preview.svg?v=2" alt="Syllory library preview showing The Impossible Man, saved reading progress, and book actions">
+          <img src="library-preview.svg?v=3" alt="Syllory library preview showing The Impossible Man, saved reading progress, and book actions">
           <figcaption class="syllory-screen-caption"><strong>Your library, with progress at a glance</strong><span>Library preview</span></figcaption>
         </figure>
         <figure class="syllory-screen-card">
