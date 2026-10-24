@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Syllory — A quieter place to read</title>
-  <meta name="description" content="Syllory is a thoughtful, local-first book reader for Mac. Bring your own EPUBs, keep your place, make the page yours, and stay with the story.">
+  <title>Syllory — Private on-device AI for reading</title>
+  <meta name="description" content="Syllory is a local-first Mac reader with private, on-device AI for explaining and translating words and passages in context.">
   <meta name="theme-color" content="#0b0d12">
-  <meta property="og:title" content="Syllory — A quieter place to read">
-  <meta property="og:description" content="A quiet, local-first reading space for Mac.">
+  <meta property="og:title" content="Syllory — Private on-device AI for reading">
+  <meta property="og:description" content="A local-first book reader with Apple Foundation Models on device for contextual explanations and translations.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=7">
+  <link rel="stylesheet" href="../style.css?v=8">
   <style>
     .syllory-nav .brand{display:flex;align-items:center;gap:10px}
     .syllory-mark{width:26px;height:26px;display:block}
@@ -28,20 +28,15 @@
     .syllory-windowbar{height:35px;background:#252a33;border-bottom:1px solid #353a43;display:flex;align-items:center;gap:7px;padding:0 13px}
     .syllory-dot{width:9px;height:9px;border-radius:50%;background:#6c7077}
     .syllory-windowtitle{position:absolute;left:50%;transform:translateX(-50%);color:#c4c8d0;font:600 10px var(--font)}
-    .syllory-readerbar{height:43px;display:flex;align-items:center;gap:10px;padding:0 17px;border-bottom:1px solid rgba(73,57,41,.12);font-size:11px}
-    .syllory-back{color:#94683f;font-size:10px}
-    .syllory-booktitle{font-weight:650;line-height:1.15}
-    .syllory-chapter{font-size:9px;color:#846f59;margin-top:3px}
-    .syllory-reader-icon{margin-left:2px;color:#94683f;font-size:13px}
-    .syllory-reader-tools{margin-left:auto;color:#94683f;letter-spacing:10px;font-size:11px}
-    .syllory-pages{min-height:285px;display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:38px 34px 27px;font:15px/1.65 Georgia,"Times New Roman",serif;letter-spacing:.005em}
+    .syllory-book-heading{padding:10px 18px 0;text-align:center;color:#846f59;font-size:11px;font-weight:650;letter-spacing:.01em}
+    .syllory-reader-controls{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:calc(100% - 28px);margin:8px auto 0;padding:5px 9px;border:1px solid rgba(73,57,41,.14);border-radius:28px;background:rgba(255,251,242,.9);box-shadow:0 5px 14px rgba(73,57,41,.10);font-size:10px;color:#94683f}
+    .syllory-reader-controls span{white-space:nowrap}
+    .syllory-reader-control{display:grid;place-items:center;min-width:23px;height:23px;padding:0 6px;border:1px solid rgba(148,104,63,.22);border-radius:7px;background:rgba(255,255,255,.5)}
+    .syllory-reader-divider{width:1px;height:18px;background:rgba(73,57,41,.16)}
+    .syllory-reader-page{display:grid;place-items:center;width:27px;height:27px;border:1px solid rgba(148,104,63,.25);border-radius:50%;font-size:14px}
+    .syllory-pages{min-height:265px;display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:32px 34px 18px;font:14px/1.6 Georgia,"Times New Roman",serif;letter-spacing:.005em}
     .syllory-pages p{margin:0 0 14px;text-indent:1.1em}
-    .syllory-page-number{display:flex;justify-content:space-between;padding:0 28px 16px;color:#8c7d6c;font:10px var(--mono)}
-    .syllory-float{position:absolute;right:-8px;bottom:12px;width:174px;padding:14px;border:1px solid #31394a;border-radius:14px;background:rgba(18,21,29,.94);box-shadow:0 18px 46px rgba(0,0,0,.36);backdrop-filter:blur(12px)}
-    .syllory-float-label{display:flex;align-items:center;gap:7px;color:var(--accent);font:11px var(--mono)}
-    .syllory-float p{margin:8px 0 0;color:#c8ceda;font-size:11px;line-height:1.45}
-    .syllory-float-actions{display:flex;gap:5px;margin-top:9px}
-    .syllory-float-actions span{padding:4px 7px;border:1px solid #303848;border-radius:6px;color:#d4d9e3;font:9px var(--mono)}
+    .syllory-page-number{display:flex;justify-content:center;padding:0 28px 13px;color:#8c7d6c;font:9px var(--mono)}
     .syllory-ai-spotlight{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:42px;padding:34px;border:1px solid #285347;border-radius:var(--radius);background:radial-gradient(560px 300px at 0% 0%,rgba(124,245,212,.10),transparent 70%),linear-gradient(140deg,#121a1b,#11151d 65%)}
     .syllory-ai-spotlight h2{display:block;margin:8px 0 13px;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.035em;line-height:1.12}
     .syllory-ai-spotlight p{color:var(--muted);margin:0}
@@ -94,7 +89,7 @@
     .syllory-footer{margin-top:76px}
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
     @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-stage{min-height:390px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-pages{min-height:220px;gap:12px;padding:25px 18px 18px;font-size:12px}.syllory-pages p:nth-child(n+3){display:none}.syllory-readerbar{padding:0 11px}.syllory-float{right:-4px;bottom:-4px;width:155px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-reader-controls{gap:4px;padding:4px 6px;font-size:9px}.syllory-reader-control{min-width:20px;height:20px;padding:0 4px}.syllory-reader-page{width:24px;height:24px}.syllory-pages{min-height:220px;gap:12px;padding:28px 18px 15px;font-size:11px}.syllory-pages p:nth-child(n+3){display:none}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
     @media(prefers-reduced-motion:reduce){.syllory-window{transform:none}}
   </style>
 </head>
@@ -115,10 +110,10 @@
   <main class="syllory-main">
     <section class="hero syllory-hero" id="top">
       <div class="syllory-hero-copy">
-        <p class="eyebrow">Apple Foundation Models · On-device</p>
-        <h1>A quieter place<br>to read.</h1>
-        <p class="role">A little more context, right where you read.</p>
-        <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory uses Apple’s on-device Foundation Models, remembers your place in every book, and lets you return straight to the story.</p>
+        <p class="eyebrow">Private on-device AI · Apple Foundation Models</p>
+        <h1>Read on.<br>Get the context.</h1>
+        <p class="role">A local-first book reader with AI that stays on your Mac.</p>
+        <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory runs Apple Foundation Models on device, so your selected text stays local. Bring your own EPUBs, make the page yours, and return to the same place in every book.</p>
         <div class="syllory-actions">
           <a class="btn primary" href="#reading">See the reader</a>
           <a class="btn" href="#features">Explore features</a>
@@ -126,18 +121,18 @@
         <p class="syllory-note">macOS · Apple Intelligence required · EPUB support today</p>
       </div>
 
-      <div class="syllory-stage" aria-label="Preview of Syllory's quiet two-page reading view">
+      <div class="syllory-stage" aria-label="Preview of Syllory's reading view with compact controls and on-device AI">
         <div class="syllory-glow"></div>
         <div class="syllory-window">
-          <div class="syllory-windowbar"><i class="syllory-dot"></i><i class="syllory-dot"></i><i class="syllory-dot"></i><span class="syllory-windowtitle">Syllory</span></div>
-          <div class="syllory-readerbar"><span class="syllory-back">‹ Library</span><span class="syllory-booktitle">The Shape of Things<br><small class="syllory-chapter">Page 78 · Chapter 6</small></span><span class="syllory-reader-icon">◉</span><span class="syllory-reader-tools">⌄ ‹ ›</span></div>
+          <div class="syllory-windowbar"><i class="syllory-dot"></i><i class="syllory-dot"></i><i class="syllory-dot"></i><span class="syllory-windowtitle">Syllory Reader</span></div>
+          <div class="syllory-book-heading">The Impossible Man · Section 6 of 31 · Page 8 of 12</div>
+          <div class="syllory-reader-controls"><span>‹ Library</span><i class="syllory-reader-divider"></i><span class="syllory-reader-control">◉⌄</span><span class="syllory-reader-control">Aa⌄</span><span class="syllory-reader-control">▯▯ Two Pages⌄</span><i class="syllory-reader-divider"></i><span class="syllory-reader-page">‹</span><span class="syllory-reader-page">›</span></div>
           <div class="syllory-pages">
-            <div><p>Somewhere, in the quiet between one thought and the next, the world seemed to make room for a different kind of attention.</p><p>It was not a grand discovery. Only the small, steady feeling that a good story could ask for nothing more than time.</p></div>
-            <div><p>The evening light travelled slowly across the room. Outside, the city carried on, while the page held its place.</p><p>And so she read on, one page, then another, until the noise fell away.</p></div>
+            <div><p>At the edge of the page, the old map seemed to end before the world did. Lionel looked again, following the faint line toward the coast.</p><p>Somewhere beyond it, the story continued.</p></div>
+            <div><p>The reader keeps the book in focus. Choose a word or passage and ask Apple Foundation Models for a local explanation or translation.</p><p>Your place is saved for the next time you open the book.</p></div>
           </div>
-          <div class="syllory-page-number"><span>78</span><span>79</span></div>
+          <div class="syllory-page-number">Two-page reading · Controls fade away while you read</div>
         </div>
-        <div class="syllory-float"><div class="syllory-float-label"><span>✦</span> Apple Foundation Models</div><p>Understand a phrase or translate it without leaving the page.</p><div class="syllory-float-actions"><span>Explain</span><span>Translate</span></div></div>
       </div>
     </section>
 

@@ -12,8 +12,8 @@
     <circle cx="49" cy="49" r="8" fill="#ff625b"/><circle cx="76" cy="49" r="8" fill="#ffbd44"/><circle cx="103" cy="49" r="8" fill="#00ca4e"/>
     <text x="720" y="55" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="17" font-weight="650" fill="#f2f2f2">Syllory Reader</text>
     <text x="70" y="130" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="17" fill="#94683f">‹  Library</text>
-    <text x="197" y="124" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="19" font-weight="650" fill="#493929">A Map of Ash</text>
-    <text x="197" y="148" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#846f59">Section 6 of 18 · Page 4 of 12</text>
+    <text x="197" y="124" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="19" font-weight="650" fill="#493929">The Impossible Man</text>
+    <text x="197" y="148" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#846f59">Section 6 of 31 · Page 8 of 12</text>
     <rect x="432" y="98" width="46" height="42" rx="11" fill="#fff9ed" stroke="#d5c7ac"/>
     <text x="455" y="126" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="17" font-weight="650" fill="#94683f">Aa</text>
     <rect x="1090" y="98" width="182" height="42" rx="11" fill="#fff9ed" stroke="#d5c7ac"/>
@@ -44,7 +44,7 @@
       <text x="755" y="513">light and carried it out of sight.</text>
     </g>
     <path d="M720 202v610" stroke="#e3d7c2" stroke-width="1"/>
-    <text x="395" y="824" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#9a8a73">78</text>
-    <text x="1045" y="824" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#9a8a73">79</text>
+      <text x="395" y="824" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#9a8a73">8</text>
+    <text x="1045" y="824" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="13" fill="#9a8a73">9</text>
   </g>
 </svg>
