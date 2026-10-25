@@ -22,8 +22,9 @@
     .syllory-main{overflow:hidden}
     .syllory-hero{max-width:none;min-height:640px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(430px,1.05fr);align-items:center;gap:42px;padding:80px 0 68px}
     .syllory-hero-copy{max-width:560px}
-    .syllory-hero-copy>.eyebrow{display:flex;flex-wrap:wrap;gap:4px 10px}
+    .syllory-hero-copy>.eyebrow{display:inline-flex;align-items:center;gap:0;max-width:100%;padding:8px 12px;border:1px solid rgba(124,245,212,.2);border-radius:999px;background:linear-gradient(100deg,rgba(124,245,212,.08),rgba(124,245,212,.025));color:#9df7df;font-size:11px;line-height:1;letter-spacing:.075em;white-space:nowrap}
     .syllory-hero-copy>.eyebrow span{white-space:nowrap}
+    .syllory-hero-copy>.eyebrow span+span::before{content:"·";display:inline-block;margin:0 9px;color:rgba(124,245,212,.58)}
     .syllory-hero h1{max-width:560px;font-size:clamp(48px,7vw,78px);letter-spacing:-.055em}
     .syllory-hero .lead{max-width:520px}
     .syllory-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
@@ -86,7 +87,7 @@
     .syllory-footer{margin-top:76px}
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
     @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.syllory-hero-copy>.eyebrow span+span::before{margin:0 6px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
   </style>
 </head>
 <body>
