@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Familiar Local — Private, on-device chat for Mac</title>
+  <meta name="description" content="A calm macOS chat app for Apple Foundation Models. Keep separate conversations on your Mac, with no hosted AI service.">
+  <link rel="canonical" href="https://iodiot.github.io/familiar-local/">
+  <meta name="theme-color" content="#0b0d12">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Familiar Local">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://iodiot.github.io/familiar-local/">
+  <meta property="og:title" content="Familiar Local — Private, on-device chat for Mac">
+  <meta property="og:description" content="A quiet chat workspace for Apple Foundation Models, running on your Mac.">
+  <meta property="og:image" content="https://iodiot.github.io/assets/shots/familiar-local-dark-2026.webp">
+  <meta property="og:image:alt" content="Familiar Local in dark mode on Mac">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Familiar Local — Private chat for Mac">
+  <meta name="twitter:description" content="A quiet workspace for Apple’s on-device Foundation Models.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css?v=10">
+  <style>
+    .familiar-nav .brand{display:flex;align-items:center;gap:10px}
+    .familiar-mark{width:27px;height:27px;display:block}
+    .familiar-nav nav{align-items:center}
+    .familiar-nav .btn{padding:8px 13px;font-size:13px}
+    .familiar-main{overflow:hidden}
+    .familiar-hero{max-width:none;min-width:0;min-height:620px;display:grid;grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);align-items:center;gap:42px;padding:78px 0 66px}
+    .familiar-hero-copy,.familiar-stage{min-width:0}
+    .familiar-hero-copy{max-width:560px}
+    .familiar-hero-copy>.eyebrow{display:inline-flex;align-items:center;gap:0;max-width:100%;padding:8px 12px;border:1px solid rgba(169,153,255,.24);border-radius:999px;background:linear-gradient(100deg,rgba(143,121,255,.12),rgba(124,245,212,.025));color:#c9bdff;font-size:11px;line-height:1;letter-spacing:.07em;white-space:nowrap}
+    .familiar-hero-copy>.eyebrow span{white-space:nowrap}
+    .familiar-hero-copy>.eyebrow span+span::before{content:"·";display:inline-block;margin:0 9px;color:#8e80db}
+    .familiar-hero h1{max-width:560px;font-size:clamp(48px,7vw,78px);letter-spacing:-.055em}
+    .familiar-hero .lead{max-width:525px}
+    .familiar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .familiar-note{margin:14px 0 0;color:var(--dim);font:12px/1.7 var(--mono)}
+    .familiar-stage{position:relative;margin:0;display:grid;place-items:center;isolation:isolate}
+    .familiar-glow{position:absolute;width:84%;height:72%;border-radius:50%;filter:blur(64px);background:radial-gradient(circle,rgba(143,121,255,.22),rgba(124,245,212,.08) 48%,transparent 72%);z-index:-1}
+    .familiar-hero-shot{position:relative;display:block;width:100%;height:auto;border:1px solid #343444;border-radius:16px;box-shadow:0 32px 90px rgba(0,0,0,.46)}
+    .familiar-status{display:flex;align-items:center;gap:9px;margin:17px 0 0;color:#d5d0eb;font:12px var(--mono)}
+    .familiar-status::before{content:"";width:7px;height:7px;border-radius:50%;background:#f0c36b;box-shadow:0 0 12px rgba(240,195,107,.55)}
+    .familiar-download-note{margin:11px 0 0;color:var(--dim);font-size:13px}
+    .familiar-section{padding-top:74px}
+    .familiar-section-head{max-width:700px;margin-bottom:28px}
+    .familiar-section-head h2{display:block;margin:0 0 10px}
+    .familiar-section-head p{margin:0;color:var(--muted)}
+    .familiar-spotlight{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.75fr);gap:28px;align-items:center;padding:32px;border:1px solid #38324f;border-radius:var(--radius);background:radial-gradient(560px 300px at 0% 0%,rgba(143,121,255,.12),transparent 70%),linear-gradient(140deg,#171522,#11151d 68%)}
+    .familiar-spotlight .eyebrow{color:#baadff}
+    .familiar-spotlight h2{display:block;margin:8px 0 12px;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.035em;line-height:1.12}
+    .familiar-spotlight p{margin:0;color:var(--muted)}
+    .familiar-model-card{padding:20px;border:1px solid #39344d;border-radius:14px;background:rgba(12,13,19,.65)}
+    .familiar-model-label{display:flex;align-items:center;gap:9px;color:#e3defa;font-weight:600}
+    .familiar-model-spark{display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#28223f;color:#c5b9ff}
+    .familiar-model-card p{margin:12px 0 0;font-size:13px}
+    .familiar-model-card small{display:block;margin-top:15px;padding-top:13px;border-top:1px solid #2b2935;color:#bcb1e8;font:11px var(--mono)}
+    .familiar-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .familiar-tile{min-height:195px;padding:22px;background:linear-gradient(180deg,var(--panel),#10131a);border:1px solid var(--line);border-radius:var(--radius)}
+    .familiar-tile-icon{display:grid;place-items:center;width:38px;height:38px;margin-bottom:22px;border-radius:11px;background:#211c35;border:1px solid #3d345e;color:#c2b4ff;font-size:17px}
+    .familiar-tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.02em}
+    .familiar-tile p{margin:0;color:var(--muted);font-size:14px}
+    .familiar-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:steps}
+    .familiar-step{position:relative;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel);counter-increment:steps}
+    .familiar-step::before{content:"0" counter(steps);display:block;margin-bottom:20px;color:#b6aaff;font:12px var(--mono)}
+    .familiar-step h3{margin:0 0 7px;font-size:16px}
+    .familiar-step p{margin:0;color:var(--muted);font-size:14px}
+    .familiar-privacy{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:32px;align-items:center;padding:32px;border:1px solid #38324f;border-radius:var(--radius);background:radial-gradient(580px 260px at 100% 0%,rgba(143,121,255,.10),transparent 62%),linear-gradient(135deg,#171522,#11151d)}
+    .familiar-privacy h2{display:block;margin:0 0 12px}
+    .familiar-privacy p{max-width:650px;margin:0;color:var(--muted)}
+    .familiar-privacy-points{display:grid;gap:11px}
+    .familiar-privacy-points div{display:flex;gap:10px;align-items:center;color:#d8d2ea;font-size:13px}
+    .familiar-privacy-points span{color:#b6aaff;font:12px var(--mono)}
+    .familiar-footer{margin-top:76px}
+    .familiar-footer-mark{display:flex;align-items:center;gap:8px}
+    @media(max-width:900px){.familiar-hero{grid-template-columns:minmax(0,1fr);gap:25px;padding-top:70px}.familiar-hero-copy{max-width:720px}.familiar-tiles,.familiar-steps{grid-template-columns:1fr 1fr}.familiar-spotlight,.familiar-privacy{grid-template-columns:1fr}}
+    @media(max-width:600px){.familiar-nav nav{display:none}.familiar-hero{padding-top:55px;min-height:auto}.familiar-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.familiar-hero-copy>.eyebrow span+span::before{margin:0 6px}.familiar-tiles,.familiar-steps{grid-template-columns:1fr}.familiar-spotlight,.familiar-privacy{padding:23px}}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <header class="nav familiar-nav">
+    <a class="brand" href="../" aria-label="Mike Smahin home"><img class="familiar-mark" src="icon.svg" alt="">Familiar Local</a>
+    <nav aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a class="btn" href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener">Source code</a>
+    </nav>
+  </header>
+
+  <main class="familiar-main">
+    <section class="hero familiar-hero" id="top">
+      <div class="familiar-hero-copy">
+        <p class="eyebrow"><span>Private, on-device chat</span><span>For macOS</span></p>
+        <h1>Keep the conversation close.</h1>
+        <p class="role">A calm chat workspace for Apple Foundation Models.</p>
+        <p class="lead">Ask a question, keep separate conversations, and return to them later. Familiar runs its local helper on this Mac and uses Apple’s on-device model to reply.</p>
+        <div class="familiar-actions">
+          <a class="btn primary" href="https://github.com/iodiot/familiar-local/raw/main/downloads/Familiar-macOS.zip" download>Download for macOS</a>
+          <a class="btn" href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener">View source</a>
+          <a class="btn" href="#features">Explore Familiar</a>
+        </div>
+        <p class="familiar-status">Mac App Store version 1.0 · review in progress</p>
+        <p class="familiar-download-note">The direct ZIP is an ad-hoc signed build and is not notarized. macOS may ask you to Control-click Familiar and choose Open. The App Store version is under review.</p>
+        <p class="familiar-note">Requires a supported Mac with macOS 26 or later, Apple Intelligence enabled, and its on-device model ready. Availability depends on Apple’s supported languages and devices.</p>
+      </div>
+      <figure class="familiar-stage" aria-label="Familiar Local chat window">
+        <div class="familiar-glow"></div>
+        <img class="familiar-hero-shot" src="../assets/shots/familiar-local-dark-2026.webp" alt="Familiar Local in dark mode, showing separate conversations and an answer from Apple Foundation Models" width="960" height="679" fetchpriority="high">
+      </figure>
+    </section>
+
+    <section class="familiar-section" id="local-ai">
+      <div class="familiar-spotlight">
+        <div>
+          <p class="eyebrow">01 · On-device AI</p>
+          <h2>Think with a model that runs on your Mac.</h2>
+          <p>Familiar sends prompts to Apple Foundation Models through a small local service. No hosted AI provider receives the chat. The model context stays in memory while Familiar is running.</p>
+        </div>
+        <div class="familiar-model-card">
+          <div class="familiar-model-label"><span class="familiar-model-spark">✦</span>Apple Foundation Models</div>
+          <p>Ask in a clean chat window, continue a conversation, or start a new one with its own context.</p>
+          <small>ON THIS MAC · 127.0.0.1</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="familiar-section" id="features">
+      <div class="familiar-section-head">
+        <h2><span>02</span> A familiar place to think</h2>
+        <p>Separate chats, a quiet interface, and the essentials close at hand.</p>
+      </div>
+      <div class="familiar-tiles">
+        <article class="familiar-tile"><div class="familiar-tile-icon">◈</div><h3>One context per conversation</h3><p>Keep a few lines of thought separate. Each chat has its own model session and can be picked up again later.</p></article>
+        <article class="familiar-tile"><div class="familiar-tile-icon">☾</div><h3>Light or dark</h3><p>Switch between light and dark themes, with recent chats and a simple composer in the same window.</p></article>
+        <article class="familiar-tile"><div class="familiar-tile-icon">⌘</div><h3>Native Mac app</h3><p>Open Familiar in its own macOS window. It starts and stops the local helper automatically.</p></article>
+      </div>
+    </section>
+
+    <section class="familiar-section" id="how-it-works">
+      <div class="familiar-section-head">
+        <h2><span>04</span> Starts local. Stays local.</h2>
+        <p>Familiar is a native shell around a small Swift service and a local web chat.</p>
+      </div>
+      <div class="familiar-steps">
+        <article class="familiar-step"><h3>Open the app</h3><p>Familiar starts its helper and opens the chat in a native window.</p></article>
+        <article class="familiar-step"><h3>Chat on this Mac</h3><p>The helper listens only at 127.0.0.1, so it is not exposed to other devices on your network.</p></article>
+        <article class="familiar-step"><h3>Return when you like</h3><p>Chat history stays in local browser storage. Model context resets when the helper stops.</p></article>
+      </div>
+    </section>
+
+    <section class="familiar-section" id="privacy">
+      <div class="familiar-privacy">
+        <div><p class="eyebrow">05 · Private by design</p><h2>Your chats stay on this Mac.</h2><p>Familiar does not send prompts to a hosted AI service. The helper accepts connections only from this Mac, Apple Foundation Models runs on-device, and chat history stays in browser storage on this Mac. Familiar has no account, ads, or analytics.</p><p style="margin-top:14px"><a class="orig" href="privacy/">Read the privacy policy</a></p></div>
+        <div class="familiar-privacy-points"><div><span>01</span>No Familiar account</div><div><span>02</span>No hosted AI backend</div><div><span>03</span>Local chat history</div><div><span>04</span>Local-only helper</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="familiar-footer"><p class="familiar-footer-mark"><img class="familiar-mark" src="icon.svg" alt=""> Familiar Local · macOS · App Store review in progress.</p><p><a href="privacy/">Privacy</a> · <a href="https://github.com/iodiot/familiar-local/issues" target="_blank" rel="noopener">Support</a> · <a href="https://github.com/iodiot/familiar-local" target="_blank" rel="noopener">Code</a> · <a href="../">Back to Mike Smahin’s site</a></p></footer>
+</body>
+</html>
