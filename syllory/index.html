@@ -86,6 +86,12 @@
     .syllory-screen-card img{display:block;width:100%;height:auto;background:#22252a}
     .syllory-screen-caption{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 17px;color:#dce1e9;font-size:12px}
     .syllory-screen-caption span{color:var(--dim);font:10px var(--mono);text-transform:uppercase;letter-spacing:.07em}
+    .syllory-language-concept{margin:0;overflow:hidden;border:1px solid #2a3342;border-radius:18px;background:linear-gradient(145deg,#151a23,#10131a);box-shadow:0 26px 65px rgba(0,0,0,.25)}
+    .syllory-language-concept img{display:block;width:100%;height:auto;background:#0e1117}
+    .syllory-language-concept figcaption{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 20px;color:#cbd3df;font-size:13px}
+    .syllory-concept-tag{flex:0 0 auto;padding:6px 9px;border:1px solid rgba(124,245,212,.24);border-radius:999px;background:rgba(124,245,212,.06);color:#8fe9d1;font:9px var(--mono);letter-spacing:.07em}
+    .syllory-concept-link{flex:0 0 auto;color:#8fe9d1;text-decoration:none;font:11px var(--mono)}
+    .syllory-concept-link:hover{color:#c0f8e9}
     .syllory-layout-preview{display:flex;align-items:center;gap:15px;margin-top:24px}
     .syllory-layout-chip{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:#cbd2df}
     .syllory-layout-icon{display:flex;gap:2px}
@@ -109,7 +115,7 @@
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
     @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
     @media(max-width:700px){.syllory-ai-shots{grid-template-columns:1fr}.syllory-ai-screen{min-height:300px}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.syllory-hero-copy>.eyebrow span+span::before{margin:0 6px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-ai-screen{min-height:280px;padding:14px}.syllory-ai-sample{inset:12% 6%;gap:16px;font-size:10px}.syllory-ai-popover{max-width:310px;padding:12px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.syllory-hero-copy>.eyebrow span+span::before{margin:0 6px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-ai-screen{min-height:280px;padding:14px}.syllory-ai-sample{inset:12% 6%;gap:16px;font-size:10px}.syllory-ai-popover{max-width:310px;padding:12px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}.syllory-language-concept figcaption{align-items:flex-start;flex-direction:column;gap:10px;padding:14px 16px}}
   </style>
 </head>
 <body>
@@ -121,6 +127,7 @@
       <a href="#features">Features</a>
       <a href="#reading">Reading</a>
       <a href="#library">Library</a>
+      <a href="#language-study">On the horizon</a>
       <a href="#privacy">Privacy</a>
       <a class="btn" href="../downloads/Syllory-0.1.0-beta-universal.pkg" download>Download for macOS</a>
     </nav>
@@ -242,9 +249,20 @@
       </div>
     </section>
 
+    <section class="syllory-section" id="language-study">
+      <div class="syllory-section-head">
+        <h2><span>05</span> Learn a language as you read.</h2>
+        <p class="section-lead">A direction we're exploring: read the original beside an AI translation, then select a word on either page to find its match and understand it in context.</p>
+      </div>
+      <figure class="syllory-language-concept">
+        <img src="language-study-concept.svg?v=20261025" alt="Illustrative concept for a future Syllory language study view: an English book page beside its Spanish AI translation, with the selected words quiet and tranquilo linked and explained in context" width="1440" height="860" loading="lazy" decoding="async">
+        <figcaption><span class="syllory-concept-tag">CONCEPT · NOT IN THE CURRENT APP</span><span>Original on the left. Translation on the right. Select either word to follow its meaning across both pages.</span><a class="syllory-concept-link" href="language-study-concept.svg" target="_blank" rel="noreferrer">Open full size ↗</a></figcaption>
+      </figure>
+    </section>
+
     <section class="syllory-section" id="privacy">
       <div class="syllory-privacy">
-        <div><p class="eyebrow">05 · Private by design</p><h2>Your reading stays yours.</h2><p>Imported books, reading position, and preferences stay in the local library on this Mac. When Apple Intelligence is available on a supported Mac running macOS 26 or later, selected text and nearby context are processed by Apple’s on-device Foundation Models. Syllory does not send them to its own server.</p></div>
+        <div><p class="eyebrow">06 · Private by design</p><h2>Your reading stays yours.</h2><p>Imported books, reading position, and preferences stay in the local library on this Mac. When Apple Intelligence is available on a supported Mac running macOS 26 or later, selected text and nearby context are processed by Apple’s on-device Foundation Models. Syllory does not send them to its own server.</p></div>
         <div class="syllory-privacy-points"><div><span>01</span> No in-app book store</div><div><span>02</span> Local book library</div><div><span>03</span> On-device help when supported</div></div>
       </div>
     </section>
