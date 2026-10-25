@@ -35,20 +35,34 @@
     .syllory-status{display:flex;align-items:center;gap:9px;margin:17px 0 0;color:#cbd3df;font:12px var(--mono)}
     .syllory-status::before{content:"";width:7px;height:7px;border-radius:50%;background:#f0c36b;box-shadow:0 0 12px rgba(240,195,107,.55)}
     .syllory-download-note{margin:12px 0 0;color:var(--dim);font-size:13px}
-    .syllory-ai-spotlight{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:42px;padding:34px;border:1px solid #285347;border-radius:var(--radius);background:radial-gradient(560px 300px at 0% 0%,rgba(124,245,212,.10),transparent 70%),linear-gradient(140deg,#121a1b,#11151d 65%)}
+    .syllory-ai-spotlight{display:block;padding:34px;border:1px solid #285347;border-radius:var(--radius);background:radial-gradient(560px 300px at 0% 0%,rgba(124,245,212,.10),transparent 70%),linear-gradient(140deg,#121a1b,#11151d 65%)}
+    .syllory-ai-intro{max-width:760px;margin-bottom:26px}
     .syllory-ai-spotlight h2{display:block;margin:8px 0 13px;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.035em;line-height:1.12}
     .syllory-ai-spotlight p{color:var(--muted);margin:0}
     .syllory-ai-spotlight .eyebrow{color:var(--accent)}
-    .syllory-ai-note{margin-top:17px!important;color:var(--dim)!important;font:11px var(--mono)}
-    .syllory-ai-demo{padding:20px;border:1px solid #2a3342;border-radius:15px;background:rgba(11,13,18,.76);box-shadow:0 24px 50px rgba(0,0,0,.25)}
-    .syllory-ai-demo-label{margin:0 0 8px;color:var(--dim);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
-    .syllory-ai-quote{margin:0 0 15px;padding:11px 13px;border-left:2px solid var(--accent);border-radius:0 8px 8px 0;background:#151a23;color:#e4e8ef;font:15px/1.5 Georgia,serif}
-    .syllory-ai-menu{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid #293141;border-radius:10px;background:#171b25;color:#c8cfdd;font-size:12px}
-    .syllory-ai-menu strong{color:var(--accent);font-weight:550}
-    .syllory-ai-language{margin-left:auto;padding:5px 7px;border:1px solid #344050;border-radius:6px;color:#dce2eb;font-size:11px;white-space:nowrap}
-    .syllory-ai-answer{margin-top:12px;padding:13px 14px;border:1px solid #22584b;border-radius:10px;background:linear-gradient(135deg,rgba(124,245,212,.08),rgba(18,21,29,.8))}
-    .syllory-ai-answer small{color:var(--accent);font:10px var(--mono);letter-spacing:.05em}
-    .syllory-ai-answer p{margin:7px 0 0;color:#cbd3df;font-size:13px;line-height:1.55}
+    .syllory-ai-note{margin-top:13px!important;color:var(--dim)!important;font:11px var(--mono)}
+    .syllory-ai-shots{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .syllory-ai-shot{min-width:0;margin:0;overflow:hidden;border:1px solid #2a3342;border-radius:13px;background:#10141c;box-shadow:0 18px 40px rgba(0,0,0,.22)}
+    .syllory-ai-screen{position:relative;display:grid;place-items:center;min-height:320px;padding:22px;overflow:hidden;background:#eee4d1}
+    .syllory-ai-screen::before,.syllory-ai-screen::after{content:"";position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(to bottom,transparent 0 31px,rgba(95,75,53,.07) 32px 33px),#f5ead5}
+    .syllory-ai-screen::before{left:0}.syllory-ai-screen::after{right:0;border-left:1px solid rgba(95,75,53,.18)}
+    .syllory-ai-sample{position:absolute;z-index:1;inset:14% 8%;display:grid;grid-template-columns:1fr 1fr;gap:30px;color:#514334;font:13px/1.8 Georgia,serif;opacity:.78}
+    .syllory-ai-sample p{color:inherit;margin:0}
+    .syllory-ai-sample mark{background:rgba(124,245,212,.52);color:inherit;box-shadow:0 0 0 2px rgba(124,245,212,.52)}
+    .syllory-ai-popover{position:relative;z-index:2;width:min(100%,340px);padding:15px;border:1px solid #d7dce5;border-radius:13px;background:rgba(255,255,255,.97);color:#20242b;box-shadow:0 18px 50px rgba(20,24,32,.30);font:13px/1.45 var(--font)}
+    .syllory-ai-popover-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;font-weight:650}
+    .syllory-ai-spark{display:grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#e6f8f3;color:#17846a}
+    .syllory-ai-x{margin-left:auto;color:#818895;font-size:15px}
+    .syllory-ai-selected{margin:0 0 11px;padding:9px 10px;border-radius:8px;background:#f3f4f6;color:#4d5360;font:12px/1.5 Georgia,serif}
+    .syllory-ai-action{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;color:#303640;font-size:12px}
+    .syllory-ai-action+.syllory-ai-action{margin-top:3px}
+    .syllory-ai-action.is-primary{background:#e9f7f2;color:#08785f;font-weight:600}
+    .syllory-ai-chevron{margin-left:auto;color:#7c8490}
+    .syllory-ai-result-label{display:block;margin:0 0 5px;color:#7b8492;font:9px var(--mono);letter-spacing:.07em;text-transform:uppercase}
+    .syllory-ai-result-text{font-size:12px!important;line-height:1.55!important;color:#414854!important}
+    .syllory-ai-local{display:flex;align-items:center;gap:6px;margin-top:11px;padding-top:9px;border-top:1px solid #eceef2;color:#148169;font-size:10px}
+    .syllory-ai-shot figcaption{padding:13px 15px;color:#dce1e9;font-size:12px}
+    .syllory-ai-shot figcaption span{display:block;margin-top:3px;color:var(--dim);font-size:11px}
     .syllory-section{padding-top:74px}
     .syllory-section-head{max-width:630px;margin-bottom:28px}
     .syllory-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -86,8 +100,9 @@
     .syllory-privacy-points span{color:var(--accent);font:12px var(--mono)}
     .syllory-footer{margin-top:76px}
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
-    @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.syllory-hero-copy>.eyebrow span+span::before{margin:0 6px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
+    @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
+    @media(max-width:700px){.syllory-ai-shots{grid-template-columns:1fr}.syllory-ai-screen{min-height:300px}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-hero-copy>.eyebrow{padding:7px 9px;font-size:clamp(8px,2.35vw,10px);letter-spacing:.035em}.syllory-hero-copy>.eyebrow span+span::before{margin:0 6px}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-ai-screen{min-height:280px;padding:14px}.syllory-ai-sample{inset:12% 6%;gap:16px;font-size:10px}.syllory-ai-popover{max-width:310px;padding:12px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
   </style>
 </head>
 <body>
@@ -129,17 +144,44 @@
 
     <section class="syllory-section" id="ai">
       <div class="syllory-ai-spotlight">
-        <div>
-          <p class="eyebrow">The next-generation reader · On-device AI</p>
-          <h2>Understand the words.<br>Stay with the story.</h2>
-          <p>Select a word, sentence, or passage to ask for a contextual explanation. Or pick a target language and translate the selection with the surrounding text in mind—all from the reading view.</p>
-          <p class="syllory-ai-note">Powered by Apple Foundation Models when Apple Intelligence is available. Your excerpt stays on your Mac.</p>
+        <div class="syllory-ai-intro">
+          <p class="eyebrow">Local AI · On your Mac</p>
+          <h2>Make sense of a whole paragraph.<br>Translate it in context.</h2>
+          <p>Select a word, a sentence, or an entire paragraph in the reader. Ask Syllory to explain the passage and how its ideas fit together, or choose from 32 target languages for a contextual translation.</p>
+          <p class="syllory-ai-note">Runs with Apple Foundation Models when Apple Intelligence is available on a supported Mac with macOS 26 or later.</p>
         </div>
-        <div class="syllory-ai-demo" aria-label="Example of explaining and translating a selected passage">
-          <p class="syllory-ai-demo-label">Selected in the book</p>
-          <blockquote class="syllory-ai-quote">“The old maps went blank beyond the horizon.”</blockquote>
-          <div class="syllory-ai-menu"><strong>✦ Explain in context</strong><span class="syllory-ai-language">Translate to&nbsp; Spanish⌄</span></div>
-          <div class="syllory-ai-answer"><small>SYLLORY · ON-DEVICE</small><p>Here, “went blank” suggests the maps held no knowledge of the distant places. The phrase gives the horizon a sense of mystery.</p></div>
+        <div class="syllory-ai-shots" aria-label="Previews of Syllory's contextual assistant">
+          <figure class="syllory-ai-shot">
+            <div class="syllory-ai-screen">
+              <div class="syllory-ai-sample" aria-hidden="true">
+                <p>She opened the ledger to the oldest entry. <mark>The handwriting leaned sharply to the right, with careful loops around each name. Most people had come to borrow a book. A few had asked for a map, a quiet chair, or simply a place to sit until the rain stopped.</mark></p>
+                <p>At the bottom of the page, a note had been added in a different ink. Return the key when the harbor remembers.</p>
+              </div>
+              <div class="syllory-ai-popover">
+                <div class="syllory-ai-popover-head"><span class="syllory-ai-spark">✦</span>Ask Syllory<span class="syllory-ai-x">×</span></div>
+                <p class="syllory-ai-selected">“The handwriting leaned sharply to the right, with careful loops around each name. Most people had come to borrow a book. A few had asked for a map, a quiet chair, or simply a place to sit until the rain stopped.”</p>
+                <div class="syllory-ai-action is-primary">✦ <span>Explain</span></div>
+                <div class="syllory-ai-action">文 <span>Translate to Spanish</span><span class="syllory-ai-chevron">⌄</span></div>
+                <div class="syllory-ai-action">文 <span>Translate in Context</span></div>
+              </div>
+            </div>
+            <figcaption>Select a complete paragraph<span>Explain its meaning or choose a target language.</span></figcaption>
+          </figure>
+          <figure class="syllory-ai-shot">
+            <div class="syllory-ai-screen">
+              <div class="syllory-ai-sample" aria-hidden="true">
+                <p>She opened the ledger to the oldest entry. <mark>The handwriting leaned sharply to the right, with careful loops around each name. Most people had come to borrow a book. A few had asked for a map, a quiet chair, or simply a place to sit until the rain stopped.</mark></p>
+                <p>At the bottom of the page, a note had been added in a different ink. Return the key when the harbor remembers.</p>
+              </div>
+              <div class="syllory-ai-popover">
+                <div class="syllory-ai-popover-head"><span class="syllory-ai-spark">✦</span>Ask Syllory<span class="syllory-ai-x">×</span></div>
+                <span class="syllory-ai-result-label">Explanation</span>
+                <p class="syllory-ai-result-text">The careful handwriting makes the ledger feel personal and preserved. People came to the library for more than books: they also needed guidance, quiet, or a place to wait out the rain.</p>
+                <div class="syllory-ai-local">✦ <span>Apple Foundation Models · On-device</span></div>
+              </div>
+            </div>
+            <figcaption>Get an explanation in context<span>The selected passage and nearby text stay on this Mac.</span></figcaption>
+          </figure>
         </div>
       </div>
     </section>
