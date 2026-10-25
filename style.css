@@ -32,7 +32,7 @@ h1{margin:0;font-size:clamp(42px,7vw,72px);line-height:1.02;letter-spacing:-.03e
 .li{margin:14px 0 0;color:var(--dim);font-size:14px}
 .li a{color:var(--accent2);text-decoration:none}
 .li a:hover{text-decoration:underline}
-.btn{display:inline-flex;align-items:center;padding:10px 16px;border-radius:999px;border:1px solid var(--line);
+.btn{display:inline-flex;white-space:nowrap;align-items:center;padding:10px 16px;border-radius:999px;border:1px solid var(--line);
   background:var(--panel);text-decoration:none;font-size:14px;font-weight:500;transition:border-color .2s,background .2s,transform .2s}
 .btn:hover{border-color:#3a4258;background:var(--panel2);transform:translateY(-1px)}
 .btn.primary{background:var(--accent);color:#06221b;border-color:transparent}
@@ -64,7 +64,9 @@ h2 span{font:500 13px var(--mono);color:var(--accent)}
 .body p{margin:0 0 14px;color:var(--muted);font-size:15px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0 0 16px}
 .tags li{font:11px/1 var(--mono);color:#b9c4d8;background:#1a1f2b;border:1px solid #252b3a;padding:6px 8px;border-radius:6px}
-.actions{display:flex;gap:10px;margin-top:auto}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+#tutorial .actions{gap:8px}
+#tutorial .btn{padding:10px 12px}
 .syllory-download-actions{flex-wrap:wrap;align-items:center}
 .code-link{margin-top:auto;color:var(--accent2);text-decoration:none;font-size:14px;font-weight:500}
 .code-link:hover{text-decoration:underline}
