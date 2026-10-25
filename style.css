@@ -131,21 +131,5 @@ footer a:hover{color:var(--text)}
 @media (min-width:601px) and (max-width:900px){.grid>.card:not(.wide):last-child:nth-child(even){grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.grid>.card:not(.wide):last-child:nth-child(even) .media{aspect-ratio:auto;height:100%;min-height:260px;border-bottom:0;border-right:1px solid var(--line)}}
 .media.fit-top img{object-position:50% 0}
 
-/* Syllory project card */
-.syllory-cover{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;padding:30px 8%;background:radial-gradient(500px 240px at 75% 20%,rgba(124,245,212,.17),transparent 65%),linear-gradient(140deg,#111a20,#0e1118 70%);text-decoration:none}
-.syllory-cover-window{position:relative;width:min(82%,480px);aspect-ratio:1.6;border:1px solid #3c4656;border-radius:12px;background:#f3e9d5;box-shadow:0 18px 48px rgba(0,0,0,.4);overflow:hidden}
-.syllory-windowbar{position:absolute;inset:0 0 auto;height:22px;display:flex;align-items:center;gap:5px;padding:0 9px;background:#272c34;border-bottom:1px solid #3a414b}
-.syllory-windowbar i{width:6px;height:6px;border-radius:50%;background:#777b82}
-.syllory-windowbar b{position:absolute;left:50%;transform:translateX(-50%);color:#d4d8de;font:600 8px var(--font)}
-.syllory-reader-toolbar{position:absolute;inset:22px 0 auto;height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid rgba(73,57,41,.14);background:rgba(255,251,242,.72);color:#94683f;font:8px var(--font)}
-.syllory-reader-library{white-space:nowrap;padding-right:10px;border-right:1px solid rgba(73,57,41,.16)}
-.syllory-reader-book{display:grid;gap:3px;color:#493929;min-width:0}
-.syllory-reader-book b{font-size:9px;font-weight:650;white-space:nowrap}
-.syllory-reader-book small{color:#846f59;font-size:7px;white-space:nowrap}
-.syllory-reader-actions{display:flex;align-items:center;gap:4px;margin-left:auto}
-.syllory-reader-actions i{display:grid;place-items:center;width:19px;height:19px;border:1px solid rgba(148,104,63,.22);border-radius:6px;background:rgba(255,255,255,.55);font-size:8px;font-style:normal;white-space:nowrap}
-.syllory-cover-window::after{content:"";position:absolute;inset:62px 50% 0 auto;width:1px;background:rgba(73,57,41,.14)}
-.syllory-cover-book{position:absolute;inset:62px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 22px;color:#493929;font:10px/1.6 Georgia,serif}
-.syllory-cover-book i{font-style:normal}
-.syllory-cover-word{position:absolute;left:8%;top:13%;color:var(--accent);font:700 17px var(--font);letter-spacing:.08em}
-.syllory-cover-caption{color:#c3ccdc;font:10px var(--mono);letter-spacing:.03em}
+/* Syllory uses the same full-bleed 16:10 preview treatment as the other demos. */
+.media.syllory-card-media img{object-fit:cover;object-position:center}

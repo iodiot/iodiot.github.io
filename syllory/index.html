@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Syllory — A next-generation e-book reader with private AI</title>
-  <meta name="description" content="Syllory is a next-generation local-first e-book reader for Mac, with Apple Foundation Models for private, on-device explanations and contextual translations.">
+  <title>Syllory — Local-first e-book reader for Mac</title>
+  <meta name="description" content="Read your EPUB and FB2 books on Mac with customizable pages and on-device explanations and translations when Apple Intelligence is available.">
   <meta name="theme-color" content="#0b0d12">
-  <meta property="og:title" content="Syllory — A next-generation e-book reader with private AI">
-  <meta property="og:description" content="A local-first e-book reader with Apple Foundation Models for private, on-device explanations and contextual translations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iodiot.github.io/syllory/">
+  <meta property="og:title" content="Syllory — Local-first e-book reader for Mac">
+  <meta property="og:description" content="Read your EPUB and FB2 books on Mac with customizable pages and on-device help when Apple Intelligence is available.">
+  <meta property="og:image" content="https://iodiot.github.io/syllory/reader-screenshot.png?v=20261025">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=9">
+  <link rel="stylesheet" href="../style.css?v=10">
   <style>
     .syllory-nav .brand{display:flex;align-items:center;gap:10px}
     .syllory-mark{width:26px;height:26px;display:block}
@@ -24,21 +28,12 @@
     .syllory-hero .lead{max-width:520px}
     .syllory-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
     .syllory-note{color:var(--dim);font:12px var(--mono);margin:15px 0 0}
-    .syllory-stage{position:relative;min-height:430px;display:grid;place-items:center;isolation:isolate}
+    .syllory-stage{position:relative;min-height:0;margin:0;display:grid;place-items:center;isolation:isolate}
     .syllory-glow{position:absolute;width:85%;height:78%;border-radius:50%;filter:blur(60px);background:radial-gradient(circle,rgba(124,245,212,.18),rgba(122,167,255,.12) 48%,transparent 72%);z-index:-1}
-    .syllory-window{position:relative;width:min(100%,610px);min-height:365px;border:1px solid #32394a;border-radius:18px;overflow:hidden;background:#f3e9d5;color:#493929;box-shadow:0 32px 90px rgba(0,0,0,.45);transform:perspective(1200px) rotateY(-5deg) rotateX(1deg)}
-    .syllory-windowbar{height:35px;background:#252a33;border-bottom:1px solid #353a43;display:flex;align-items:center;gap:7px;padding:0 13px}
-    .syllory-dot{width:9px;height:9px;border-radius:50%;background:#6c7077}
-    .syllory-windowtitle{position:absolute;left:50%;transform:translateX(-50%);color:#c4c8d0;font:600 10px var(--font)}
-    .syllory-book-heading{padding:10px 18px 0;text-align:center;color:#846f59;font-size:11px;font-weight:650;letter-spacing:.01em}
-    .syllory-reader-controls{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:calc(100% - 28px);margin:8px auto 0;padding:5px 9px;border:1px solid rgba(73,57,41,.14);border-radius:28px;background:rgba(255,251,242,.9);box-shadow:0 5px 14px rgba(73,57,41,.10);font-size:10px;color:#94683f}
-    .syllory-reader-controls span{white-space:nowrap}
-    .syllory-reader-control{display:grid;place-items:center;min-width:23px;height:23px;padding:0 6px;border:1px solid rgba(148,104,63,.22);border-radius:7px;background:rgba(255,255,255,.5)}
-    .syllory-reader-divider{width:1px;height:18px;background:rgba(73,57,41,.16)}
-    .syllory-reader-page{display:grid;place-items:center;width:27px;height:27px;border:1px solid rgba(148,104,63,.25);border-radius:50%;font-size:14px}
-    .syllory-pages{min-height:265px;display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:32px 34px 18px;font:14px/1.6 Georgia,"Times New Roman",serif;letter-spacing:.005em}
-    .syllory-pages p{margin:0 0 14px;text-indent:1.1em}
-    .syllory-page-number{display:flex;justify-content:center;padding:0 28px 13px;color:#8c7d6c;font:9px var(--mono)}
+    .syllory-hero-screenshot{position:relative;display:block;width:100%;height:auto;border:1px solid #32394a;border-radius:16px;box-shadow:0 32px 90px rgba(0,0,0,.45)}
+    .syllory-status{display:flex;align-items:center;gap:9px;margin:17px 0 0;color:#cbd3df;font:12px var(--mono)}
+    .syllory-status::before{content:"";width:7px;height:7px;border-radius:50%;background:#f0c36b;box-shadow:0 0 12px rgba(240,195,107,.55)}
+    .syllory-download-note{margin:12px 0 0;color:var(--dim);font-size:13px}
     .syllory-ai-spotlight{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:42px;padding:34px;border:1px solid #285347;border-radius:var(--radius);background:radial-gradient(560px 300px at 0% 0%,rgba(124,245,212,.10),transparent 70%),linear-gradient(140deg,#121a1b,#11151d 65%)}
     .syllory-ai-spotlight h2{display:block;margin:8px 0 13px;font-size:clamp(27px,3.4vw,38px);letter-spacing:-.035em;line-height:1.12}
     .syllory-ai-spotlight p{color:var(--muted);margin:0}
@@ -90,9 +85,8 @@
     .syllory-privacy-points span{color:var(--accent);font:12px var(--mono)}
     .syllory-footer{margin-top:76px}
     .syllory-footer-mark{display:flex;align-items:center;gap:8px}
-    @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-stage{min-height:390px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
-    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-stage{min-height:310px}.syllory-window{min-height:300px;transform:none}.syllory-reader-controls{gap:4px;padding:4px 6px;font-size:9px}.syllory-reader-control{min-width:20px;height:20px;padding:0 4px}.syllory-reader-page{width:24px;height:24px}.syllory-pages{min-height:220px;gap:12px;padding:28px 18px 15px;font-size:11px}.syllory-pages p:nth-child(n+3){display:none}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
-    @media(prefers-reduced-motion:reduce){.syllory-window{transform:none}}
+    @media(max-width:900px){.syllory-hero{grid-template-columns:1fr;gap:24px;padding-top:70px}.syllory-hero-copy{max-width:720px}.syllory-ai-spotlight{grid-template-columns:1fr}.syllory-tiles{grid-template-columns:1fr 1fr}.syllory-reading,.syllory-privacy{grid-template-columns:1fr}}
+    @media(max-width:600px){.syllory-nav nav{display:none}.syllory-hero{padding-top:55px;min-height:auto}.syllory-tiles{grid-template-columns:1fr}.syllory-reading-card,.syllory-privacy,.syllory-ai-spotlight{padding:23px}.syllory-settings{grid-template-columns:1fr 1fr}.syllory-ai-demo{padding:14px}.syllory-ai-menu{gap:7px;font-size:11px}.syllory-screen-grid{grid-template-columns:1fr}.syllory-screen-caption{padding:12px 13px}}
   </style>
 </head>
 <body>
@@ -112,31 +106,24 @@
   <main class="syllory-main">
     <section class="hero syllory-hero" id="top">
       <div class="syllory-hero-copy">
-        <p class="eyebrow"><span>Next-generation e-book reader</span><span>Private on-device AI</span></p>
+        <p class="eyebrow"><span>Local-first e-book reader</span><span>On-device AI when available</span></p>
         <h1>Read on.<br>Get the context.</h1>
-        <p class="role">A local-first e-book reader with Apple Foundation Models on your Mac.</p>
-        <p class="lead">Select a word or passage for an explanation in context, or translate it into a language you choose. Syllory runs Apple Foundation Models on device, so your selected text stays local. Bring your own EPUB or FB2 books, make the page yours, and return to the same place in every book.</p>
+        <p class="role">A calm, customizable EPUB and FB2 reader for macOS.</p>
+        <p class="lead">Bring books from your own collection, then tune the typeface, text size, paragraph and line spacing, theme, and page layout. Syllory saves your library and reading place on this Mac. On supported Macs with Apple Intelligence, ask for an on-device explanation or translation of a selected passage.</p>
         <div class="syllory-actions">
           <a class="btn primary" href="../downloads/Syllory-0.1.0-beta-universal.pkg" download>Download for macOS</a>
           <a class="btn" href="#reading">See the reader</a>
           <a class="btn" href="#features">Explore features</a>
         </div>
-        <p class="syllory-note">Universal Mac build · macOS 13+ · EPUB and FB2 · Apple Intelligence for on-device AI</p>
+        <p class="syllory-status">Mac App Store version 0.1.0 · submitted for review</p>
+        <p class="syllory-download-note">Direct download available while the Mac App Store version is under review.</p>
+        <p class="syllory-note">Reader: macOS 13+ · Explain and Translate: macOS 26+ and a supported Mac with Apple Intelligence</p>
       </div>
 
-      <div class="syllory-stage" aria-label="Preview of Syllory's reading view with compact controls and on-device AI">
+      <figure class="syllory-stage" aria-label="Syllory reader screenshot">
         <div class="syllory-glow"></div>
-        <div class="syllory-window">
-          <div class="syllory-windowbar"><i class="syllory-dot"></i><i class="syllory-dot"></i><i class="syllory-dot"></i><span class="syllory-windowtitle">Syllory Reader</span></div>
-          <div class="syllory-book-heading">The Impossible Man · Section 6 of 31 · Page 8 of 12</div>
-          <div class="syllory-reader-controls"><span>‹ Library</span><i class="syllory-reader-divider"></i><span class="syllory-reader-control">◉⌄</span><span class="syllory-reader-control">Aa⌄</span><span class="syllory-reader-control">▯▯ Two Pages⌄</span><i class="syllory-reader-divider"></i><span class="syllory-reader-page">‹</span><span class="syllory-reader-page">›</span></div>
-          <div class="syllory-pages">
-            <div><p>At the edge of the page, the old map seemed to end before the world did. Lionel looked again, following the faint line toward the coast.</p><p>Somewhere beyond it, the story continued.</p></div>
-            <div><p>The reader keeps the book in focus. Choose a word or passage and ask Apple Foundation Models for a local explanation or translation.</p><p>Your place is saved for the next time you open the book.</p></div>
-          </div>
-          <div class="syllory-page-number">Two-page reading · Controls fade away while you read</div>
-        </div>
-      </div>
+        <img class="syllory-hero-screenshot" src="reader-screenshot.png?v=20261025" alt="Syllory displaying a two-page spread with paragraph spacing and reading controls" width="1280" height="800" fetchpriority="high">
+      </figure>
     </section>
 
     <section class="syllory-section" id="ai">
@@ -159,11 +146,11 @@
     <section class="syllory-section" id="features">
       <div class="syllory-section-head">
         <h2><span>02</span> Made for the book you’re reading</h2>
-        <p class="section-lead">A focused local reading space with just enough control to make it comfortable.</p>
+        <p class="section-lead">Your books stay in a local library, with a separate reading place and page setup for each title.</p>
       </div>
       <div class="syllory-tiles">
-        <article class="syllory-tile"><div class="syllory-tile-icon">▤</div><h3>Your library, on your Mac</h3><p>Add EPUB or FB2 files from your own collection. Your place and reading settings are saved for each book, with no in-app store or account.</p></article>
-        <article class="syllory-tile"><div class="syllory-tile-icon">Aa</div><h3>A page that feels right</h3><p>Choose a typeface and size, tune paragraph and line spacing, and set a one-page or two-page layout for each book.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">▤</div><h3>Your library, on your Mac</h3><p>Import EPUB or FB2 files from your own collection. Your place and reading settings are saved for each book, with no in-app store, account, or cloud sync.</p></article>
+        <article class="syllory-tile"><div class="syllory-tile-icon">Aa</div><h3>A page that feels right</h3><p>Choose a typeface and size, tune paragraph spacing from minimal to relaxed, adjust line spacing, and switch between one or two pages.</p></article>
         <article class="syllory-tile"><div class="syllory-tile-icon">◉</div><h3>Four quiet themes</h3><p>Move between Light, Sepia, Midnight, and Mint across the library and the reading view.</p></article>
       </div>
     </section>
@@ -183,7 +170,7 @@
         <div class="syllory-settings">
           <div class="syllory-setting"><small>Typeface</small><strong>Iowan Old Style</strong></div>
           <div class="syllory-setting"><small>Text size</small><strong>22 px</strong></div>
-          <div class="syllory-setting"><small>Spacing</small><strong>Minimal paragraphs · Standard lines</strong></div>
+          <div class="syllory-setting"><small>Spacing</small><strong>Minimal by default · Both adjustable</strong></div>
           <div class="syllory-setting"><small>Reading theme</small><strong>Choose for this book</strong><div class="syllory-themes"><i class="syllory-theme-dot paper"></i><i class="syllory-theme-dot sepia"></i><i class="syllory-theme-dot night"></i><i class="syllory-theme-dot mint"></i></div></div>
         </div>
       </div>
@@ -192,28 +179,28 @@
     <section class="syllory-section" id="library">
       <div class="syllory-section-head">
         <h2><span>04</span> Pick up right where you left off</h2>
-        <p class="section-lead">Syllory keeps a separate place and reading setup for every book. A glance at the library shows what's waiting, what's in progress, and what you've finished.</p>
+        <p class="section-lead">Keep track of what's in progress and return to the saved place in any book.</p>
       </div>
       <div class="syllory-screen-grid" aria-label="Syllory app screenshots">
         <figure class="syllory-screen-card">
-          <img src="library-screenshot.png?v=20261024-appstore" alt="Syllory library with two imported books and saved reading progress" loading="lazy" decoding="async">
-          <figcaption class="syllory-screen-caption"><strong>Your library, with progress at a glance</strong><span>Library screenshot</span></figcaption>
+          <img src="library-screenshot.png?v=20261025" alt="Syllory library with an original sample book and saved reading progress" width="1280" height="800" loading="lazy" decoding="async">
+          <figcaption class="syllory-screen-caption"><strong>Your library, with progress at a glance</strong><span>App screenshot</span></figcaption>
         </figure>
         <figure class="syllory-screen-card">
-          <img src="reader-screenshot.png?v=20261024-appstore" alt="Syllory Reader showing a two-page spread with the reading toolbar" loading="lazy" decoding="async">
-          <figcaption class="syllory-screen-caption"><strong>A quiet, configurable reading view</strong><span>Reader screenshot</span></figcaption>
+          <img src="reader-screenshot.png?v=20261025" alt="Syllory reader showing an original two-page sample with paragraph spacing and reading controls" width="1280" height="800" loading="lazy" decoding="async">
+          <figcaption class="syllory-screen-caption"><strong>A two-page spread with adjustable spacing</strong><span>App screenshot</span></figcaption>
         </figure>
       </div>
     </section>
 
     <section class="syllory-section" id="privacy">
       <div class="syllory-privacy">
-        <div><p class="eyebrow">Private by design</p><h2>Your reading stays yours.</h2><p>Syllory is built around books stored on your Mac. When Apple’s on-device Foundation Models are available, selected text can be explained or translated in context on the device.</p></div>
+        <div><p class="eyebrow">Private by design</p><h2>Your reading stays yours.</h2><p>Imported books, reading position, and preferences stay in the local library on this Mac. When a supported Mac running macOS 26 or later has Apple Intelligence available, selected text and nearby context are processed by Apple’s on-device Foundation Models—not by a Syllory server.</p></div>
         <div class="syllory-privacy-points"><div><span>01</span> No in-app book store</div><div><span>02</span> Local book library</div><div><span>03</span> On-device help when supported</div></div>
       </div>
     </section>
   </main>
 
-  <footer class="syllory-footer"><p class="syllory-footer-mark"><img class="syllory-mark" src="icon.svg" alt=""> Syllory · A small reading app in progress.</p><p><a href="privacy/">Privacy Policy</a> · <a href="https://github.com/iodiot">Support</a> · <a href="../">Back to Mike Smahin’s site</a></p></footer>
+  <footer class="syllory-footer"><p class="syllory-footer-mark"><img class="syllory-mark" src="icon.svg" alt=""> Syllory · macOS 0.1.0 · App Store review pending.</p><p><a href="privacy/">Privacy Policy</a> · <a href="mailto:iodiot@gmail.com?subject=Syllory%20support">Support</a> · <a href="../">Back to Mike Smahin’s site</a></p></footer>
 </body>
 </html>
