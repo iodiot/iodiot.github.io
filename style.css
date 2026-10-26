@@ -67,6 +67,7 @@ h2 span{font:500 13px var(--mono);color:var(--accent)}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
 #tutorial .actions{gap:8px}
 #tutorial .btn{padding:10px 12px}
+@media (max-width:480px){#tutorial .actions{display:grid;grid-template-columns:1fr 1fr}#tutorial .btn{justify-content:center}}
 .syllory-download-actions{flex-wrap:wrap;align-items:center}
 .code-link{margin-top:auto;color:var(--accent2);text-decoration:none;font-size:14px;font-weight:500}
 .code-link:hover{text-decoration:underline}
