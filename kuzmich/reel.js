@@ -2,6 +2,30 @@
   const reel = document.querySelector("[data-reel]");
   if (!reel) return;
 
+  const frameContainer = reel.querySelector(".reel-frames");
+  const supplementCards = document.querySelectorAll("#new-photos .extra-photo-card");
+
+  supplementCards.forEach((card) => {
+    const source = card.querySelector("img");
+    if (!source || !source.getAttribute("src") || !frameContainer) return;
+
+    const frame = document.createElement("figure");
+    frame.className = "reel-frame";
+    frame.dataset.reelFrame = "";
+
+    const sourceCaption = card.querySelector("figcaption")?.textContent || "";
+    const caption = sourceCaption.replace(/^\s*\d+\s*/, "").trim();
+    if (caption) frame.dataset.caption = caption;
+
+    const image = document.createElement("img");
+    image.src = source.getAttribute("src");
+    image.alt = "";
+    image.decoding = "async";
+    image.loading = "lazy";
+    frame.append(image);
+    frameContainer.append(frame);
+  });
+
   const frames = Array.from(reel.querySelectorAll("[data-reel-frame]"));
   const counter = document.querySelector("[data-reel-counter]");
   const caption = document.querySelector("[data-reel-caption]");
