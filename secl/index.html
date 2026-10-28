@@ -361,7 +361,7 @@ body.scrollmode #viewport,body.scrollmode #progress,body.scrollmode #hint{displa
 </style>
 <script>
 (function(){
-var q=location.search.indexOf('slides')<0&&(location.search.indexOf('scroll')>=0||innerWidth<innerHeight||innerWidth<900);
+var q=location.search.indexOf('slides')<0;
 if(!q){var last=0;addEventListener('wheel',function(e){var now=Date.now();if(now-last<700||Math.abs(e.deltaY)<20)return;last=now;var a=document.querySelector('.slide.active'),all=[].slice.call(document.querySelectorAll('.slide')),i=all.indexOf(a);window.goTo(i+(e.deltaY>0?1:-1));},{passive:true});return;}
 document.documentElement.classList.add('scrollmode');document.body.classList.add('scrollmode');
 var slides=[].slice.call(document.querySelectorAll('#stage .slide')),wraps=[];
