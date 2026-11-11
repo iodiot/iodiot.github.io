@@ -48,6 +48,9 @@ h2 span{font:500 13px var(--mono);color:var(--accent)}
 .media{display:block;aspect-ratio:16/10;overflow:hidden;background:#0e1118;border-bottom:1px solid var(--line);position:relative}
 .media img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .card:hover .media img{transform:scale(1.03)}
+.media.glow-rush{aspect-ratio:16/10}
+.media.glow-rush img{object-fit:cover;object-position:center bottom}
+.card:hover .media.glow-rush img{transform:none}
 .gradient{display:flex;align-items:flex-end;padding:18px}
 .gradient.crowd{background:
   radial-gradient(circle at 30% 40%,rgba(124,245,212,.35),transparent 35%),
