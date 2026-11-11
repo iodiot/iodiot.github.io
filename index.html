@@ -9,7 +9,7 @@
 <meta property="og:description" content="15+ years in frontend engineering, real-time applications and 3D for the web. TypeScript, React, Three.js, WebGL/WebGPU.">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0d12'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%237cf5d4'>MS</text></svg>">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 <style>
   .hero-identity{display:flex;align-items:center;gap:clamp(12px,1.67vw,24px)}
   .hero-avatar{width:clamp(68px,20vw,104px);height:clamp(68px,20vw,104px);max-width:none;flex:0 0 auto;object-fit:cover;object-position:center 42%;border-radius:50%}
@@ -156,10 +156,7 @@
       </article>
       <article class="card big">
         <a class="media" href="glow-rush/" target="_blank" rel="noopener" aria-label="Play the Glow Rush demo">
-          <video muted playsinline loop preload="none" poster="assets/shots/glow-rush.webp" width="1200" height="750" aria-label="Glow Rush in Glow Mode: a neon car runner on a night-city avenue, with a magenta sun and a star coin ahead">
-            <source src="assets/shots/glow-rush.webm" type="video/webm">
-            <source src="assets/shots/glow-rush.mp4" type="video/mp4">
-          </video>
+          <img src="assets/shots/glow-rush.webp" alt="Glow Rush in Glow Mode: a neon night-city avenue with a magenta sun, cyan towers, and a star coin on the road" width="1200" height="750" loading="lazy" decoding="async">
         </a>
         <div class="body">
           <h3>Glow Rush, a Neon Playable Ad Concept</h3>
@@ -419,30 +416,7 @@
   <p>© <span id="y">2026</span> Mike Smahin · Barcelona</p>
   <p><a href="mailto:iodiot@gmail.com">iodiot@gmail.com</a> · <a href="https://github.com/iodiot" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/mike-smahin-48608226" target="_blank" rel="noopener">LinkedIn</a> · <a href="cv.pdf?v=2" target="_blank" rel="noopener">CV</a></p>
 </footer>
-<script>
-document.getElementById('y').textContent=new Date().getFullYear();
-(function () {
-  var videos = document.querySelectorAll('.media video');
-  if (!videos.length) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-  var play = function (video) {
-    var pending = video.play();
-    if (pending && pending.catch) pending.catch(function () {});
-  };
-  if (!('IntersectionObserver' in window)) {
-    videos.forEach(play);
-    return;
-  }
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) play(entry.target);
-      else entry.target.pause();
-    });
-  }, { threshold: 0.4 });
-  videos.forEach(function (video) { observer.observe(video); });
-})();
-</script>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
 <script data-goatcounter="https://iodiot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
