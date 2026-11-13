@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b15">
+  <meta name="description" content="Guide — Globe Dashboard: a technical walkthrough of the live USGS earthquake feed, a synchronized 3D globe and timeline.">
+  <title>Guide — Globe Dashboard · Mike Smahin</title>
+  <link rel="stylesheet" href="../project-guides.css">
+  <script src="../project-guides.js" defer></script>
+</head>
+<body class="guide guide-globe">
+  <a class="guide-skip" href="#main">Skip to the guide</a>
+  <div class="progress-track" aria-hidden="true"><i id="guide-progress"></i></div>
+  <header class="guide-topbar">
+    <a class="guide-brand" href="../" aria-label="Mike Smahin portfolio">
+      <span class="guide-brand-mark">MS</span><span>Mike Smahin</span><span>/ Guide — Globe Dashboard</span>
+    </a>
+    <nav class="guide-toplinks" aria-label="Project links">
+      <a href="../">Portfolio</a>
+      <a href="https://github.com/iodiot/globe-dashboard" target="_blank" rel="noopener">Code</a>
+      <a class="primary" href="https://iodiot.github.io/globe-dashboard/" target="_blank" rel="noopener">Live demo <span class="guide-arrow" aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main" class="guide-wrap">
+    <section class="guide-hero" aria-labelledby="page-title">
+      <div>
+        <p class="guide-eyebrow">Live data · React / TypeScript / Three.js</p>
+        <h1 id="page-title">Read the signal on a <em>living Earth.</em></h1>
+        <p class="guide-lead">A live earthquake dashboard that connects the USGS feed to a 3D globe, searchable event list, timeline, charts and KPIs—one synchronized view of seismic activity.</p>
+        <ul class="guide-tags" aria-label="Technologies">
+          <li>React 19</li><li>TypeScript</li><li>Three.js / R3F</li><li>zustand</li><li>USGS GeoJSON</li>
+        </ul>
+        <div class="guide-hero-actions">
+          <a class="primary" href="https://iodiot.github.io/globe-dashboard/" target="_blank" rel="noopener">Open the live dashboard <span class="guide-arrow" aria-hidden="true">↗</span></a>
+          <a href="https://github.com/iodiot/globe-dashboard" target="_blank" rel="noopener">Explore the source <span class="guide-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="guide-hero-visual">
+        <div class="guide-visual-orbit" aria-hidden="true"></div>
+        <figure class="guide-hero-image">
+          <img src="../assets/shots/globe-dashboard.webp" alt="Seismic Globe dashboard with a 3D Earth, earthquake markers, event list, filters, timeline and magnitude chart" width="960" height="540">
+          <figcaption class="guide-image-caption"><span>USGS REAL-TIME FEED</span><span>GLOBE + DASHBOARD</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="guide-facts" aria-label="At a glance">
+      <div class="guide-fact"><strong>30 days</strong><span>initial M2.5+ event window</span></div>
+      <div class="guide-fact"><strong>5 min</strong><span>refresh interval for recent events</span></div>
+      <div class="guide-fact"><strong>1 draw</strong><span>instanced marker call for visible events</span></div>
+    </section>
+
+    <div class="guide-layout">
+      <aside class="guide-toc" aria-label="On this page">
+        <p class="guide-toc-label">On this page</p>
+        <nav>
+          <a href="#data"><b>01</b> From USGS feed to typed events</a>
+          <a href="#state"><b>02</b> One state, many views</a>
+          <a href="#globe"><b>03</b> Put every event on Earth</a>
+          <a href="#time"><b>04</b> Filter, scrub and share</a>
+          <a href="#resilience"><b>05</b> Design for failure and access</a>
+        </nav>
+      </aside>
+
+      <article class="guide-article">
+        <section class="guide-section" id="data">
+          <div class="guide-section-head">
+            <span class="guide-section-number">01</span>
+            <div><h2>From a public feed to a reliable event record</h2><p>The dashboard loads real USGS GeoJSON, normalizes it into a small typed model, then merges updates by event ID.</p></div>
+          </div>
+          <div class="guide-panel" data-stepper>
+            <div class="guide-flow" aria-label="Earthquake data pipeline">
+              <div class="guide-flow-step" data-diagram-step="fetch"><strong>Fetch</strong><span>30-day M2.5+ feed</span></div>
+              <div class="guide-flow-step" data-diagram-step="parse"><strong>Parse</strong><span>Normalize GeoJSON</span></div>
+              <div class="guide-flow-step" data-diagram-step="merge"><strong>Merge</strong><span>Refresh by ID</span></div>
+              <div class="guide-flow-step" data-diagram-step="select"><strong>Select</strong><span>Filter + derive</span></div>
+              <div class="guide-flow-step" data-diagram-step="render"><strong>Render</strong><span>All views stay in sync</span></div>
+            </div>
+            <div class="guide-stepper">
+              <div class="guide-step-buttons" role="group" aria-label="Inspect the earthquake data pipeline">
+                <button class="guide-step-button" type="button" data-step="fetch">1 · Fetch</button>
+                <button class="guide-step-button" type="button" data-step="parse">2 · Parse</button>
+                <button class="guide-step-button" type="button" data-step="merge">3 · Merge</button>
+                <button class="guide-step-button" type="button" data-step="select">4 · Select</button>
+                <button class="guide-step-button" type="button" data-step="render">5 · Render</button>
+              </div>
+              <div class="guide-step-panel" data-panel="fetch"><h3>Start with the month feed</h3><p>On load, the app requests the public M2.5+ GeoJSON feed for the past 30 days. It needs no API key and supports browser requests from the demo.</p></div>
+              <div class="guide-step-panel" data-panel="parse" hidden><h3>Normalize once at the edge</h3><p>The parser drops malformed records, rounds magnitude to one decimal place, extracts a region, converts tsunami flags and keeps coordinates, depth, felt reports, significance and alert level in a typed event.</p></div>
+              <div class="guide-step-panel" data-panel="merge" hidden><h3>Refresh only the recent window</h3><p>Every five minutes, a smaller 24-hour feed is fetched and merged by event ID. Newer records replace older copies; the resulting array stays sorted newest first.</p></div>
+              <div class="guide-step-panel" data-panel="select" hidden><h3>Derive views from shared state</h3><p>Range, minimum magnitude, region query, sorting, selection and playback cursor live in one Zustand store. Memoized selectors calculate the visible records and summaries.</p></div>
+              <div class="guide-step-panel" data-panel="render" hidden><h3>Update the dashboard as one system</h3><p>The globe, virtualized list, KPI cards, timeline and magnitude histogram read the same derived event set, so selecting or scrubbing does not leave a panel behind.</p></div>
+            </div>
+          </div>
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Resilient loading</p>
+              <h3>Live feed first, labelled snapshot if needed</h3>
+              <p>If the network or USGS is unavailable, the app loads a bundled snapshot instead. The dashboard labels the data as a snapshot and shows a banner so the fallback is visible to the reader.</p>
+            </div>
+            <figure class="guide-figure">
+              <svg viewBox="0 0 720 260" role="img" aria-labelledby="feed-title feed-desc">
+                <title id="feed-title">Live and fallback earthquake data paths</title>
+                <desc id="feed-desc">The initial USGS month feed and a bundled offline snapshot both lead to the same parser and dashboard state. The live path also merges a refreshed day feed every five minutes.</desc>
+                <rect x="26" y="34" width="191" height="67" rx="12" fill="#10203a" stroke="#29e2e8" stroke-opacity=".55"/>
+                <text x="48" y="61" fill="#baf9f5" font-size="13" font-family="ui-monospace,monospace">USGS 30-day</text>
+                <text x="48" y="82" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">M2.5+ GeoJSON</text>
+                <rect x="26" y="151" width="191" height="67" rx="12" fill="#17172e" stroke="#a08cff" stroke-opacity=".6"/>
+                <text x="48" y="178" fill="#d5ceff" font-size="13" font-family="ui-monospace,monospace">Bundled snapshot</text>
+                <text x="48" y="199" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">offline fallback</text>
+                <path d="M220 67h83v61h60" fill="none" stroke="#29e2e8" stroke-width="2"/>
+                <path d="M220 185h83v-57h60" fill="none" stroke="#a08cff" stroke-width="2"/>
+                <path d="m354 120 12 8-12 8" fill="none" stroke="#29e2e8" stroke-width="2"/>
+                <rect x="372" y="93" width="146" height="70" rx="12" fill="#101b30" stroke="#44617c"/>
+                <text x="397" y="122" fill="#e5f1ff" font-size="13" font-family="ui-monospace,monospace">Parse + store</text>
+                <text x="395" y="143" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">same typed records</text>
+                <path d="M521 128h62" stroke="#29e2e8" stroke-width="2"/>
+                <path d="m635 120 12 8-12 8" fill="none" stroke="#29e2e8" stroke-width="2"/>
+                <rect x="586" y="93" width="116" height="70" rx="12" fill="#10203a" stroke="#29e2e8" stroke-opacity=".55"/>
+                <text x="607" y="122" fill="#baf9f5" font-size="12" font-family="ui-monospace,monospace">Dashboard</text>
+                <text x="606" y="143" fill="#8b9eb6" font-size="10" font-family="ui-monospace,monospace">snapshot badge</text>
+                <text x="25" y="247" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">RECENT 24-HOUR FEED MERGES INTO THE LIVE DATASET EVERY 5 MINUTES</text>
+              </svg>
+              <figcaption>The offline snapshot follows the same parsing and view pipeline; its different source is surfaced in the UI.</figcaption>
+            </figure>
+          </div>
+          <div class="guide-cards" style="margin-top:17px">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">ID</span><strong>Identity and time</strong><p>USGS event ID and timestamp support stable merging and newest-first ordering.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">⌖</span><strong>Place and depth</strong><p>Longitude, latitude, depth, place and normalized region position the event on the globe and support search.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">M</span><strong>Magnitude and impact</strong><p>Magnitude, significance, tsunami flag, felt reports, alert level and magnitude type power the details and summaries.</p></div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="state">
+          <div class="guide-section-head">
+            <span class="guide-section-number">02</span>
+            <div><h2>One source of truth, several synchronized views</h2><p>Each panel subscribes to the part of the dashboard state it needs. Memoized selectors prevent repeated filtering work when multiple panels read the same results.</p></div>
+          </div>
+          <figure class="guide-figure">
+            <svg viewBox="0 0 900 340" role="img" aria-labelledby="state-title state-desc">
+              <title id="state-title">Shared earthquake state feeds five dashboard views</title>
+              <desc id="state-desc">A Zustand store holds the dataset and user selections. A memoized derivation pipeline filters and sorts events, then supplies the globe, event list, KPI cards, time histogram and magnitude histogram.</desc>
+              <defs><marker id="state-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#29e2e8" stroke-width="1.5"/></marker></defs>
+              <rect x="32" y="118" width="174" height="94" rx="14" fill="#101b30" stroke="#a08cff" stroke-opacity=".65"/>
+              <text x="72" y="157" fill="#d5ceff" font-size="15" font-family="ui-monospace,monospace">Zustand</text>
+              <text x="56" y="181" fill="#9badc4" font-size="11" font-family="ui-monospace,monospace">dataset · filters · cursor</text>
+              <rect x="276" y="91" width="228" height="148" rx="14" fill="#10203a" stroke="#29e2e8" stroke-opacity=".62"/>
+              <text x="309" y="125" fill="#baf9f5" font-size="13" font-family="ui-monospace,monospace">Memoized selectors</text>
+              <text x="308" y="153" fill="#9badc4" font-size="11" font-family="ui-monospace,monospace">range → magnitude → query</text>
+              <text x="308" y="177" fill="#9badc4" font-size="11" font-family="ui-monospace,monospace">→ playback cursor → sorted</text>
+              <text x="308" y="205" fill="#7489a4" font-size="10" font-family="ui-monospace,monospace">derive once per input change</text>
+              <path d="M209 165h57" stroke="#29e2e8" stroke-width="2" marker-end="url(#state-arrow)"/>
+              <g fill="#101b30" stroke="#3b5875">
+                <rect x="594" y="22" width="226" height="48" rx="11"/><rect x="594" y="84" width="226" height="48" rx="11"/>
+                <rect x="594" y="146" width="226" height="48" rx="11"/><rect x="594" y="208" width="226" height="48" rx="11"/>
+                <rect x="594" y="270" width="226" height="48" rx="11"/>
+              </g>
+              <g fill="#e8f4ff" font-size="12" font-family="ui-monospace,monospace">
+                <text x="621" y="52">3D globe + markers</text><text x="621" y="114">Event list</text>
+                <text x="621" y="176">KPI cards</text><text x="621" y="238">Time histogram</text>
+                <text x="621" y="300">Magnitude histogram</text>
+              </g>
+              <path d="M505 164h45V46h35M550 108h35M550 170h35M550 232h35M550 294h35" fill="none" stroke="#29e2e8" stroke-opacity=".7" stroke-width="1.5"/>
+              <circle cx="550" cy="164" r="4" fill="#29e2e8"/>
+            </svg>
+            <figcaption>Filtering and playback determine one visible set. The full filtered set remains available to the timeline histogram behind the playback cursor.</figcaption>
+          </figure>
+          <div class="guide-callout"><b>Small subscriptions</b><p>Components select only the state they need. Expensive derived arrays are memoized by input identity, so the same filter result can serve several panels without recomputing it for each one.</p></div>
+        </section>
+
+        <section class="guide-section" id="globe">
+          <div class="guide-section-head">
+            <span class="guide-section-number">03</span>
+            <div><h2>Put every event in its place on Earth</h2><p>The 3D scene turns longitude and latitude into globe positions. Instancing keeps marker rendering compact as the event set changes.</p></div>
+          </div>
+          <div class="guide-split">
+            <figure class="guide-figure">
+              <svg viewBox="0 0 720 330" role="img" aria-labelledby="globe-map-title globe-map-desc">
+                <title id="globe-map-title">Earthquake markers arranged on a 3D globe</title>
+                <desc id="globe-map-desc">A stylized globe with magnitude-coded event markers, a highlighted recent pulse and a camera path toward a selected earthquake.</desc>
+                <defs>
+                  <radialGradient id="earth-fill" cx=".32" cy=".28"><stop stop-color="#286a92"/><stop offset=".55" stop-color="#143653"/><stop offset="1" stop-color="#091625"/></radialGradient>
+                  <clipPath id="earth-clip"><circle cx="312" cy="160" r="118"/></clipPath>
+                  <marker id="globe-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#a08cff" stroke-width="1.5"/></marker>
+                </defs>
+                <circle cx="312" cy="160" r="118" fill="url(#earth-fill)" stroke="#64cde4" stroke-opacity=".7" stroke-width="2"/>
+                <g clip-path="url(#earth-clip)" fill="none" stroke="#6daac0" stroke-opacity=".28">
+                  <ellipse cx="312" cy="160" rx="52" ry="118"/><ellipse cx="312" cy="160" rx="92" ry="118"/>
+                  <ellipse cx="312" cy="160" rx="118" ry="42"/><ellipse cx="312" cy="160" rx="118" ry="80"/>
+                  <path d="M194 160h236"/>
+                </g>
+                <g fill="#70ddea">
+                  <circle cx="219" cy="98" r="5"/><circle cx="246" cy="146" r="5"/><circle cx="289" cy="77" r="4"/>
+                  <circle cx="339" cy="112" r="5"/><circle cx="357" cy="172" r="6"/><circle cx="278" cy="208" r="4"/>
+                  <circle cx="386" cy="134" r="4"/><circle cx="232" cy="185" r="5"/>
+                </g>
+                <circle cx="362" cy="197" r="12" fill="none" stroke="#ffb84d" stroke-width="2" opacity=".8"/>
+                <circle cx="362" cy="197" r="5" fill="#ffd166"/>
+                <path d="M373 196 C469 191 479 106 555 111" fill="none" stroke="#a08cff" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#globe-arrow)"/>
+                <rect x="516" y="75" width="161" height="69" rx="12" fill="#101b30" stroke="#a08cff" stroke-opacity=".6"/>
+                <text x="539" y="103" fill="#ded7ff" font-size="12" font-family="ui-monospace,monospace">selected event</text>
+                <text x="539" y="124" fill="#9badc4" font-size="11" font-family="ui-monospace,monospace">camera eases to it</text>
+                <text x="33" y="303" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">MARKER SIZE + COLOUR FOLLOW MAGNITUDE · RECENT EVENTS PULSE IN A SHADER</text>
+              </svg>
+              <figcaption>Schematic globe. The app uses a NASA Blue Marble texture, ocean map, bump map, stars and a Fresnel atmosphere.</figcaption>
+            </figure>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Three.js / React Three Fiber</p>
+              <h3>One instanced mesh for the visible events</h3>
+              <p>Each event becomes a low-poly sphere positioned by latitude and longitude. Magnitude sets marker size and colour; selection and hover add emphasis. All markers share one <code>InstancedMesh</code> draw call.</p>
+              <p>Recent-event pulse rings are animated in a vertex shader. Clicking a marker selects that event and eases the globe camera toward it; markers on the far side are occluded for picking.</p>
+              <ul class="guide-tags"><li>Blue Marble texture</li><li>Fresnel atmosphere</li><li>Shader pulses</li><li>Quaternion camera flight</li></ul>
+            </div>
+          </div>
+          <figure class="guide-image-wide">
+            <img src="../assets/shots/globe-dashboard.webp" alt="The live earthquake dashboard with event selection synchronized between globe, list, timeline and magnitude chart" width="960" height="540" loading="lazy">
+            <figcaption>The globe and surrounding panels represent the same filtered and time-bounded earthquake events.</figcaption>
+          </figure>
+        </section>
+
+        <section class="guide-section" id="time">
+          <div class="guide-section-head">
+            <span class="guide-section-number">04</span>
+            <div><h2>Filter the past, replay it and share a view</h2><p>Time range, magnitude, region, sorting, selection and playback are all part of the dashboard state.</p></div>
+          </div>
+          <div class="guide-panel" data-range-tabs>
+            <p class="guide-panel-kicker">Choose a time window</p>
+            <div class="guide-step-buttons" role="group" aria-label="Explore dashboard time windows">
+              <button class="guide-step-button" type="button" data-range="24h" aria-pressed="false">24 hours</button>
+              <button class="guide-step-button" type="button" data-range="7d" aria-pressed="true">7 days</button>
+              <button class="guide-step-button" type="button" data-range="30d" aria-pressed="false">30 days</button>
+            </div>
+            <p data-range-description aria-live="polite">A one-week view for short-term regional patterns.</p>
+            <p class="guide-small-note">This guide control illustrates the dashboard choices; use the live demo to filter its data.</p>
+          </div>
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Timeline playback</p>
+              <h3>Scrub the whole window or watch it unfold</h3>
+              <p>The time histogram doubles as a scrubber. Drag the cursor to limit the visible events to a moment in the selected window; press Play to replay the full window in 20 seconds. The globe, list, KPIs and magnitude chart follow the cursor together.</p>
+              <div class="guide-timeline" aria-label="Illustrative timeline showing a movable playback cursor">
+                <span class="guide-timeline-label">START</span>
+                <div class="guide-timeline-track">
+                  <i style="--bar:34%"></i><i style="--bar:60%"></i><i style="--bar:43%"></i><i style="--bar:76%"></i><i style="--bar:50%"></i><i style="--bar:91%"></i><i style="--bar:38%"></i><i style="--bar:66%"></i><i style="--bar:56%"></i><i style="--bar:82%"></i><b></b>
+                </div>
+                <span class="guide-timeline-label">NOW</span>
+              </div>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Search and share</p>
+              <h3>Make a dashboard view portable</h3>
+              <p>Region search is debounced and supports region suggestions; the event list can be sorted by latest or strongest. The URL stores the selected range, minimum magnitude, search query, sort and selected event, so the Share action can reproduce a useful view.</p>
+              <pre class="guide-code"><code>?range=30d&amp;mag=4.5
+&amp;q=Japan&amp;sel=us6000…</code></pre>
+            </div>
+          </div>
+          <div class="guide-cards" style="margin-top:17px">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">R</span><strong>Three time ranges</strong><p>24 hours, seven days and thirty days set the time window used for event filtering and chart buckets.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">M</span><strong>Magnitude threshold</strong><p>The slider sets the minimum magnitude; clicking a magnitude-chart bar can set that threshold too.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">Q</span><strong>Region query</strong><p>Search filters place names and regions, with chips for the most active regions in the current window.</p></div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="resilience">
+          <div class="guide-section-head">
+            <span class="guide-section-number">05</span>
+            <div><h2>Make the dashboard usable when the feed is not</h2><p>Data clarity, keyboard access and reduced motion are part of the interface, not afterthoughts.</p></div>
+          </div>
+          <div class="guide-cards">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">!</span><strong>Honest fallback</strong><p>A bundled offline snapshot is marked clearly when the live USGS request cannot be completed.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">⌨</span><strong>Keyboard support</strong><p>The event list is an accessible listbox. Arrow keys, Home, End and Page Up / Page Down move through events.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">◐</span><strong>Comfortable motion</strong><p>Dark and light themes are supported. Reduced-motion preferences turn off auto-rotation, marker pulses and camera flights.</p></div>
+          </div>
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Keyboard shortcuts</p>
+              <ul class="guide-list">
+                <li><code>/</code> — focus region search</li>
+                <li><code>Space</code> — play or pause the timeline</li>
+                <li><code>Esc</code> — clear the current selection</li>
+                <li><code>T</code> — change the theme</li>
+              </ul>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Data and imagery</p>
+              <h3>Public feeds, public-domain textures</h3>
+              <p>Earthquake locations and event metadata come from the USGS Earthquake Hazards Program real-time GeoJSON feeds. The Earth texture is NASA Blue Marble imagery; the bundled snapshot is used only as an offline fallback.</p>
+              <div class="guide-sources" style="margin-top:18px">
+                <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank" rel="noopener">USGS GeoJSON feeds ↗</a>
+                <a href="https://visibleearth.nasa.gov/collection/1484/blue-marble" target="_blank" rel="noopener">NASA Blue Marble ↗</a>
+              </div>
+            </div>
+          </div>
+          <div class="guide-sources" style="margin-top:24px" aria-label="Project resources">
+            <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/data/usgs.ts" target="_blank" rel="noopener">Feed parser + fallback ↗</a>
+            <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/state/selectors.ts" target="_blank" rel="noopener">Memoized selectors ↗</a>
+            <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/components/globe/Markers.tsx" target="_blank" rel="noopener">Instanced markers ↗</a>
+            <a href="https://github.com/iodiot/globe-dashboard/blob/main/README.md" target="_blank" rel="noopener">Project notes ↗</a>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <footer class="guide-footer">
+      <span>Guide — Globe Dashboard</span>
+      <div class="guide-sources">
+        <a href="../">Portfolio</a>
+        <a href="https://iodiot.github.io/globe-dashboard/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/iodiot/globe-dashboard" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
