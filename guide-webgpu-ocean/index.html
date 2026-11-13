@@ -53,17 +53,6 @@
     </section>
 
     <div class="guide-layout">
-      <aside class="guide-toc" aria-label="On this page">
-        <p class="guide-toc-label">On this page</p>
-        <nav>
-          <a href="#pipeline"><b>01</b> From spectrum to surface</a>
-          <a href="#cascades"><b>02</b> Three scales of waves</a>
-          <a href="#fft"><b>03</b> Evolve and transform</a>
-          <a href="#shading"><b>04</b> Shape, foam and light</a>
-          <a href="#controls"><b>05</b> Explore the sea state</a>
-        </nav>
-      </aside>
-
       <article class="guide-article">
         <section class="guide-section" id="pipeline">
           <div class="guide-section-head">
@@ -102,9 +91,8 @@
             <div><h2>Three overlapping scales, without duplicate waves</h2><p>A single patch cannot cover long swells and tiny ripples with enough samples. Three 256 × 256 patches each own a different band of wave numbers.</p></div>
           </div>
           <figure class="guide-figure">
-            <svg viewBox="0 0 900 350" role="img" aria-labelledby="ocean-scale-title ocean-scale-desc">
-              <title id="ocean-scale-title">The three physical scales used by the ocean simulation</title>
-              <desc id="ocean-scale-desc">Three nested patches represent a 250 metre swell, a 37 metre mid-scale wave field and a 7.3 metre ripple patch. They cover long waves down to centimetre-scale ripples.</desc>
+            <svg viewBox="0 0 900 350" role="img" aria-label="The three physical scales used by the ocean simulation" aria-describedby="ocean-scale-desc">
+                <desc id="ocean-scale-desc">Three nested patches represent a 250 metre swell, a 37 metre mid-scale wave field and a 7.3 metre ripple patch. They cover long waves down to centimetre-scale ripples.</desc>
               <defs>
                 <linearGradient id="sea-long" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#39c9e5" stop-opacity=".15"/><stop offset="1" stop-color="#39c9e5" stop-opacity=".03"/></linearGradient>
                 <linearGradient id="sea-mid" x1="0" x2="1"><stop stop-color="#a08cff" stop-opacity=".23"/><stop offset="1" stop-color="#7aa7ff" stop-opacity=".12"/></linearGradient>
@@ -158,8 +146,7 @@
        + conj(h₀(−k)) e^(iωt)</code></pre>
             </div>
             <figure class="guide-figure">
-              <svg viewBox="0 0 720 290" role="img" aria-labelledby="fft-title fft-desc">
-                <title id="fft-title">Two-dimensional inverse FFT passes</title>
+              <svg viewBox="0 0 720 290" role="img" aria-label="Two-dimensional inverse FFT passes" aria-describedby="fft-desc">
                 <desc id="fft-desc">A frequency grid is transformed first by row and then by column into a spatial field of wave heights.</desc>
                 <defs><linearGradient id="fft-wave" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#29e2e8" stop-opacity=".45"/><stop offset=".5" stop-color="#a08cff" stop-opacity=".35"/><stop offset="1" stop-color="#7aa7ff" stop-opacity=".08"/></linearGradient></defs>
                 <rect x="38" y="68" width="132" height="132" rx="12" fill="#0d1627" stroke="#406080"/>
@@ -196,8 +183,7 @@
           </div>
           <div class="guide-split">
             <figure class="guide-figure">
-              <svg viewBox="0 0 780 320" role="img" aria-labelledby="foam-title foam-desc">
-                <title id="foam-title">How a folded wave surface creates whitecaps</title>
+              <svg viewBox="0 0 780 320" role="img" aria-label="How a folded wave surface creates whitecaps" aria-describedby="foam-desc">
                 <desc id="foam-desc">A wave crest sharpens under horizontal displacement. The displacement Jacobian drops below a threshold and injects foam, which then fades over time.</desc>
                 <defs><linearGradient id="foam-surface" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#65dce2" stop-opacity=".55"/><stop offset="1" stop-color="#19738a" stop-opacity=".12"/></linearGradient></defs>
                 <path d="M44 228 C101 226 118 92 185 104 C251 115 233 226 302 222 C371 217 385 82 451 96 C518 111 506 226 579 216 C645 207 672 125 736 142 L736 269 44 269Z" fill="url(#foam-surface)" stroke="#4de1e2" stroke-width="3"/>
