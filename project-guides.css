@@ -65,8 +65,8 @@ body.guide::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:no
 .guide-fact::after{content:"";position:absolute;right:-24px;top:-26px;width:90px;height:90px;border:1px solid rgba(41,226,232,.13);border-radius:50%}
 .guide-fact strong{display:block;color:var(--guide-accent);font:750 clamp(29px,3vw,42px)/1 var(--guide-mono);letter-spacing:-.06em}
 .guide-fact span{display:block;margin-top:10px;color:var(--guide-muted);font-size:13px}
-.guide-layout{padding-bottom:90px}
-.guide-article{max-width:1280px;margin:0 auto;min-width:0}
+.guide-layout{display:block;width:100%;padding-bottom:90px}
+.guide-article{display:block;width:100%;max-width:1280px;margin:0 auto;min-width:0}
 .guide-section{scroll-margin-top:92px;padding:0 0 clamp(56px,7vw,92px);margin:0 0 clamp(56px,7vw,86px);border-bottom:1px solid rgba(136,170,222,.13)}
 .guide-section:last-child{margin-bottom:0;border:0}
 .guide-section-head{display:grid;grid-template-columns:58px minmax(0,1fr);gap:17px;align-items:start;margin-bottom:28px}
