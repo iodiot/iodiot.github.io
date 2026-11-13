@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b15">
+  <meta name="description" content="Guide — WebGPU Crowd: a visual technical walkthrough of GPU-resident boids, spatial hashing, compute passes and instanced rendering.">
+  <title>Guide — WebGPU Crowd · Mike Smahin</title>
+  <link rel="stylesheet" href="../project-guides.css">
+  <script src="../project-guides.js" defer></script>
+</head>
+<body class="guide guide-crowd">
+  <a class="guide-skip" href="#main">Skip to the guide</a>
+  <div class="progress-track" aria-hidden="true"><i id="guide-progress"></i></div>
+  <header class="guide-topbar">
+    <a class="guide-brand" href="../" aria-label="Mike Smahin portfolio">
+      <span class="guide-brand-mark">MS</span><span>Mike Smahin</span><span>/ Guide — WebGPU Crowd</span>
+    </a>
+    <nav class="guide-toplinks" aria-label="Project links">
+      <a href="../">Portfolio</a>
+      <a href="https://github.com/iodiot/webgpu-crowd" target="_blank" rel="noopener">Code</a>
+      <a class="primary" href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener">Live demo <span class="guide-arrow" aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main" class="guide-wrap">
+    <section class="guide-hero" aria-labelledby="page-title">
+      <div>
+        <p class="guide-eyebrow">Interactive systems · WebGPU / WGSL</p>
+        <h1 id="page-title">A crowd that <em>stays on the GPU.</em></h1>
+        <p class="guide-lead">How a boids simulation scales to 100,000 agents by keeping state on the GPU, sorting neighbours into a spatial grid, and drawing every pedestrian in one instanced call.</p>
+        <ul class="guide-tags" aria-label="Technologies">
+          <li>Raw WebGPU</li><li>WGSL compute</li><li>Spatial hashing</li><li>Instancing</li><li>TypeScript</li>
+        </ul>
+        <div class="guide-hero-actions">
+          <a class="primary" href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener">Open the live demo <span class="guide-arrow" aria-hidden="true">↗</span></a>
+          <a href="https://github.com/iodiot/webgpu-crowd" target="_blank" rel="noopener">Explore the source <span class="guide-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="guide-hero-visual">
+        <div class="guide-visual-orbit" aria-hidden="true"></div>
+        <figure class="guide-hero-image">
+          <img src="../assets/shots/webgpu-crowd.webp" alt="A dense crowd of small, brightly coloured agents moving around circular obstacles on a dark grid" width="960" height="540">
+          <figcaption class="guide-image-caption"><span>100K AGENTS · GPU COMPUTE</span><span>REAL DEMO CAPTURE</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="guide-facts" aria-label="At a glance">
+      <div class="guide-fact"><strong>100,000</strong><span>agents supported by the simulation</span></div>
+      <div class="guide-fact"><strong>5</strong><span>compute dispatches in each simulation step</span></div>
+      <div class="guide-fact"><strong>0</strong><span>per-agent CPU updates per frame</span></div>
+    </section>
+
+    <div class="guide-layout">
+      <aside class="guide-toc" aria-label="On this page">
+        <p class="guide-toc-label">On this page</p>
+        <nav>
+          <a href="#frame"><b>01</b> One frame, five passes</a>
+          <a href="#neighbours"><b>02</b> Find nearby agents</a>
+          <a href="#steering"><b>03</b> Turn local rules into motion</a>
+          <a href="#rendering"><b>04</b> Draw without copying state</a>
+          <a href="#tuning"><b>05</b> Tune the simulation</a>
+        </nav>
+      </aside>
+
+      <article class="guide-article">
+        <section class="guide-section" id="frame">
+          <div class="guide-section-head">
+            <span class="guide-section-number">01</span>
+            <div><h2>One frame, five compute passes</h2><p>The simulation step is a short GPU pipeline. Each pass prepares the data the next one needs, then the renderer reads the newest state.</p></div>
+          </div>
+          <div class="guide-panel" data-stepper>
+            <div class="guide-flow" aria-label="Crowd simulation compute pipeline">
+              <div class="guide-flow-step" data-diagram-step="clearGrid"><strong>clearGrid</strong><span>Reset cell counts</span></div>
+              <div class="guide-flow-step" data-diagram-step="countAgents"><strong>countAgents</strong><span>Hash agents to cells</span></div>
+              <div class="guide-flow-step" data-diagram-step="scanCells"><strong>scanCells</strong><span>Build cell offsets</span></div>
+              <div class="guide-flow-step" data-diagram-step="scatter"><strong>scatter</strong><span>Sort agent indices</span></div>
+              <div class="guide-flow-step" data-diagram-step="steer"><strong>steer</strong><span>Update every agent</span></div>
+            </div>
+            <div class="guide-stepper">
+              <div class="guide-step-buttons" role="group" aria-label="Inspect a compute pass">
+                <button class="guide-step-button" type="button" data-step="clearGrid">1 · Clear</button>
+                <button class="guide-step-button" type="button" data-step="countAgents">2 · Count</button>
+                <button class="guide-step-button" type="button" data-step="scanCells">3 · Scan</button>
+                <button class="guide-step-button" type="button" data-step="scatter">4 · Scatter</button>
+                <button class="guide-step-button" type="button" data-step="steer">5 · Steer</button>
+              </div>
+              <div class="guide-step-panel" data-panel="clearGrid">
+                <h3>Start with a clean grid</h3><p>The <code>clearGrid</code> kernel resets the atomic count for every cell. This makes the data structure reusable each frame without rebuilding it on the CPU.</p>
+              </div>
+              <div class="guide-step-panel" data-panel="countAgents" hidden>
+                <h3>Count and record each agent’s cell</h3><p><code>countAgents</code> maps each position to a grid cell. An atomic increment gives that agent a unique slot inside the cell, stored in a compact per-agent buffer.</p>
+              </div>
+              <div class="guide-step-panel" data-panel="scanCells" hidden>
+                <h3>Turn counts into starting offsets</h3><p>An exclusive prefix sum converts per-cell counts into ranges in one packed index array. A single 256-thread workgroup scans the current 80 × 80 grid.</p>
+              </div>
+              <div class="guide-step-panel" data-panel="scatter" hidden>
+                <h3>Pack indices by cell</h3><p>Each agent writes its index to <code>cellStart[cell] + slot</code>. The result is a contiguous list of neighbours for every cell, ready for local queries.</p>
+              </div>
+              <div class="guide-step-panel" data-panel="steer" hidden>
+                <h3>Read old state; write new state</h3><p><code>steer</code> computes neighbour forces and integrates motion into the other state buffer. The input and output buffers alternate each frame, so a thread never overwrites data another thread still needs to read.</p>
+              </div>
+            </div>
+          </div>
+          <div class="guide-callout"><b>Why one pass?</b><p>WebGPU inserts the required storage barriers between dispatches in the same compute pass. The CPU encodes the work but does not wait for individual agents or read their positions back.</p></div>
+          <div class="guide-table-wrap">
+            <table class="guide-table">
+              <caption>GPU buffers used by the simulation</caption>
+              <thead><tr><th scope="col">Buffer</th><th scope="col">Contents</th><th scope="col">Why it exists</th></tr></thead>
+              <tbody>
+                <tr><td>agentsA / agentsB</td><td>100,000 × vec4f: position, velocity</td><td>Ping-pong state for race-free updates</td></tr>
+                <tr><td>meta</td><td>100,000 × vec4f: goal, speed scale, goal index</td><td>Per-agent steering metadata</td></tr>
+                <tr><td>cellCount</td><td>6,400 atomic counters</td><td>Number of agents assigned to each grid cell</td></tr>
+                <tr><td>cellStart</td><td>6,400 u32 offsets</td><td>Start of each cell’s range in the packed index list</td></tr>
+                <tr><td>agentCell</td><td>100,000 × vec2u: cell and slot</td><td>Where each agent was counted</td></tr>
+                <tr><td>sortedIdx</td><td>100,000 u32 indices</td><td>Agents packed contiguously by cell</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="guide-section" id="neighbours">
+          <div class="guide-section-head">
+            <span class="guide-section-number">02</span>
+            <div><h2>Find nearby agents without checking everyone</h2><p>Testing every pair would grow quadratically. A uniform spatial hash narrows each agent’s search to the cells around it.</p></div>
+          </div>
+          <div class="guide-split">
+            <figure class="guide-figure">
+              <svg viewBox="0 0 720 320" role="img" aria-labelledby="crowd-grid-title crowd-grid-desc">
+                <title id="crowd-grid-title">Spatial grid with a nine-cell neighbour search</title>
+                <desc id="crowd-grid-desc">An example agent at the centre checks the surrounding three by three grid cells. Nearby agents are highlighted; distant cells are skipped.</desc>
+                <defs>
+                  <pattern id="crowd-grid" width="54" height="44" patternUnits="userSpaceOnUse"><path d="M54 0H0V44" fill="none" stroke="#253955" stroke-width="1"/></pattern>
+                  <linearGradient id="crowd-focus" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#29e2e8" stop-opacity=".28"/><stop offset="1" stop-color="#a08cff" stop-opacity=".13"/></linearGradient>
+                </defs>
+                <rect x="86" y="35" width="540" height="220" rx="12" fill="url(#crowd-grid)" stroke="#2b405e"/>
+                <rect x="302" y="79" width="162" height="132" rx="7" fill="url(#crowd-focus)" stroke="#29e2e8" stroke-width="2"/>
+                <g fill="#8ca0bb" opacity=".8">
+                  <circle cx="136" cy="58" r="5"/><circle cx="245" cy="105" r="5"/><circle cx="570" cy="81" r="5"/>
+                  <circle cx="191" cy="189" r="5"/><circle cx="518" cy="230" r="5"/><circle cx="597" cy="189" r="5"/>
+                </g>
+                <g fill="#52e6df">
+                  <circle cx="329" cy="101" r="6"/><circle cx="389" cy="91" r="6"/><circle cx="442" cy="122" r="6"/>
+                  <circle cx="351" cy="179" r="6"/><circle cx="460" cy="187" r="6"/><circle cx="318" cy="150" r="6"/>
+                </g>
+                <circle cx="388" cy="145" r="12" fill="#fff" stroke="#29e2e8" stroke-width="5"/>
+                <path d="M388 146 510 74" fill="none" stroke="#29e2e8" stroke-width="1.5" stroke-dasharray="5 6"/>
+                <rect x="493" y="43" width="129" height="34" rx="8" fill="#101b30" stroke="#29e2e8" stroke-opacity=".5"/>
+                <text x="507" y="65" fill="#d7f8f7" font-size="13" font-family="ui-monospace,monospace">query 3 × 3 cells</text>
+                <text x="87" y="284" fill="#8b9eb6" font-size="12" font-family="ui-monospace,monospace">2-unit cells · neighbours farther away are not visited</text>
+              </svg>
+              <figcaption>Illustrative layout, not to scale. The 3 × 3 neighbourhood is sufficient because cell size is at least the neighbour radius.</figcaption>
+            </figure>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Spatial hash</p>
+              <h3>Turn positions into short lists</h3>
+              <p>The world is split into <strong>6,400 cells</strong> (80 × 80), each two world units wide. During counting, agents atomically reserve a slot in their cell; after the scan, the sorted index buffer makes each cell’s occupants contiguous.</p>
+              <pre class="guide-code"><code><span class="comment">// Count each agent into its cell</span>
+let c = cellIndex(cellCoord(agentsIn[i].xy));
+let slot = atomicAdd(&amp;cellCount[c], 1u);
+agentCell[i] = vec2u(c, slot);
+
+<span class="comment">// Later, inspect the local 3 × 3 cells</span>
+for (var dy = -1; dy &lt;= 1; dy++) {
+  for (var dx = -1; dx &lt;= 1; dx++) {
+    inspect(cellCoord + vec2i(dx, dy));
+  }
+}</code></pre>
+              <p class="guide-panel-kicker" style="margin-top:19px">Bounded work</p>
+              <p>Neighbour iteration is capped at <strong>32 agents per cell</strong>. This bounds the worst case when a large group collapses into one cell, while ordinary cells remain sparse.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="steering">
+          <div class="guide-section-head">
+            <span class="guide-section-number">03</span>
+            <div><h2>Turn local rules into a moving crowd</h2><p>Each agent applies classic boids behaviours to nearby neighbours, then adds a destination and obstacle avoidance.</p></div>
+          </div>
+          <div class="guide-cards">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">01</span><strong>Separation</strong><p>Steer away from nearby agents. The shader weights displacement more strongly at short distances to reduce collisions.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">02</span><strong>Alignment</strong><p>Blend toward the average heading of neighbours inside the radius so local groups move in a shared direction.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">03</span><strong>Cohesion</strong><p>Head toward the neighbours’ average position to keep a flock connected without forcing every agent into one point.</p></div>
+          </div>
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">More than flocking</p>
+              <h3>Destinations, obstacles and limits</h3>
+              <p>Six moving streams of pedestrians have individual goals on a ring. Goal seeking pulls each agent toward its current destination; obstacle avoidance combines a look-ahead with a tangential force so traffic flows around obstacles. The shader then clamps acceleration and speed, integrates the position and enforces a hard non-penetration constraint.</p>
+              <div class="guide-callout"><b>Weights</b><p>Separation, alignment, cohesion, goal seeking and obstacle avoidance are live controls. Their balance changes the character of the crowd without changing the data pipeline.</p></div>
+            </div>
+            <figure class="guide-figure">
+              <svg viewBox="0 0 720 290" role="img" aria-labelledby="crowd-rules-title crowd-rules-desc">
+                <title id="crowd-rules-title">Steering forces around a pedestrian</title>
+                <desc id="crowd-rules-desc">A central agent combines arrows for separation, alignment, cohesion, goal seeking and obstacle avoidance into a resulting direction.</desc>
+                <defs><marker id="crowd-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#29e2e8" stroke-width="1.5"/></marker></defs>
+                <circle cx="272" cy="145" r="83" fill="none" stroke="#2b405e" stroke-dasharray="4 6"/>
+                <circle cx="272" cy="145" r="18" fill="#fff" stroke="#29e2e8" stroke-width="5"/>
+                <g fill="#7aa7ff"><circle cx="228" cy="100" r="8"/><circle cx="333" cy="117" r="8"/><circle cx="229" cy="191" r="8"/></g>
+                <g fill="#ff9e76"><circle cx="358" cy="173" r="8"/><circle cx="303" cy="214" r="8"/></g>
+                <circle cx="470" cy="180" r="38" fill="#211c35" stroke="#a08cff" stroke-width="2"/>
+                <path d="M290 139 418 100" fill="none" stroke="#29e2e8" stroke-width="3" marker-end="url(#crowd-arrow)"/>
+                <path d="M290 151 418 167" fill="none" stroke="#a08cff" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#crowd-arrow)"/>
+                <text x="110" y="54" fill="#b8c9de" font-size="13" font-family="ui-monospace,monospace">LOCAL NEIGHBOURS</text>
+                <text x="449" y="185" fill="#d8cef9" font-size="11" font-family="ui-monospace,monospace">OBSTACLE</text>
+                <text x="431" y="73" fill="#74eeeb" font-size="12" font-family="ui-monospace,monospace">weighted force</text>
+                <text x="431" y="151" fill="#bdaeff" font-size="12" font-family="ui-monospace,monospace">safe flow around</text>
+                <text x="85" y="267" fill="#8b9eb6" font-size="12" font-family="ui-monospace,monospace">BOIDS RULES + GOALS + OBSTACLE AVOIDANCE</text>
+              </svg>
+              <figcaption>Each thread computes one agent’s new velocity and position from its local neighbourhood and per-agent goal metadata.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="guide-section" id="rendering">
+          <div class="guide-section-head">
+            <span class="guide-section-number">04</span>
+            <div><h2>Draw the crowd without copying its state</h2><p>Simulation buffers stay GPU-resident. A vertex shader reads the current state directly for each rendered instance.</p></div>
+          </div>
+          <div class="guide-split">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Ping-pong state</p>
+              <h3>Two buffers, alternating roles</h3>
+              <p>Every agent is stored as <code>vec4(position.x, position.z, velocity.x, velocity.z)</code>. One buffer is read as the current state while the other receives the next state; their roles swap after a simulation step.</p>
+              <pre class="guide-code"><code>agentsA ──read──▶ compute ──write──▶ agentsB
+   ▲                                  │
+   └──────────── next frame ──────────┘</code></pre>
+              <p>The renderer uses the same uniform buffer for shared parameters and obstacle placement. Agent geometry, positions and velocities are not uploaded as per-frame CPU arrays.</p>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Instanced rendering</p>
+              <h3>One pedestrian mesh, many agents</h3>
+              <p>A procedural low-poly pedestrian mesh is drawn for every active instance. In the vertex shader, <code>instance_index</code> selects its agent state; velocity sets orientation, with a small lean and walking bob. The destination index supplies its colour.</p>
+              <ul class="guide-tags">
+                <li>1 instanced draw</li><li>No instance vertex buffer</li><li>4× MSAA</li><li>GPU timestamp query</li>
+              </ul>
+              <p>The ground grid, obstacles and agents share one MSAA render pass. The camera orbits independently of the simulation.</p>
+            </div>
+          </div>
+          <figure class="guide-image-wide">
+            <img src="../assets/shots/webgpu-crowd.webp" alt="Thousands of colourful agents streaming around obstacles, demonstrating the instanced crowd rendering" width="960" height="540" loading="lazy">
+            <figcaption>The demo keeps both agent state and neighbour lookup data in GPU buffers between frames.</figcaption>
+          </figure>
+        </section>
+
+        <section class="guide-section" id="tuning">
+          <div class="guide-section-head">
+            <span class="guide-section-number">05</span>
+            <div><h2>Tune the workload and watch the GPU</h2><p>Agent count changes dispatch size and instance count. The buffers are allocated for the maximum once, so changing the count does not reallocate them.</p></div>
+          </div>
+          <div class="guide-split">
+            <div class="guide-panel" data-agent-estimator>
+              <p class="guide-panel-kicker">Dispatch sizing illustration</p>
+              <h3>How many steering workgroups?</h3>
+              <p>Each workgroup has 256 threads. The slider shows the number of workgroups needed for the steering kernel at a chosen active-agent count.</p>
+              <div class="guide-range-row">
+                <label for="agent-count">Agents</label>
+                <input id="agent-count" type="range" min="1000" max="100000" step="1000" value="10000">
+                <output data-agent-count for="agent-count">10,000</output>
+              </div>
+              <div class="guide-estimate"><strong data-workgroup-count>40</strong><span>steer workgroups<br>ceil(agents ÷ 256)</span></div>
+              <div class="guide-load-bar" aria-hidden="true"><i data-load-meter style="--meter:10%"></i></div>
+              <p class="guide-small-note">This illustrates dispatch sizing; it is not an FPS or GPU-time benchmark.</p>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Measure, then adjust</p>
+              <h3>What the live controls expose</h3>
+              <ul class="guide-list">
+                <li>Agent count from 1,000 to 100,000 and maximum speed.</li>
+                <li>Neighbour radius, constrained to fit within the two-unit cell size.</li>
+                <li>Separation, alignment, cohesion, goal seeking and obstacle avoidance weights.</li>
+                <li>Time scale, pause and re-seed controls.</li>
+                <li>FPS, frame time and GPU time where <code>timestamp-query</code> is supported.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="guide-callout"><b>Try it</b><p>Open the demo and compare the GPU-time readout as you raise the agent count. The bottleneck can shift: at high counts, vertex and raster work may cost more than the simulation itself.</p></div>
+          <div class="guide-sources" style="margin-top:24px" aria-label="Project resources">
+            <a href="https://github.com/iodiot/webgpu-crowd/blob/main/src/sim/CrowdSim.ts" target="_blank" rel="noopener">Simulation encoder ↗</a>
+            <a href="https://github.com/iodiot/webgpu-crowd/blob/main/src/sim/shaders.ts" target="_blank" rel="noopener">WGSL kernels ↗</a>
+            <a href="https://github.com/iodiot/webgpu-crowd/blob/main/README.md" target="_blank" rel="noopener">Project notes ↗</a>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <footer class="guide-footer">
+      <span>Guide — WebGPU Crowd</span>
+      <div class="guide-sources">
+        <a href="../">Portfolio</a>
+        <a href="https://iodiot.github.io/webgpu-crowd/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/iodiot/webgpu-crowd" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
