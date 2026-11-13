@@ -48,6 +48,40 @@
     update();
   });
 
+  document.querySelectorAll("[data-quake-example]").forEach((root) => {
+    const magnitude = Number(root.dataset.magnitude);
+    const place = root.dataset.place || "";
+    const minimumInput = root.querySelector("input[type='range']");
+    const queryInput = root.querySelector("input[type='search']");
+    const minimumOutput = root.querySelector("[data-example-mag-output]");
+    const result = root.querySelector("[data-matches]");
+    const heading = root.querySelector("[data-example-result-heading]");
+    const detail = root.querySelector("[data-example-result-detail]");
+    if (!minimumInput || !queryInput || !result || !heading || !detail) return;
+    const update = () => {
+      const minimum = Number(minimumInput.value);
+      const query = queryInput.value.trim();
+      const magnitudeMatches = magnitude >= minimum;
+      const placeMatches = !query || place.toLowerCase().includes(query.toLowerCase());
+      const included = magnitudeMatches && placeMatches;
+      if (minimumOutput) minimumOutput.textContent = `M${minimum.toFixed(1)}+`;
+      minimumInput.setAttribute("aria-valuetext", `M${minimum.toFixed(1)} and above`);
+      result.dataset.matches = String(included);
+      heading.textContent = included ? "Included" : "Filtered out";
+      if (included) {
+        detail.textContent = `M${magnitude.toFixed(1)} meets the M${minimum.toFixed(1)} minimum${query ? `, and the place contains “${query}” (case-insensitive).` : "; no place text filter is active."}`;
+      } else {
+        const reasons = [];
+        if (!magnitudeMatches) reasons.push(`M${magnitude.toFixed(1)} is below the M${minimum.toFixed(1)} minimum`);
+        if (!placeMatches) reasons.push(`the place does not contain “${query}”`);
+        detail.textContent = reasons.join("; ") + ".";
+      }
+    };
+    minimumInput.addEventListener("input", update);
+    queryInput.addEventListener("input", update);
+    update();
+  });
+
   document.querySelectorAll("[data-range-tabs]").forEach((root) => {
     const buttons = [...root.querySelectorAll("[data-range]")];
     const output = root.querySelector("[data-range-description]");
@@ -67,20 +101,4 @@
     });
   });
 
-  const sections = [...document.querySelectorAll(".guide-section[id]")];
-  const tocLinks = [...document.querySelectorAll(".guide-toc a[href^='#']")];
-  if ("IntersectionObserver" in window && sections.length && tocLinks.length) {
-    const linkById = new Map(tocLinks.map((link) => [link.hash.slice(1), link]));
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (!visible.length) return;
-      tocLinks.forEach((link) => {
-        const active = link === linkById.get(visible[0].target.id);
-        link.classList.toggle("active", active);
-        if (active) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      });
-    }, { rootMargin: "-22% 0px -62% 0px", threshold: [0, .2, .5, 1] });
-    sections.forEach((section) => observer.observe(section));
-  }
 })();
