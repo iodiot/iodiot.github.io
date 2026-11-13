@@ -53,17 +53,6 @@
     </section>
 
     <div class="guide-layout">
-      <aside class="guide-toc" aria-label="On this page">
-        <p class="guide-toc-label">On this page</p>
-        <nav>
-          <a href="#frame"><b>01</b> One frame, five passes</a>
-          <a href="#neighbours"><b>02</b> Find nearby agents</a>
-          <a href="#steering"><b>03</b> Turn local rules into motion</a>
-          <a href="#rendering"><b>04</b> Draw without copying state</a>
-          <a href="#tuning"><b>05</b> Tune the simulation</a>
-        </nav>
-      </aside>
-
       <article class="guide-article">
         <section class="guide-section" id="frame">
           <div class="guide-section-head">
@@ -127,8 +116,7 @@
           </div>
           <div class="guide-split">
             <figure class="guide-figure">
-              <svg viewBox="0 0 720 320" role="img" aria-labelledby="crowd-grid-title crowd-grid-desc">
-                <title id="crowd-grid-title">Spatial grid with a nine-cell neighbour search</title>
+              <svg viewBox="0 0 720 320" role="img" aria-label="Spatial grid with a nine-cell neighbour search" aria-describedby="crowd-grid-desc">
                 <desc id="crowd-grid-desc">An example agent at the centre checks the surrounding three by three grid cells. Nearby agents are highlighted; distant cells are skipped.</desc>
                 <defs>
                   <pattern id="crowd-grid" width="54" height="44" patternUnits="userSpaceOnUse"><path d="M54 0H0V44" fill="none" stroke="#253955" stroke-width="1"/></pattern>
@@ -191,8 +179,7 @@ for (var dy = -1; dy &lt;= 1; dy++) {
               <div class="guide-callout"><b>Weights</b><p>Separation, alignment, cohesion, goal seeking and obstacle avoidance are live controls. Their balance changes the character of the crowd without changing the data pipeline.</p></div>
             </div>
             <figure class="guide-figure">
-              <svg viewBox="0 0 720 290" role="img" aria-labelledby="crowd-rules-title crowd-rules-desc">
-                <title id="crowd-rules-title">Steering forces around a pedestrian</title>
+              <svg viewBox="0 0 720 290" role="img" aria-label="Steering forces around a pedestrian" aria-describedby="crowd-rules-desc">
                 <desc id="crowd-rules-desc">A central agent combines arrows for separation, alignment, cohesion, goal seeking and obstacle avoidance into a resulting direction.</desc>
                 <defs><marker id="crowd-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#29e2e8" stroke-width="1.5"/></marker></defs>
                 <circle cx="272" cy="145" r="83" fill="none" stroke="#2b405e" stroke-dasharray="4 6"/>
