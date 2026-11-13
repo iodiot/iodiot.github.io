@@ -53,17 +53,6 @@
     </section>
 
     <div class="guide-layout">
-      <aside class="guide-toc" aria-label="On this page">
-        <p class="guide-toc-label">On this page</p>
-        <nav>
-          <a href="#data"><b>01</b> From USGS feed to typed events</a>
-          <a href="#state"><b>02</b> One state, many views</a>
-          <a href="#globe"><b>03</b> Put every event on Earth</a>
-          <a href="#time"><b>04</b> Filter, scrub and share</a>
-          <a href="#resilience"><b>05</b> Design for failure and access</a>
-        </nav>
-      </aside>
-
       <article class="guide-article">
         <section class="guide-section" id="data">
           <div class="guide-section-head">
@@ -100,8 +89,7 @@
               <p>If the network or USGS is unavailable, the app loads a bundled snapshot instead. The dashboard labels the data as a snapshot and shows a banner so the fallback is visible to the reader.</p>
             </div>
             <figure class="guide-figure">
-              <svg viewBox="0 0 720 260" role="img" aria-labelledby="feed-title feed-desc">
-                <title id="feed-title">Live and fallback earthquake data paths</title>
+              <svg viewBox="0 0 720 260" role="img" aria-label="Live and fallback earthquake data paths" aria-describedby="feed-desc">
                 <desc id="feed-desc">The initial USGS month feed and a bundled offline snapshot both lead to the same parser and dashboard state. The live path also merges a refreshed day feed every five minutes.</desc>
                 <rect x="26" y="34" width="191" height="67" rx="12" fill="#10203a" stroke="#29e2e8" stroke-opacity=".55"/>
                 <text x="48" y="61" fill="#baf9f5" font-size="13" font-family="ui-monospace,monospace">USGS 30-day</text>
@@ -132,15 +120,111 @@
           </div>
         </section>
 
-        <section class="guide-section" id="state">
+        <section class="guide-section" id="example">
           <div class="guide-section-head">
             <span class="guide-section-number">02</span>
+            <div><h2>From one GeoJSON row to dashboard numbers</h2><p>Follow an actual snapshot event through normalization, filtering and the calculations used by the dashboard cards and charts.</p></div>
+          </div>
+          <div class="guide-data-demo">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Input · USGS GeoJSON</p>
+              <pre class="guide-code"><code>{
+  "id": "us6000u3fy",
+  "geometry": { "coordinates": [-103.289, 31.978, 5.4] },
+  "properties": {
+    "mag": 2.7,
+    "place": "17 km SSW of Jal, New Mexico",
+    "sig": 112, "tsunami": 0, "felt": null
+  }
+}</code></pre>
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <caption>How the parser turns that row into a typed event</caption>
+                  <tbody>
+                    <tr><td>coordinates</td><td>lon −103.289°, lat 31.978°, depth 5.4 km (GeoJSON order is longitude, latitude, depth)</td></tr>
+                    <tr><td>mag 2.7</td><td>Rounded to one decimal place; stored as 2.7</td></tr>
+                    <tr><td>place</td><td>Kept for display and search; the final comma-separated part gives region “New Mexico”</td></tr>
+                    <tr><td>sig / tsunami / felt</td><td>112 / false / 0 — null felt reports become zero, and tsunami is true only when the source flag is 1</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="guide-panel" data-quake-example data-magnitude="2.7" data-place="17 km SSW of Jal, New Mexico">
+              <p class="guide-panel-kicker">Try the filter rules</p>
+              <h3>Why does this event appear?</h3>
+              <p>The dashboard first checks that an event timestamp falls inside the selected time window. Then it applies the minimum magnitude and a case-insensitive substring search over the place name.</p>
+              <div class="guide-range-row">
+                <label for="example-min-mag">Minimum magnitude</label>
+                <input id="example-min-mag" type="range" min="2.5" max="7" step="0.5" value="2.5" aria-label="Minimum magnitude for the example event">
+                <output for="example-min-mag" data-example-mag-output>M2.5+</output>
+              </div>
+              <label for="example-place-query" class="guide-panel-kicker" style="margin-top:20px">Place contains</label>
+              <input id="example-place-query" class="guide-search-input" type="search" value="New Mexico" autocomplete="off" aria-describedby="example-filter-help">
+              <p id="example-filter-help" class="guide-small-note">For this one-row demo, assume the event is inside the selected time window.</p>
+              <div class="guide-filter-result" data-matches="true" role="status" aria-live="polite">
+                <strong data-example-result-heading>Included</strong>
+                <span data-example-result-detail>M2.7 meets the M2.5 minimum, and the place contains “New Mexico”.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="guide-panel" style="margin-top:17px">
+            <p class="guide-panel-kicker">Output · three bundled snapshot rows</p>
+            <p class="guide-small-note">Illustrative sample only. These values are calculated from the three rows below, not from the live feed or the full snapshot.</p>
+            <div class="guide-table-wrap">
+              <table class="guide-table">
+                <caption>Three events used in the worked calculation</caption>
+                <thead><tr><th>USGS ID</th><th>Place</th><th>Magnitude</th><th>Significance</th><th>Tsunami</th><th>Felt</th></tr></thead>
+                <tbody>
+                  <tr><td>us6000u3fy</td><td>Jal, New Mexico</td><td>2.7</td><td>112</td><td>No</td><td>0</td></tr>
+                  <tr><td>us6000u3ft</td><td>South Sandwich Islands region</td><td>5.1</td><td>400</td><td>No</td><td>0</td></tr>
+                  <tr><td>us6000u3fl</td><td>Lovington, New Mexico</td><td>3.3</td><td>168</td><td>No</td><td>0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-cards" style="margin-top:17px">
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">Σ</span><strong>Event count · 3</strong><p>One count for each event in the filtered set.</p></div>
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">↑</span><strong>Strongest · M5.1</strong><p>Maximum magnitude: max(2.7, 5.1, 3.3) = 5.1.</p></div>
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">μ</span><strong>Mean · M3.70</strong><p>(2.7 + 5.1 + 3.3) ÷ 3 = 3.70.</p></div>
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">S</span><strong>Significant · 0</strong><p>Count events with USGS significance score ≥ 600; none of these three qualify.</p></div>
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">T</span><strong>Tsunami · 0</strong><p>Count records whose normalized tsunami flag is true.</p></div>
+              <div class="guide-mini-card"><span class="icon" aria-hidden="true">F</span><strong>Felt reports · 0</strong><p>Sum the felt-report counts; missing values were normalized to zero.</p></div>
+            </div>
+          </div>
+
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Magnitude histogram</p>
+              <h3>Count events in half-magnitude bins</h3>
+              <div class="guide-table-wrap">
+                <table class="guide-table">
+                  <thead><tr><th>Magnitude bin</th><th>Events</th></tr></thead>
+                  <tbody><tr><td>M2.5–2.9</td><td>1</td></tr><tr><td>M3.0–3.4</td><td>1</td></tr><tr><td>M5.0–5.4</td><td>1</td></tr></tbody>
+                </table>
+              </div>
+              <p class="guide-small-note">Bins advance by 0.5 magnitude. Clicking a bar in the live dashboard applies that bin's lower edge as the minimum magnitude.</p>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Timeline histogram</p>
+              <h3>Change bucket width with the selected range</h3>
+              <ul class="guide-list">
+                <li>24 hours → one-hour buckets</li>
+                <li>7 days → six-hour buckets</li>
+                <li>30 days → one-day buckets</li>
+              </ul>
+              <p>The chart counts events per bucket and records each bucket’s maximum magnitude. It keeps the full filtered time window while playback moves the visible globe, list and KPI set.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="state">
+          <div class="guide-section-head">
+            <span class="guide-section-number">03</span>
             <div><h2>One source of truth, several synchronized views</h2><p>Each panel subscribes to the part of the dashboard state it needs. Memoized selectors prevent repeated filtering work when multiple panels read the same results.</p></div>
           </div>
           <figure class="guide-figure">
-            <svg viewBox="0 0 900 340" role="img" aria-labelledby="state-title state-desc">
-              <title id="state-title">Shared earthquake state feeds five dashboard views</title>
-              <desc id="state-desc">A Zustand store holds the dataset and user selections. A memoized derivation pipeline filters and sorts events, then supplies the globe, event list, KPI cards, time histogram and magnitude histogram.</desc>
+            <svg viewBox="0 0 900 340" role="img" aria-label="Shared earthquake state feeds five dashboard views" aria-describedby="state-desc">
+                <desc id="state-desc">A Zustand store holds the dataset and user selections. A memoized derivation pipeline filters and sorts events, then supplies the globe, event list, KPI cards, time histogram and magnitude histogram.</desc>
               <defs><marker id="state-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#29e2e8" stroke-width="1.5"/></marker></defs>
               <rect x="32" y="118" width="174" height="94" rx="14" fill="#101b30" stroke="#a08cff" stroke-opacity=".65"/>
               <text x="72" y="157" fill="#d5ceff" font-size="15" font-family="ui-monospace,monospace">Zustand</text>
@@ -171,13 +255,12 @@
 
         <section class="guide-section" id="globe">
           <div class="guide-section-head">
-            <span class="guide-section-number">03</span>
+            <span class="guide-section-number">04</span>
             <div><h2>Put every event in its place on Earth</h2><p>The 3D scene turns longitude and latitude into globe positions. Instancing keeps marker rendering compact as the event set changes.</p></div>
           </div>
           <div class="guide-split">
             <figure class="guide-figure">
-              <svg viewBox="0 0 720 330" role="img" aria-labelledby="globe-map-title globe-map-desc">
-                <title id="globe-map-title">Earthquake markers arranged on a 3D globe</title>
+              <svg viewBox="0 0 720 330" role="img" aria-label="Earthquake markers arranged on a 3D globe" aria-describedby="globe-map-desc">
                 <desc id="globe-map-desc">A stylized globe with magnitude-coded event markers, a highlighted recent pulse and a camera path toward a selected earthquake.</desc>
                 <defs>
                   <radialGradient id="earth-fill" cx=".32" cy=".28"><stop stop-color="#286a92"/><stop offset=".55" stop-color="#143653"/><stop offset="1" stop-color="#091625"/></radialGradient>
@@ -221,7 +304,7 @@
 
         <section class="guide-section" id="time">
           <div class="guide-section-head">
-            <span class="guide-section-number">04</span>
+            <span class="guide-section-number">05</span>
             <div><h2>Filter the past, replay it and share a view</h2><p>Time range, magnitude, region, sorting, selection and playback are all part of the dashboard state.</p></div>
           </div>
           <div class="guide-panel" data-range-tabs>
@@ -264,7 +347,7 @@
 
         <section class="guide-section" id="resilience">
           <div class="guide-section-head">
-            <span class="guide-section-number">05</span>
+            <span class="guide-section-number">06</span>
             <div><h2>Make the dashboard usable when the feed is not</h2><p>Data clarity, keyboard access and reduced motion are part of the interface, not afterthoughts.</p></div>
           </div>
           <div class="guide-cards">
@@ -294,6 +377,7 @@
           </div>
           <div class="guide-sources" style="margin-top:24px" aria-label="Project resources">
             <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/data/usgs.ts" target="_blank" rel="noopener">Feed parser + fallback ↗</a>
+            <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/data/filters.ts" target="_blank" rel="noopener">Filter + KPI calculations ↗</a>
             <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/state/selectors.ts" target="_blank" rel="noopener">Memoized selectors ↗</a>
             <a href="https://github.com/iodiot/globe-dashboard/blob/main/src/components/globe/Markers.tsx" target="_blank" rel="noopener">Instanced markers ↗</a>
             <a href="https://github.com/iodiot/globe-dashboard/blob/main/README.md" target="_blank" rel="noopener">Project notes ↗</a>
