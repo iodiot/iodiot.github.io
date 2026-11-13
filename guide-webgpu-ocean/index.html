@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b15">
+  <meta name="description" content="Guide — WebGPU Ocean: a visual technical walkthrough of spectral wave simulation, GPU FFTs, cascades, foam and shading.">
+  <title>Guide — WebGPU Ocean · Mike Smahin</title>
+  <link rel="stylesheet" href="../project-guides.css">
+  <script src="../project-guides.js" defer></script>
+</head>
+<body class="guide guide-ocean">
+  <a class="guide-skip" href="#main">Skip to the guide</a>
+  <div class="progress-track" aria-hidden="true"><i id="guide-progress"></i></div>
+  <header class="guide-topbar">
+    <a class="guide-brand" href="../" aria-label="Mike Smahin portfolio">
+      <span class="guide-brand-mark">MS</span><span>Mike Smahin</span><span>/ Guide — WebGPU Ocean</span>
+    </a>
+    <nav class="guide-toplinks" aria-label="Project links">
+      <a href="../">Portfolio</a>
+      <a href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Code</a>
+      <a class="primary" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Live demo <span class="guide-arrow" aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main" class="guide-wrap">
+    <section class="guide-hero" aria-labelledby="page-title">
+      <div>
+        <p class="guide-eyebrow">Real-time graphics · Three.js / WebGPU</p>
+        <h1 id="page-title">An ocean built from <em>wave spectra.</em></h1>
+        <p class="guide-lead">A deep-water ocean is simulated on the GPU: spectral waves evolve over time, inverse FFTs turn them into a surface, and three scales of detail combine into one moving sea.</p>
+        <ul class="guide-tags" aria-label="Technologies">
+          <li>Three.js WebGPURenderer</li><li>TSL compute</li><li>Stockham FFT</li><li>JONSWAP / Phillips</li><li>TypeScript</li>
+        </ul>
+        <div class="guide-hero-actions">
+          <a class="primary" href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Open the live demo <span class="guide-arrow" aria-hidden="true">↗</span></a>
+          <a href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Explore the source <span class="guide-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="guide-hero-visual">
+        <div class="guide-visual-orbit" aria-hidden="true"></div>
+        <figure class="guide-hero-image">
+          <img src="../assets/shots/webgpu-ocean.webp" alt="A photorealistic blue ocean with long rolling waves and the sun reflecting near the horizon" width="960" height="540">
+          <figcaption class="guide-image-caption"><span>THREE GPU CASCADES</span><span>BREEZE PRESET</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="guide-facts" aria-label="At a glance">
+      <div class="guide-fact"><strong>3 × 256²</strong><span>independent GPU wave grids</span></div>
+      <div class="guide-fact"><strong>12</strong><span>steady-state compute dispatches per frame</span></div>
+      <div class="guide-fact"><strong>~5 cm</strong><span>smallest ripple scale represented</span></div>
+    </section>
+
+    <div class="guide-layout">
+      <aside class="guide-toc" aria-label="On this page">
+        <p class="guide-toc-label">On this page</p>
+        <nav>
+          <a href="#pipeline"><b>01</b> From spectrum to surface</a>
+          <a href="#cascades"><b>02</b> Three scales of waves</a>
+          <a href="#fft"><b>03</b> Evolve and transform</a>
+          <a href="#shading"><b>04</b> Shape, foam and light</a>
+          <a href="#controls"><b>05</b> Explore the sea state</a>
+        </nav>
+      </aside>
+
+      <article class="guide-article">
+        <section class="guide-section" id="pipeline">
+          <div class="guide-section-head">
+            <span class="guide-section-number">01</span>
+            <div><h2>From a wave spectrum to a moving surface</h2><p>The ocean starts as a distribution of wave energy. Every frame, GPU compute evolves that field, transforms it into spatial displacement, and assembles textures for rendering.</p></div>
+          </div>
+          <div class="guide-panel" data-stepper>
+            <div class="guide-flow" aria-label="Ocean simulation pipeline">
+              <div class="guide-flow-step" data-diagram-step="spectrum"><strong>h₀(k)</strong><span>Seed wave energy</span></div>
+              <div class="guide-flow-step" data-diagram-step="evolve"><strong>h(k,t)</strong><span>Advance phase</span></div>
+              <div class="guide-flow-step" data-diagram-step="ifft"><strong>2D IFFT</strong><span>Return to space</span></div>
+              <div class="guide-flow-step" data-diagram-step="assemble"><strong>Assemble</strong><span>Displace + foam</span></div>
+              <div class="guide-flow-step" data-diagram-step="shade"><strong>Shade</strong><span>Reflect the sky</span></div>
+            </div>
+            <div class="guide-stepper">
+              <div class="guide-step-buttons" role="group" aria-label="Inspect an ocean simulation stage">
+                <button class="guide-step-button" type="button" data-step="spectrum">1 · Spectrum</button>
+                <button class="guide-step-button" type="button" data-step="evolve">2 · Evolve</button>
+                <button class="guide-step-button" type="button" data-step="ifft">3 · IFFT</button>
+                <button class="guide-step-button" type="button" data-step="assemble">4 · Assemble</button>
+                <button class="guide-step-button" type="button" data-step="shade">5 · Shade</button>
+              </div>
+              <div class="guide-step-panel" data-panel="spectrum"><h3>Make a seeded spectrum</h3><p>Gaussian noise is combined with a JONSWAP or Phillips wave-energy spectrum. When a spectrum control changes, the GPU rebuilds the initial complex field <code>h₀(k)</code>.</p></div>
+              <div class="guide-step-panel" data-panel="evolve" hidden><h3>Advance every wave in time</h3><p>Deep-water dispersion sets each wave’s angular frequency. The shader rotates the initial complex amplitudes forward and backward in phase while preserving the conjugate symmetry needed for a real surface.</p></div>
+              <div class="guide-step-panel" data-panel="ifft" hidden><h3>Transform frequency into space</h3><p>Four complex fields are packed so each inverse FFT produces two real fields. A row pass and a column pass apply an in-place radix-2 Stockham transform.</p></div>
+              <div class="guide-step-panel" data-panel="assemble" hidden><h3>Build displacement and surface derivatives</h3><p>The assembly pass applies horizontal choppiness, evaluates the displacement Jacobian, updates foam and writes two filterable GPU textures for the renderer.</p></div>
+              <div class="guide-step-panel" data-panel="shade" hidden><h3>Shade the displaced water</h3><p>The vertex stage samples the displacement textures; the fragment stage reconstructs normals and combines sky reflection, sun glint, foam and backlit-crest scattering.</p></div>
+            </div>
+          </div>
+          <div class="guide-callout"><b>Frame cost</b><p>With three cascades, each steady-state frame records an evolve, horizontal IFFT, vertical IFFT and assemble pass per cascade: 12 compute dispatches in one compute submission. Spectrum initialisation is added only when its shaping parameters change.</p></div>
+        </section>
+
+        <section class="guide-section" id="cascades">
+          <div class="guide-section-head">
+            <span class="guide-section-number">02</span>
+            <div><h2>Three overlapping scales, without duplicate waves</h2><p>A single patch cannot cover long swells and tiny ripples with enough samples. Three 256 × 256 patches each own a different band of wave numbers.</p></div>
+          </div>
+          <figure class="guide-figure">
+            <svg viewBox="0 0 900 350" role="img" aria-labelledby="ocean-scale-title ocean-scale-desc">
+              <title id="ocean-scale-title">The three physical scales used by the ocean simulation</title>
+              <desc id="ocean-scale-desc">Three nested patches represent a 250 metre swell, a 37 metre mid-scale wave field and a 7.3 metre ripple patch. They cover long waves down to centimetre-scale ripples.</desc>
+              <defs>
+                <linearGradient id="sea-long" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#39c9e5" stop-opacity=".15"/><stop offset="1" stop-color="#39c9e5" stop-opacity=".03"/></linearGradient>
+                <linearGradient id="sea-mid" x1="0" x2="1"><stop stop-color="#a08cff" stop-opacity=".23"/><stop offset="1" stop-color="#7aa7ff" stop-opacity=".12"/></linearGradient>
+                <linearGradient id="sea-small" x1="0" x2="1"><stop stop-color="#82f0d3" stop-opacity=".36"/><stop offset="1" stop-color="#29e2e8" stop-opacity=".16"/></linearGradient>
+              </defs>
+              <rect x="42" y="32" width="816" height="258" rx="16" fill="url(#sea-long)" stroke="#39c9e5" stroke-opacity=".52"/>
+              <path d="M43 160 C128 86 210 230 295 157 S462 87 548 160 716 230 857 130" fill="none" stroke="#5fd8ee" stroke-opacity=".68" stroke-width="4"/>
+              <rect x="204" y="92" width="490" height="156" rx="14" fill="url(#sea-mid)" stroke="#a08cff" stroke-opacity=".66"/>
+              <path d="M205 176 C250 104 294 225 338 161 S426 119 470 183 558 225 603 153 648 126 693 182" fill="none" stroke="#b9aaff" stroke-opacity=".82" stroke-width="3"/>
+              <rect x="352" y="132" width="204" height="78" rx="12" fill="url(#sea-small)" stroke="#60ecd9" stroke-width="2"/>
+              <path d="M354 174 Q374 143 394 176 T434 176 T474 176 T514 176 T554 176" fill="none" stroke="#a6fff0" stroke-width="2"/>
+              <text x="60" y="61" fill="#9ae8f2" font-size="15" font-family="ui-monospace,monospace">250 m patch · long swell</text>
+              <text x="223" y="116" fill="#d1c7ff" font-size="14" font-family="ui-monospace,monospace">37 m patch · mid-scale waves</text>
+              <text x="364" y="157" fill="#c2fff5" font-size="12" font-family="ui-monospace,monospace">7.3 m patch</text>
+              <text x="42" y="324" fill="#8b9eb6" font-size="12" font-family="ui-monospace,monospace">EACH CASCADE OWNS A NON-OVERLAPPING BAND OF WAVENUMBERS</text>
+            </svg>
+            <figcaption>Patch sizes and wave curves are schematic. Their deliberately non-integer ratios help keep the repeated patterns from lining up.</figcaption>
+          </figure>
+          <div class="guide-split" style="margin-top:17px">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Why split the field?</p>
+              <h3>More detail where it matters</h3>
+              <p>The large patch carries long swell. Smaller patches contribute progressively shorter waves. Each cascade receives a bounded frequency band, so the same wave is not counted twice; together the bands span roughly <strong>250 m down to 5 cm</strong>.</p>
+            </div>
+            <div class="guide-panel" data-stepper>
+              <p class="guide-panel-kicker">Explore a cascade</p>
+              <div class="guide-step-buttons" role="group" aria-label="Select a wave scale">
+                <button class="guide-step-button" type="button" data-step="long">Long swell</button>
+                <button class="guide-step-button" type="button" data-step="mid">Mid-scale</button>
+                <button class="guide-step-button" type="button" data-step="ripple">Fine ripples</button>
+              </div>
+              <div class="guide-step-panel" data-panel="long"><h3>250 m · broad motion</h3><p>The largest patch captures long-period energy and sets the slow, wide movement visible near the horizon.</p></div>
+              <div class="guide-step-panel" data-panel="mid" hidden><h3>37 m · rolling structure</h3><p>The middle patch fills the gap between distant swell and local wave detail without repeating the same frequency band.</p></div>
+              <div class="guide-step-panel" data-panel="ripple" hidden><h3>7.3 m · crisp surface detail</h3><p>The smallest patch provides high-frequency detail; the band partition reaches wavelengths of about five centimetres.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="fft">
+          <div class="guide-section-head">
+            <span class="guide-section-number">03</span>
+            <div><h2>Evolve wave energy, then run the inverse FFT</h2><p>The simulation stores frequency-domain fields and uses workgroup memory to transform them into height, displacement and derivatives.</p></div>
+          </div>
+          <div class="guide-split">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Spectrum</p>
+              <h3>Physical inputs shape the sea</h3>
+              <p>JONSWAP models a fetch-limited wind sea; Phillips is an alternate spectrum. Wind speed, direction, fetch, directional spread and wave scale determine the initial amplitudes. Deep-water dispersion uses <code>ω = √(g|k|)</code>.</p>
+              <p>The initial field is seeded with Gaussian noise. Its paired values for <code>k</code> and <code>−k</code> preserve Hermitian symmetry, so the inverse transform produces a real-valued surface.</p>
+              <pre class="guide-code"><code>h(k,t) = h₀(k) e^(−iωt)
+       + conj(h₀(−k)) e^(iωt)</code></pre>
+            </div>
+            <figure class="guide-figure">
+              <svg viewBox="0 0 720 290" role="img" aria-labelledby="fft-title fft-desc">
+                <title id="fft-title">Two-dimensional inverse FFT passes</title>
+                <desc id="fft-desc">A frequency grid is transformed first by row and then by column into a spatial field of wave heights.</desc>
+                <defs><linearGradient id="fft-wave" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#29e2e8" stop-opacity=".45"/><stop offset=".5" stop-color="#a08cff" stop-opacity=".35"/><stop offset="1" stop-color="#7aa7ff" stop-opacity=".08"/></linearGradient></defs>
+                <rect x="38" y="68" width="132" height="132" rx="12" fill="#0d1627" stroke="#406080"/>
+                <g stroke="#263b56" stroke-width="1"><path d="M71 68v132M104 68v132M137 68v132M38 101h132M38 134h132M38 167h132"/></g>
+                <g fill="#79e6e5"><circle cx="54" cy="83" r="4"/><circle cx="121" cy="96" r="5"/><circle cx="86" cy="148" r="6"/><circle cx="153" cy="180" r="4"/></g>
+                <path d="M191 134h80" stroke="#29e2e8" stroke-width="2"/>
+                <path d="m260 126 12 8-12 8" fill="none" stroke="#29e2e8" stroke-width="2"/>
+                <rect x="280" y="82" width="164" height="102" rx="12" fill="#111d33" stroke="#a08cff" stroke-opacity=".65"/>
+                <text x="312" y="121" fill="#d1c7ff" font-size="15" font-family="ui-monospace,monospace">row IFFT</text>
+                <text x="302" y="148" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">one workgroup / line</text>
+                <path d="M457 134h72" stroke="#29e2e8" stroke-width="2"/>
+                <path d="m518 126 12 8-12 8" fill="none" stroke="#29e2e8" stroke-width="2"/>
+                <rect x="542" y="82" width="144" height="102" rx="12" fill="#111d33" stroke="#29e2e8" stroke-opacity=".6"/>
+                <text x="567" y="121" fill="#c3faf6" font-size="15" font-family="ui-monospace,monospace">column IFFT</text>
+                <text x="573" y="148" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">spatial field</text>
+                <path d="M542 223 C568 186 590 248 613 215 S657 189 684 224" fill="none" stroke="url(#fft-wave)" stroke-width="8" stroke-linecap="round"/>
+                <text x="46" y="224" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">FREQUENCY DOMAIN</text>
+                <text x="543" y="255" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">HEIGHT + DISPLACEMENT</text>
+              </svg>
+              <figcaption>Each 256 × 256 transform uses eight radix-2 Stockham stages. A workgroup owns one row or column and synchronises in shared memory.</figcaption>
+            </figure>
+          </div>
+          <div class="guide-cards" style="margin-top:17px">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">8</span><strong>Fields in four complex grids</strong><p>Height, horizontal displacement, slopes and Jacobian derivatives are packed pairwise into four complex signals.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">2D</span><strong>Rows, then columns</strong><p>Each cascade transforms 256 lines horizontally and 256 vertically for each of its packed grids.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">GPU</span><strong>No per-frame readback</strong><p>The work is recorded through Three.js TSL compute nodes; the renderer samples storage textures produced on the GPU.</p></div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="shading">
+          <div class="guide-section-head">
+            <span class="guide-section-number">04</span>
+            <div><h2>Choppy crests make foam; lighting sells the water</h2><p>The inverse FFT produces more than height. Derivatives describe how the surface stretches, folds and catches light.</p></div>
+          </div>
+          <div class="guide-split">
+            <figure class="guide-figure">
+              <svg viewBox="0 0 780 320" role="img" aria-labelledby="foam-title foam-desc">
+                <title id="foam-title">How a folded wave surface creates whitecaps</title>
+                <desc id="foam-desc">A wave crest sharpens under horizontal displacement. The displacement Jacobian drops below a threshold and injects foam, which then fades over time.</desc>
+                <defs><linearGradient id="foam-surface" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#65dce2" stop-opacity=".55"/><stop offset="1" stop-color="#19738a" stop-opacity=".12"/></linearGradient></defs>
+                <path d="M44 228 C101 226 118 92 185 104 C251 115 233 226 302 222 C371 217 385 82 451 96 C518 111 506 226 579 216 C645 207 672 125 736 142 L736 269 44 269Z" fill="url(#foam-surface)" stroke="#4de1e2" stroke-width="3"/>
+                <path d="M142 124q21-22 42-5t39 1M411 116q22-22 42-5t38 0" fill="none" stroke="#e7ffff" stroke-width="8" stroke-linecap="round"/>
+                <path d="M92 76h110" stroke="#29e2e8" stroke-width="2"/>
+                <text x="92" y="63" fill="#bffaf7" font-size="12" font-family="ui-monospace,monospace">CHOPPY CREST</text>
+                <rect x="500" y="34" width="221" height="58" rx="11" fill="#101b30" stroke="#a08cff" stroke-opacity=".6"/>
+                <text x="518" y="58" fill="#d7d0ff" font-size="13" font-family="ui-monospace,monospace">J &lt; threshold</text>
+                <text x="518" y="77" fill="#9aabc1" font-size="11" font-family="ui-monospace,monospace">foam is injected, then decays</text>
+                <text x="46" y="300" fill="#8b9eb6" font-size="11" font-family="ui-monospace,monospace">HORIZONTAL STRETCH → JACOBIAN → WHITE-CAP FOAM</text>
+              </svg>
+              <figcaption>Foam amount and decay are controls. The Jacobian detects where horizontal displacement folds the surface.</figcaption>
+            </figure>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Surface assembly</p>
+              <h3>Sharpen waves and detect folds</h3>
+              <p>Horizontal displacement makes crests steeper. The assembly kernel computes a Jacobian from the horizontal derivatives; when it falls below a tunable threshold, foam is added and then exponentially faded.</p>
+              <p>Two <code>rgba16float</code> storage textures carry displacement + foam and slopes + Jacobian terms. Mipmaps and anisotropic filtering keep the signal stable as the camera looks toward the horizon.</p>
+            </div>
+          </div>
+          <div class="guide-cards" style="margin-top:17px">
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">N</span><strong>Normals from slopes</strong><p>The fragment shader reconstructs the normal of the displaced surface, including the horizontal stretch of a choppy wave.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">F</span><strong>Sky reflection and sun</strong><p>Schlick Fresnel blends an analytic sky reflection; GGX adds a sun glint that becomes rougher with distance.</p></div>
+            <div class="guide-mini-card"><span class="icon" aria-hidden="true">S</span><strong>Depth and atmosphere</strong><p>Backlit crests get a subsurface glow, foam is lit, and exponential fog blends the surface into the horizon.</p></div>
+          </div>
+        </section>
+
+        <section class="guide-section" id="controls">
+          <div class="guide-section-head">
+            <span class="guide-section-number">05</span>
+            <div><h2>Explore how wind changes the sea</h2><p>The live panel exposes the spectrum, wind, foam, lighting and time controls. Presets give three starting conditions.</p></div>
+          </div>
+          <div class="guide-split">
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Sea-state presets</p>
+              <h3>Calm · Breeze · Storm</h3>
+              <p>The Breeze preset starts with a 9 m/s wind and 120 km fetch. Storm raises the wind to 21 m/s, increases fetch to 400 km and brings in heavier cloud and stronger foam. Calm starts at 3.5 m/s.</p>
+              <ul class="guide-list">
+                <li>Waves: JONSWAP or Phillips spectrum, direction, fetch, scale, choppiness and spread.</li>
+                <li>Foam: formation threshold and decay speed.</li>
+                <li>Lighting: sun angle, overcast, exposure and fog.</li>
+                <li>Time: slow down, pause with Space or resume the simulation.</li>
+              </ul>
+            </div>
+            <div class="guide-panel">
+              <p class="guide-panel-kicker">Implementation detail</p>
+              <h3>Compute-capable WebGPU is required</h3>
+              <p>This is not a WebGL fallback. The FFT relies on compute shaders and workgroup memory, so the app checks for WebGPU and shows a clear fallback screen when it is unavailable.</p>
+              <p>A camera-centred polar LOD mesh spans a radius of about 9 km with roughly 190,000 vertices. Its density stays approximately even in screen space, while the wave textures provide detail at each vertex.</p>
+            </div>
+          </div>
+          <div class="guide-callout"><b>Try it</b><p>Open the demo with <code>?preset=Storm</code>, then change wind speed and direction. Spectrum-shaping changes re-bake the initial field; lighting and time controls do not need that step.</p></div>
+          <div class="guide-sources" style="margin-top:24px" aria-label="Project resources">
+            <a href="https://github.com/iodiot/webgpu-ocean/blob/main/src/sim/OceanSim.ts" target="_blank" rel="noopener">Ocean compute pipeline ↗</a>
+            <a href="https://github.com/iodiot/webgpu-ocean/blob/main/src/sim/fft.ts" target="_blank" rel="noopener">Stockham FFT ↗</a>
+            <a href="https://github.com/iodiot/webgpu-ocean/blob/main/README.md" target="_blank" rel="noopener">Project notes ↗</a>
+            <a href="https://jtessen.people.clemson.edu/reports/papers_files/coursenotes2004.pdf" target="_blank" rel="noopener">Tessendorf · course notes (2004) ↗</a>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <footer class="guide-footer">
+      <span>Guide — WebGPU Ocean</span>
+      <div class="guide-sources">
+        <a href="../">Portfolio</a>
+        <a href="https://iodiot.github.io/webgpu-ocean/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/iodiot/webgpu-ocean" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
