@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#09041e">
+ <title>Chain Reaction · Crystal Cascade</title>
+ <link rel="preload" href="./fonts/orbitron.ttf" as="font" type="font/ttf" crossorigin>
+ <link rel="preload" href="./fonts/rajdhani-medium.ttf" as="font" type="font/ttf" crossorigin>
+  <script type="module" crossorigin src="./assets/index-D4DGu7U-.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-C3JybGMc.css">
+</head>
+<body>
+<main id="game" data-design="arcane-prism">
+ <canvas aria-label="Crystal Cascade: tap colored cubes to send three separate chains into the golden core"></canvas>
+ <header><div class="brand"><b class="wordmark">CHAIN REACTION</b><span class="brand-subtitle">CRYSTAL CASCADE</span><i class="brand-gem" aria-hidden="true"></i></div></header>
+ <section class="hud" aria-label="Game status">
+  <div class="goal"><span>BREAK THE CORE</span><strong id="seals" role="img" aria-label="0 of 3 seals broken">◇ ◇ ◇</strong></div>
+  <div class="moves prism-frame"><strong id="moves">6</strong><span>MOVES</span></div>
+ </section>
+ <div class="track" role="progressbar" aria-label="Core seals broken" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><i id="progress"></i></div>
+ <div id="combo-badge"><span class="hud-label">COMBO</span><strong id="combo" class="prism-frame">×0</strong></div>
+ <div id="tap-cue" hidden aria-hidden="true"><span class="tap-ring"></span><svg viewBox="0 0 48 58" width="38" height="46"><path d="M15 31V8a4 4 0 0 1 8 0v17-5a4 4 0 0 1 8 0v7-3a4 4 0 0 1 8 0v7-2a4 4 0 0 1 7 2v9c0 10-6 16-15 16h-5c-5 0-8-3-11-7L5 36a4 4 0 0 1 6-5l4 4Z" fill="#faf5ff" stroke="#5c257e" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="tap-label">TAP</span></div>
+ <p id="hint" class="prism-frame">Tap the highlighted cube to start a chain.</p>
+ <section id="end" hidden aria-labelledby="end-title">
+  <img class="end-crystal" src="./assets/cube-painted-v6.webp" alt="" aria-hidden="true">
+  <div id="stars" aria-label="Rating"></div>
+  <small class="eyebrow-ornament">CHAIN REACTION</small>
+  <h1 id="end-title">Perfect<br>chain!</h1>
+  <p id="result"></p>
+  <div class="end-stats prism-frame"><div><strong id="end-count">0</strong><span>CRYSTALS</span></div><div><strong id="end-best">0</strong><span>BEST COMBO</span></div></div>
+  <button id="again" class="prism-frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M19 11a7 7 0 1 0-1 6M20 7l-2.5 2.5"/></svg><span id="again-label">Try a different chain</span></button>
+  <span class="end-note">CRYSTAL CASCADE</span>
+ </section>
+ <p id="error" hidden></p>
+</main>
+</body></html>

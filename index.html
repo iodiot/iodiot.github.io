@@ -9,7 +9,7 @@
 <meta property="og:description" content="15+ years in frontend engineering, real-time applications and 3D for the web. TypeScript, React, Three.js, WebGL/WebGPU.">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0d12'/><text x='50%' y='56%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='30' fill='%237cf5d4'>MS</text></svg>">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 <style>
   .hero-identity{display:flex;align-items:center;gap:clamp(12px,1.67vw,24px)}
   .hero-avatar{width:clamp(68px,20vw,104px);height:clamp(68px,20vw,104px);max-width:none;flex:0 0 auto;object-fit:cover;object-position:center 42%;border-radius:50%}
@@ -24,6 +24,7 @@
   <a class="brand" href="#top">Mike&nbsp;Smahin</a>
   <nav>
     <a href="#demos">Demos</a>
+    <a href="#playable-ads">Playable Ads</a>
     <a href="#work">Graphics</a>
     <a href="#experience">Experience</a>
     <a href="#tutorial">Tutorial</a>
@@ -145,7 +146,7 @@
           </div>
         </div>
       </article>
-      <article class="card big">
+      <article class="card big wide">
         <a class="media" href="https://iodiot.github.io/bubbles.js/" target="_blank" rel="noopener" aria-label="Open bubbles.js live demo"><img src="assets/shots/bubbles-v2.webp" alt="bubbles.js: iridescent soap bubbles rendered in Three.js" loading="lazy" width="960" height="540"></a>
         <div class="body">
           <h3>bubbles.js <small>2021</small></h3>
@@ -157,17 +158,41 @@
           </div>
         </div>
       </article>
+
+    </div>
+  </section>
+
+  <section id="playable-ads">
+    <h2><span>02</span> Playable Ads</h2>
+    <p class="section-lead">Short, interactive mobile ad concepts. Play both demos in your browser; source repositories are private.</p>
+    <div class="featured">
+      <article class="card big">
+        <a class="media crystal-cascade" href="chain-reaction/" target="_blank" rel="noopener" aria-label="Play Chain Reaction: Crystal Cascade in your browser">
+          <img src="assets/shots/chain-reaction-gameplay.jpg" alt="Chain Reaction gameplay: glowing blue, magenta and amber cubes on an isometric platform in a crystal cavern" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/shots/chain-reaction-win.jpg" alt="Crystal Cascade victory screen with three earned stars" width="540" height="960" loading="lazy" decoding="async">
+          <img src="assets/shots/chain-reaction-loss.jpg" alt="Crystal Cascade retry screen with the run's results" width="540" height="960" loading="lazy" decoding="async">
+        </a>
+        <div class="body">
+          <h3>Chain Reaction: Crystal Cascade</h3>
+          <p>A 30-second mobile playable ad in a glowing crystal cavern. Tap coloured cubes to build cascading combos and break the golden core's three seals. Seeded, solvable boards and limited moves reward finding the right chains, with an animated tap tutorial, reactive effects, sound and ambient music.</p>
+          <ul class="tags"><li>Three.js</li><li>WebGL2</li><li>JavaScript</li><li>Mobile · 9:16</li><li>Web Audio</li><li>Playable Ads</li></ul>
+          <div class="actions">
+            <a class="btn primary" href="chain-reaction/" target="_blank" rel="noopener">Play demo</a>
+            <span class="private-note">Private repository</span>
+          </div>
+        </div>
+      </article>
       <article class="card big">
         <a class="media glow-rush" href="glow-rush/" target="_blank" rel="noopener" aria-label="Play the Glow Rush demo">
           <img src="assets/shots/glow-rush.webp" alt="Glow Rush gameplay in three frames: the car on a neon avenue, Glow Mode in the center, and the car under a magenta sun" width="1200" height="750" loading="lazy" decoding="async">
         </a>
         <div class="body">
-          <h3>Glow Rush, a Neon Playable Ad Concept</h3>
+          <h3>Glow Rush</h3>
           <p>A 30-second playable ad concept for a neon night-city car runner. Players drag to steer, near misses charge a boost meter that triggers Glow Mode, and the run ends by smashing through a neon finish arch onto a store end card. It's built as a single-file HTML5 ad that exports for the major networks (AppLovin, Unity, ironSource, Google, Meta, Mintegral).</p>
           <ul class="tags"><li>TypeScript</li><li>Three.js</li><li>WebGL2</li><li>Vite</li><li>UnrealBloom</li><li>glTF/meshopt</li><li>MRAID</li><li>Playable Ads</li><li>HTML5</li></ul>
           <div class="actions">
             <a class="btn primary" href="glow-rush/" target="_blank" rel="noopener">Play demo</a>
-            <span class="private-note">Source code is private</span>
+            <span class="private-note">Private repository</span>
           </div>
         </div>
       </article>
@@ -175,7 +200,7 @@
   </section>
 
   <section id="work">
-    <h2><span>02</span> Selected graphics work</h2>
+    <h2><span>03</span> Selected graphics work</h2>
     <p class="section-lead">A shipped mobile game, plus earlier experiments in GPU rendering and simulation.</p>
     <div class="grid">
       <article class="card wide game">
@@ -222,7 +247,7 @@
   </section>
 
   <section id="experience">
-    <h2><span>03</span> Professional highlights</h2>
+    <h2><span>04</span> Professional highlights</h2>
     <div class="highlights">
       <article class="hl">
         <p class="hl-org">RedCore · RedCore Town</p>
@@ -248,7 +273,7 @@
   </section>
 
   <section id="tutorial">
-    <h2><span>04</span> Tutorial</h2>
+    <h2><span>05</span> Tutorial</h2>
     <p class="section-lead">A step-by-step series on 3D for the web, written for frontend developers.</p>
     <div class="grid">
       <article class="card wide">
@@ -269,7 +294,7 @@
   </section>
 
   <section id="aoc">
-    <h2><span>05</span> Advent of Code</h2>
+    <h2><span>06</span> Advent of Code</h2>
     <p class="section-lead">Solved by hand, year after year, across five languages. Day counts are the days with a solution committed in each repo.</p>
     <div class="aoc">
       <a class="year" href="https://github.com/iodiot/Advent-of-Code-2025" target="_blank" rel="noopener">
@@ -321,7 +346,7 @@
   </section>
 
   <section id="writing">
-    <h2><span>06</span> Writing</h2>
+    <h2><span>07</span> Writing</h2>
     <p class="section-lead">Tutorials on 3D for the web, and posts on math, physics and programming.</p>
     <h3 class="writing-sub"><a class="pt" href="https://iodiot.github.io/3d-tutorial/">Three.js tutorials</a> <small>new · Three.js, WebGL &amp; WebGPU · <a class="orig" href="https://iodiot.github.io/3d-tutorial/">all parts →</a></small></h3>
     <ul class="posts tutorials">

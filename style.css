@@ -144,3 +144,9 @@ footer a:hover{color:var(--text)}
 
 /* Syllory uses the same full-bleed 16:10 preview treatment as the other demos. */
 .media.syllory-card-media img{object-fit:cover;object-position:center}
+
+/* Playable ad previews use real gameplay and result screens. */
+.media.crystal-cascade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;background:#160b29}
+.media.crystal-cascade img{min-width:0;object-fit:cover;object-position:center}
+.card:hover .media.crystal-cascade img{transform:none}
+#playable-ads .private-note{color:var(--muted)}
