@@ -146,7 +146,7 @@ footer a:hover{color:var(--text)}
 .media.syllory-card-media img{object-fit:cover;object-position:center}
 
 /* Playable ad previews use real gameplay and result screens. */
-.media.crystal-cascade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;background:#160b29}
-.media.crystal-cascade img{min-width:0;object-fit:cover;object-position:center}
+.media.crystal-cascade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;background:#10091e}
+.media.crystal-cascade img{min-width:0;object-fit:contain;object-position:center}
 .card:hover .media.crystal-cascade img{transform:none}
 #playable-ads .private-note{color:var(--muted)}
