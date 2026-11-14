@@ -14,9 +14,9 @@
   .hero-identity{display:flex;align-items:center;gap:clamp(12px,1.67vw,24px)}
   .hero-avatar-wrap{position:relative;width:clamp(68px,20vw,104px);height:clamp(68px,20vw,104px);flex:0 0 auto;isolation:isolate}
   .hero-avatar{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 42%;border-radius:50%}
-  .hero-kuzmich{position:absolute;z-index:2;top:-13px;right:-19px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;text-decoration:none;cursor:pointer}
-  .hero-kuzmich img{display:block;width:clamp(25px,7.2vw,37px);height:auto;max-width:none;filter:drop-shadow(0 2px 4px #0009);transition:transform .2s ease,filter .2s ease}
-  .hero-kuzmich:hover img,.hero-kuzmich:focus-visible img{transform:translateY(-2px) scale(1.08);filter:drop-shadow(0 2px 7px #4cddc080)}
+  .hero-kuzmich{position:absolute;z-index:2;top:calc(18% - 22px);right:calc(14% - 22px);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;text-decoration:none;cursor:pointer}
+  .hero-kuzmich img{display:block;width:clamp(22px,5.8vw,29px);height:auto;max-width:none;transform:rotate(4deg);filter:drop-shadow(0 2px 4px #0009);transition:transform .2s ease,filter .2s ease}
+  .hero-kuzmich:hover img,.hero-kuzmich:focus-visible img{transform:translateY(-2px) rotate(4deg) scale(1.08);filter:drop-shadow(0 2px 7px #4cddc080)}
   .hero-kuzmich:focus-visible{outline:2px solid #7cf5d4;outline-offset:1px}
   .hero-kuzmich::after{content:"✦";position:absolute;right:1px;top:-7px;color:#ffcc57;font-size:11px;line-height:1;pointer-events:none}
   @media(prefers-reduced-motion:reduce){.hero-kuzmich img{transition:none}}
