@@ -150,3 +150,5 @@ footer a:hover{color:var(--text)}
 .media.crystal-cascade img{min-width:0;object-fit:contain;object-position:center}
 .card:hover .media.crystal-cascade img{transform:none}
 #playable-ads .private-note{color:var(--muted)}
+
+.media.tidemarch{background:#071c2d}
