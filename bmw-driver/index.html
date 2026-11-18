@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BMW M5 F10</title>
+  <style>
+    body {
+      margin: 0;
+      background: #10141b;
+      color: #eef4fa;
+      font: 14px system-ui;
+    }
+    canvas {
+      display: block;
+      outline: none;
+    }
+    header {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0;
+      color: #28323c;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .telemetry {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: #28323c;
+      text-align: right;
+      pointer-events: none;
+      font-variant-numeric: tabular-nums;
+    }
+    #speed {
+      font-size: 25px;
+      font-weight: 650;
+    }
+    .transmission {
+      display: flex;
+      justify-content: flex-end;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    #gear {
+      font-size: 20px;
+      font-weight: 650;
+    }
+    .travel {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    #travel {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .tools {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 10px;
+      background: #29323be3;
+      border: 1px solid #4a5662;
+      border-radius: 12px;
+      width: fit-content;
+      max-width: calc(100% - 70px);
+    }
+    button {
+      background: #354352;
+      color: #f1f4f7;
+      border: 1px solid #596b7b;
+      border-radius: 7px;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+      touch-action: none;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      font-size: 12px;
+      margin: 0 4px;
+      cursor: pointer;
+    }
+    #status {
+      position: absolute;
+      left: 24px;
+      top: 64px;
+      color: #28323c;
+    }
+    body[data-capture='true'] header,
+    body[data-capture='true'] .telemetry,
+    body[data-capture='true'] .tools,
+    body[data-capture='true'] .credits {
+      display: none;
+    }
+    body[data-night='true'] h1,
+    body[data-night='true'] .telemetry,
+    body[data-night='true'] #status {
+      color: #dce5f1;
+    }
+    @media (max-width: 520px) {
+      header {
+        left: 16px;
+        top: 16px;
+      }
+      h1 {
+        font-size: 19px;
+      }
+      .telemetry {
+        right: 16px;
+        top: 56px;
+      }
+      #speed {
+        font-size: 23px;
+      }
+      .tools {
+        left: 16px;
+        bottom: 16px;
+        gap: 6px;
+        padding: 8px;
+        max-width: calc(100% - 50px);
+      }
+      .tools button {
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+      #status {
+        left: 16px;
+        top: 56px;
+      }
+    }
+  </style>
+  <header><h1>BMW M5 F10</h1></header>
+  <div class="telemetry" aria-label="Vehicle telemetry">
+    <div id="speed">0 km/h</div>
+    <div class="transmission" aria-label="Transmission">
+      <span>7-speed M DCT</span><span id="gear" aria-label="Current gear">D1</span>
+    </div>
+    <div class="travel">Suspension compression<span id="travel">0 / 0 / 0 / 0 mm</span></div>
+  </div>
+  <p id="status" role="status">Preparing wheels…</p>
+  <div class="tools" aria-label="Viewer controls">
+    <button id="pause" disabled>Drive</button>
+    <button id="restart" disabled>Restart</button>
+    <label><input type="checkbox" id="orbit" /> Orbit</label>
+    <label><input type="checkbox" id="night" /> Night</label>
+    <label><input type="checkbox" id="rain" /> Rain</label>
+    <label><input type="checkbox" id="wireframe" /> Wireframe</label>
+  </div>
+  <script type="importmap">{"imports":{"three":"./vendor/three.js","three/addons/controls/OrbitControls.js":"./vendor/OrbitControls.js","three/addons/loaders/GLTFLoader.js":"./vendor/GLTFLoader.js"}}</script>
+  <script type="module" src="./demo.js"></script>
+</html>
