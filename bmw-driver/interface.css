@@ -1,0 +1,490 @@
+:root {
+  color-scheme: dark;
+  font:
+    14px -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #10141b;
+  color: #eef4fa;
+}
+canvas {
+  display: block;
+  outline: none;
+}
+header {
+  position: fixed;
+  top: 22px;
+  left: 24px;
+  pointer-events: none;
+}
+h1 {
+  margin: 0;
+  color: #28323c;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+}
+#status {
+  position: fixed;
+  left: 24px;
+  top: 58px;
+  color: #28323c;
+}
+body[data-night='true'] h1,
+body[data-night='true'] #status {
+  color: #dce5f1;
+}
+.settings {
+  position: fixed;
+  z-index: 2;
+  top: 20px;
+  right: 24px;
+}
+.settings summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #64717e70;
+  border-radius: 9px;
+  background: #161d25ed;
+  color: #e1e7ed;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 3px 12px #0002;
+}
+.settings summary::-webkit-details-marker {
+  display: none;
+}
+.settings summary > svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+.settings summary .chevron {
+  width: 11px;
+  height: 11px;
+  margin-left: 3px;
+}
+.settings[open] .chevron {
+  transform: rotate(180deg);
+}
+.settings-panel {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  width: 252px;
+  box-sizing: border-box;
+  padding: 17px;
+  border: 1px solid #56637180;
+  border-radius: 12px;
+  background: #141b23f7;
+  box-shadow: 0 12px 34px #0004;
+  max-height: calc(100dvh - 92px);
+  overflow-y: auto;
+}
+.settings-heading {
+  margin: 0 0 11px;
+  color: #95a2af;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.simulation-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 19px;
+}
+button {
+  padding: 9px 12px;
+  border: 1px solid #4a5967;
+  border-radius: 6px;
+  background: #2c3947;
+  color: #eef3f7;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+button:hover {
+  background: #3b4b5b;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+button[aria-pressed='true'] {
+  background: #35495b;
+  border-color: #63798e;
+}
+:focus-visible {
+  outline: 2px solid #b5d3ec;
+  outline-offset: 4px;
+}
+.scene-options {
+  display: grid;
+  gap: 2px;
+}
+.scene-options label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 32px;
+  cursor: pointer;
+  color: #d9e1e8;
+  font-size: 12px;
+}
+.scene-options input {
+  accent-color: #a5bfd4;
+  width: 14px;
+  height: 14px;
+  margin: 0 1px 0 12px;
+  cursor: pointer;
+}
+.sound-options {
+  margin-top: 15px;
+  padding-top: 11px;
+  border-top: 1px solid #74859535;
+}
+.sound-options label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+  color: #d9e1e8;
+  font-size: 12px;
+  cursor: pointer;
+}
+.sound-options input[type='checkbox'] {
+  width: 14px;
+  height: 14px;
+  margin-right: 1px;
+  accent-color: #a5bfd4;
+}
+.sound-options input[type='range'] {
+  width: 126px;
+  accent-color: #a5bfd4;
+  cursor: pointer;
+}
+.sound-options .volume-label {
+  font-size: 10px;
+  color: #a9b7c2;
+}
+#audio-status {
+  margin: 6px 0;
+  color: #9cafbd;
+  font-size: 10px;
+  line-height: 1.4;
+}
+.sound-options a {
+  display: inline-block;
+  margin-top: 6px;
+  color: #93a7b7;
+  font-size: 9px;
+  text-decoration: none;
+}
+.sound-options a:hover {
+  color: #d9e7f1;
+  text-decoration: underline;
+}
+.instrument-cluster {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: min(460px, calc(100vw - 32px));
+  pointer-events: none;
+  filter: drop-shadow(0 5px 6px #0002);
+}
+.instrument-cluster svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+}
+.cluster-shell {
+  fill: url(#cluster-shell);
+  fill-opacity: 0.16;
+  stroke: #717a8345;
+  stroke-opacity: 0.4;
+  stroke-width: 1.2;
+}
+.dial-face {
+  fill: url(#dial-face);
+  fill-opacity: 0.38;
+}
+.dial-bezel-shadow {
+  fill: none;
+  stroke: #020507;
+  stroke-width: 5;
+  stroke-opacity: 0.4;
+}
+.dial-bezel {
+  fill: none;
+  stroke: url(#bezel-metal);
+  stroke-width: 2.2;
+}
+.dial-inner-ring {
+  fill: none;
+  stroke: #7e899370;
+  stroke-width: 0.8;
+}
+.major-tick {
+  fill: none;
+  stroke: #f0f1ea;
+  stroke-width: 2.5;
+}
+.minor-tick {
+  fill: none;
+  stroke: #d4dddfe0;
+  stroke-width: 1.4;
+}
+.dial-number {
+  fill: #edf1ed;
+  font-size: 18px;
+  font-weight: 500;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.dial-unit {
+  fill: #d3dad8;
+  font-size: 10px;
+  text-anchor: middle;
+}
+.rpm-warning {
+  fill: none;
+  stroke: #e2b34b;
+  stroke-width: 4;
+}
+.rpm-redline {
+  fill: none;
+  stroke: #d95043;
+  stroke-width: 4;
+}
+.cluster-lower-edge {
+  fill: none;
+  stroke: #171d23;
+  stroke-width: 1;
+}
+.digital-speed {
+  fill: #f3f5ef;
+  font-size: 29px;
+  font-weight: 500;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+.digital-unit {
+  fill: #a8b5c1;
+  font-size: 10px;
+  text-anchor: middle;
+}
+.gear-display {
+  fill: #e7f1f6;
+  font-size: 37px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+.transmission-label {
+  fill: #8d9fac;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-anchor: middle;
+}
+.trip-display {
+  fill: #a8bac8;
+  font-size: 11px;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+.m-mark {
+  fill: #e3e7e6;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 800;
+}
+.low-beam-indicator {
+  fill: none;
+  stroke: #79bd8a;
+  stroke-width: 1.6;
+}
+.dsc-indicator {
+  fill: none;
+  stroke: #ffbd42;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.suspension-display {
+  position: fixed;
+  left: 18px;
+  bottom: 20px;
+  width: 220px;
+  box-sizing: border-box;
+  padding: 9px 9px 5px;
+  pointer-events: none;
+  background: linear-gradient(150deg, #11182036, #11182012);
+  border: 1px solid #9aafbd21;
+  border-radius: 9px;
+}
+.suspension-display h2 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 5px;
+  margin: 0 0 2px;
+  color: #e0e8ed;
+  font-size: 11px;
+  font-weight: 500;
+  text-shadow: 0 1px 3px #000b;
+}
+.suspension-display h2 span {
+  color: #afbfca;
+  font-size: 7px;
+  letter-spacing: 0.8px;
+}
+.suspension-display svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.suspension-car {
+  fill: #b7c9d30b;
+  stroke: #b7c9d34a;
+  stroke-width: 1.2;
+}
+.suspension-car-detail,
+.car-front-arrow {
+  fill: none;
+  stroke: #b7c9d34a;
+  stroke-width: 1;
+}
+.suspension-corner {
+  fill: #a8bac6;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-anchor: middle;
+}
+.wheel-load {
+  fill: #e1eaf0;
+  font-size: 15px;
+  font-weight: 500;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+.wheel-travel {
+  fill: #afc6d5;
+  font-size: 13px;
+  text-anchor: middle;
+  font-variant-numeric: tabular-nums;
+}
+.load-rail {
+  fill: #a6bdcc20;
+}
+.load-fill {
+  fill: #95c3db;
+}
+.suspension-link {
+  fill: none;
+  stroke: #9aaebb75;
+  stroke-width: 1;
+}
+.spring-coil {
+  fill: none;
+  stroke: #b9cbd7;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.damper-rod {
+  fill: none;
+  stroke: #d1dde4;
+  stroke-width: 1.5;
+}
+.damper-cylinder {
+  fill: #9eb8ca;
+  fill-opacity: 0.15;
+  stroke: #afc6d5;
+  stroke-width: 1.5;
+}
+.tyre-outline {
+  fill: #0d151c50;
+  stroke: #adbfca;
+  stroke-width: 1.2;
+}
+.tyre-tread {
+  fill: none;
+  stroke: #b1c3ce65;
+  stroke-width: 0.8;
+}
+body[data-capture='true'] header,
+body[data-capture='true'] .instrument-cluster,
+body[data-capture='true'] .suspension-display,
+body[data-capture='true'] .settings,
+body[data-capture='true'] .credits {
+  display: none;
+}
+@media (max-width: 760px) {
+  .instrument-cluster {
+    width: min(410px, calc(100vw - 32px));
+  }
+  .suspension-display {
+    width: 170px;
+  }
+}
+@media (max-width: 620px) {
+  .suspension-display {
+    left: 12px;
+    width: 165px;
+    bottom: calc(min(410px, calc(100vw - 32px)) * 0.462 + 30px);
+  }
+}
+@media (max-width: 520px) {
+  header {
+    left: 16px;
+    top: 22px;
+  }
+  h1 {
+    font-size: 18px;
+  }
+  .settings {
+    top: 16px;
+    right: 16px;
+  }
+  .settings summary {
+    padding: 9px 10px;
+  }
+  .instrument-cluster {
+    right: 12px;
+    bottom: 12px;
+  }
+  #status {
+    left: 16px;
+    top: 56px;
+  }
+}
+@media (max-height: 500px) {
+  .instrument-cluster {
+    width: min(350px, calc(100vw - 32px));
+    bottom: 10px;
+    right: 12px;
+  }
+  .settings {
+    top: 12px;
+    right: 16px;
+  }
+  header {
+    top: 16px;
+    left: 16px;
+  }
+}
