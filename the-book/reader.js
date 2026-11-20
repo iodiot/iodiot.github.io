@@ -1,1 +1,69 @@
-(()=>{const root=document.documentElement;const key="the-book-reader";let prefs={};try{prefs=JSON.parse(localStorage.getItem(key)||"{}")}catch{}if(prefs.theme==="light")root.classList.add("theme-light");let size=Number(prefs.size)||1.17;const setSize=()=>{size=Math.min(1.55,Math.max(1,size));root.style.setProperty("--reader-size",size+"rem");prefs.size=size;localStorage.setItem(key,JSON.stringify(prefs))};setSize();document.querySelectorAll("[data-font]").forEach(b=>b.addEventListener("click",()=>{size+=b.dataset.font==="up"?.08:-.08;setSize()}));document.querySelector("[data-theme]")?.addEventListener("click",()=>{root.classList.toggle("theme-light");prefs.theme=root.classList.contains("theme-light")?"light":"dark";localStorage.setItem(key,JSON.stringify(prefs))});document.querySelector("[data-focus]")?.addEventListener("click",e=>{document.body.classList.toggle("focus-mode");e.currentTarget.setAttribute("aria-pressed",document.body.classList.contains("focus-mode"))});const bar=document.querySelector(".reader-progress span");if(bar){const slug=document.body.dataset.chapter;const storageKey="the-book-progress-"+slug;const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;const pct=max>0?Math.min(100,Math.max(0,scrollY/max*100)):0;bar.style.width=pct+"%";bar.parentElement.setAttribute("aria-valuenow",String(Math.round(pct)));try{localStorage.setItem(storageKey,String(Math.round(pct)))}catch{}};addEventListener("scroll",update,{passive:true});addEventListener("resize",update);update()}})();
+(() => {
+  const root = document.documentElement;
+  const settingsKey = "the-book-reader";
+  function readSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(settingsKey));
+      return saved && typeof saved === "object" ? saved : {};
+    } catch {
+      return {};
+    }
+  }
+  const settings = readSettings();
+  function saveSettings() {
+    try { localStorage.setItem(settingsKey, JSON.stringify(settings)); } catch {}
+  }
+
+  const themeSelect = document.querySelector("[data-theme]");
+  function applyTheme(value) {
+    const light = value === "white" || value === "sepia";
+    const theme = light ? value : "dark";
+    root.classList.toggle("theme-light", light);
+    root.classList.toggle("theme-white", theme === "white");
+    root.classList.toggle("theme-sepia", theme === "sepia");
+    themeSelect.value = theme;
+    settings.theme = theme;
+  }
+  if (themeSelect) {
+    applyTheme(settings.theme === "light" ? "sepia" : settings.theme);
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+      saveSettings();
+    });
+  }
+
+  let size = Number(settings.size) || 1.17;
+  function applySize() {
+    size = Math.min(1.55, Math.max(1, size));
+    root.style.setProperty("--reader-size", size + "rem");
+    settings.size = size;
+  }
+  applySize();
+  document.querySelectorAll("[data-font]").forEach(button => {
+    button.addEventListener("click", () => {
+      size += button.dataset.font === "up" ? .08 : -.08;
+      applySize();
+      saveSettings();
+    });
+  });
+  const focusButton = document.querySelector("[data-focus]");
+  focusButton?.addEventListener("click", () => {
+    const active = document.body.classList.toggle("focus-mode");
+    focusButton.setAttribute("aria-pressed", String(active));
+  });
+
+  const progress = document.querySelector(".reader-progress");
+  if (!progress) return;
+  const fill = progress.querySelector("span");
+  const progressKey = "the-book-progress-" + document.body.dataset.chapter;
+  function updateProgress() {
+    const distance = document.documentElement.scrollHeight - innerHeight;
+    const percent = distance > 0 ? Math.max(0, Math.min(100, scrollY / distance * 100)) : 0;
+    fill.style.width = percent + "%";
+    progress.setAttribute("aria-valuenow", String(Math.round(percent)));
+    try { localStorage.setItem(progressKey, String(Math.round(percent))); } catch {}
+  }
+  addEventListener("scroll", updateProgress, { passive: true });
+  addEventListener("resize", updateProgress);
+  updateProgress();
+})();
