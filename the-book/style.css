@@ -44,3 +44,12 @@
   body.reader-page { background: white; color: black; }
   .reader-page .reader-article, .reader-page .reader-article * { color: black; }
 }
+
+.reader-article > p,
+.reader-sources li {
+  text-align: justify;
+  text-align-last: start;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
