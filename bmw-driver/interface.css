@@ -757,6 +757,7 @@ body[data-capture='true'] .credits {
 }
 .day-rain,
 .day-run,
+.day-sound,
 .day-restart {
   width: 34px !important;
   height: 34px !important;
@@ -779,6 +780,25 @@ body[data-capture='true'] .credits {
 }
 .day-run[aria-pressed='true'] {
   color: #ffd27d;
+}
+.day-sound[data-state='off'] {
+  color: #ffffff8c;
+}
+/* Sound is on but the browser waits for a click: a soft pulse asks for one. */
+.day-sound[data-state='waiting'] {
+  animation: sound-waiting 1.6s ease-in-out infinite;
+}
+@keyframes sound-waiting {
+  50% {
+    box-shadow:
+      inset 0 0 0 1px #ffffff66,
+      0 0 12px #ffffff55;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .day-sound[data-state='waiting'] {
+    animation: none;
+  }
 }
 .day-buttons svg {
   width: 17px;
@@ -830,6 +850,7 @@ body[data-capture='true'] .day-bar {
   }
   .day-rain,
   .day-run,
+  .day-sound,
   .day-restart {
     width: 30px !important;
     height: 30px !important;
