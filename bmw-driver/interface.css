@@ -16,26 +16,12 @@ canvas {
   display: block;
   outline: none;
 }
-header {
-  position: fixed;
-  top: 22px;
-  left: 24px;
-  pointer-events: none;
-}
-h1 {
-  margin: 0;
-  color: #28323c;
-  font-size: 22px;
-  font-weight: 650;
-  letter-spacing: -0.5px;
-}
 #status {
   position: fixed;
   left: 24px;
-  top: 58px;
+  top: 22px;
   color: #28323c;
 }
-body[data-night='true'] h1,
 body[data-night='true'] #status {
   color: #dce5f1;
 }
@@ -211,101 +197,121 @@ button[aria-pressed='true'] {
   width: 100%;
   height: auto;
   overflow: visible;
-  font-family: 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  /* The European M5 cluster uses semi-bold, slightly narrow sans figures. */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+/* Semi-transparent panel and dial faces keep the scene visible behind. */
 .cluster-shell {
   fill: url(#cluster-shell);
-  fill-opacity: 0.16;
-  stroke: #717a8345;
-  stroke-opacity: 0.4;
+  fill-opacity: 0.62;
+  stroke: #7a7a7a;
+  stroke-opacity: 0.28;
   stroke-width: 1.2;
 }
 .dial-face {
   fill: url(#dial-face);
-  fill-opacity: 0.38;
+  fill-opacity: 0.9;
 }
 .dial-bezel-shadow {
   fill: none;
-  stroke: #020507;
+  stroke: #000;
   stroke-width: 5;
-  stroke-opacity: 0.4;
+  stroke-opacity: 0.6;
 }
 .dial-bezel {
   fill: none;
   stroke: url(#bezel-metal);
-  stroke-width: 2.2;
+  stroke-width: 5.2;
 }
-.dial-inner-ring {
+.dial-bezel-edge {
   fill: none;
-  stroke: #7e899370;
-  stroke-width: 0.8;
+  stroke: #080808;
+  stroke-width: 0.9;
 }
 .major-tick {
   fill: none;
-  stroke: #f0f1ea;
-  stroke-width: 2.5;
+  stroke: #f6f6f2;
+  stroke-width: 2.8;
 }
 .minor-tick {
   fill: none;
-  stroke: #d4dddfe0;
-  stroke-width: 1.4;
+  stroke: #e9ebe6;
+  stroke-width: 1.8;
 }
 .dial-number {
-  fill: #edf1ed;
-  font-size: 18px;
-  font-weight: 500;
+  fill: #f6f6f2;
+  font-weight: 600;
   text-anchor: middle;
-  dominant-baseline: middle;
+  dominant-baseline: central;
+}
+.speed-number {
+  font-size: 16px;
+  letter-spacing: -0.6px;
+}
+.rpm-number {
+  font-size: 21px;
 }
 .dial-unit {
-  fill: #d3dad8;
-  font-size: 10px;
+  fill: #e6e8e4;
+  font-size: 9.5px;
+  font-weight: 600;
   text-anchor: middle;
+}
+.side-icon {
+  fill: none;
+  stroke: #e6e8e4;
+  stroke-width: 1.1;
+  stroke-linejoin: round;
 }
 .rpm-warning {
   fill: none;
-  stroke: #e2b34b;
-  stroke-width: 4;
+  stroke: #b9bcbf;
+  stroke-width: 3.4;
 }
 .rpm-redline {
   fill: none;
-  stroke: #d95043;
-  stroke-width: 4;
+  stroke: #e0392d;
+  stroke-width: 3.4;
 }
-.cluster-lower-edge {
+.needle-glow {
+  fill: #ff3a24;
+  opacity: 0.75;
+}
+.needle-core {
+  stroke: #ffd6c8;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+.info-arc {
   fill: none;
-  stroke: #171d23;
-  stroke-width: 1;
+  stroke: url(#info-blue);
+  stroke-width: 2.4;
 }
-.digital-speed {
-  fill: #f3f5ef;
-  font-size: 29px;
-  font-weight: 500;
+.info-arc-inner {
+  fill: none;
+  stroke: #2c6fd6;
+  stroke-opacity: 0.35;
+  stroke-width: 0.8;
+}
+.info-text {
+  fill: #e8eef6;
+  font-size: 11px;
+  font-weight: 600;
   text-anchor: middle;
   font-variant-numeric: tabular-nums;
 }
-.digital-unit {
-  fill: #a8b5c1;
-  font-size: 10px;
-  text-anchor: middle;
-}
 .gear-display {
-  fill: #e7f1f6;
-  font-size: 37px;
-  font-weight: 500;
+  fill: #f2f6f8;
+  font-size: 36px;
+  font-weight: 600;
   text-anchor: middle;
 }
 .transmission-label {
-  fill: #8d9fac;
+  fill: #9fb0bd;
   font-size: 9px;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-anchor: middle;
-}
-.trip-display {
-  fill: #a8bac8;
-  font-size: 11px;
-  text-anchor: middle;
-  font-variant-numeric: tabular-nums;
 }
 .m-mark {
   fill: #e3e7e6;
@@ -318,117 +324,222 @@ button[aria-pressed='true'] {
   stroke: #79bd8a;
   stroke-width: 1.6;
 }
-.dsc-indicator {
-  fill: none;
-  stroke: #ffbd42;
-  stroke-width: 2.1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.dsc-indicator .dsc-symbol {
+  fill: #ffaa1f;
+  filter: drop-shadow(0 0 2px #ff9a0080);
+}
+/* Heading-up road map in the top left corner. */
+.minimap {
+  position: fixed;
+  top: 16px;
+  left: 18px;
+  width: 120px;
+  height: 140px;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 78%, #0e141a99, #0e141a55);
+  border: 1px solid #9aafbd2e;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+.minimap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .suspension-display {
   position: fixed;
   left: 18px;
   bottom: 20px;
-  width: 220px;
+  width: 236px;
   box-sizing: border-box;
-  padding: 9px 9px 5px;
+  padding: 9px 10px 7px;
   pointer-events: none;
-  background: linear-gradient(150deg, #11182036, #11182012);
-  border: 1px solid #9aafbd21;
-  border-radius: 9px;
+  color: #e3eaef;
+  font-size: 10px;
+  background: linear-gradient(150deg, #0e141acc, #0e141a99);
+  border: 1px solid #9aafbd2e;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
 }
-.suspension-display h2 {
+.susp-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 5px;
-  margin: 0 0 2px;
-  color: #e0e8ed;
-  font-size: 11px;
-  font-weight: 500;
-  text-shadow: 0 1px 3px #000b;
+  margin-bottom: 6px;
 }
-.suspension-display h2 span {
-  color: #afbfca;
-  font-size: 7px;
-  letter-spacing: 0.8px;
+.susp-head h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
 }
-.suspension-display svg {
-  display: block;
-  width: 100%;
+.susp-balance {
+  color: #aebfcb;
+  font-variant-numeric: tabular-nums;
+}
+.susp-grid {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  grid-template-rows: auto auto;
+  gap: 6px 6px;
+}
+.susp-grid > [data-corner='FL'] {
+  grid-area: 1 / 1;
+}
+.susp-grid > [data-corner='FR'] {
+  grid-area: 1 / 3;
+}
+.susp-grid > [data-corner='RL'] {
+  grid-area: 2 / 1;
+}
+.susp-grid > [data-corner='RR'] {
+  grid-area: 2 / 3;
+}
+.susp-car {
+  grid-area: 1 / 2 / 3 / 3;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.susp-car svg {
+  width: 36px;
   height: auto;
   overflow: visible;
 }
-.suspension-car {
-  fill: #b7c9d30b;
-  stroke: #b7c9d34a;
+.susp-body {
+  fill: #b7c9d314;
+  stroke: #b7c9d366;
   stroke-width: 1.2;
 }
-.suspension-car-detail,
-.car-front-arrow {
+.susp-glass {
   fill: none;
-  stroke: #b7c9d34a;
-  stroke-width: 1;
+  stroke: #b7c9d355;
 }
-.suspension-corner {
-  fill: #a8bac6;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-anchor: middle;
+.susp-nose {
+  fill: #b7c9d388;
 }
-.wheel-load {
-  fill: #e1eaf0;
+.susp-centre {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: #ffcf6e;
+  box-shadow: 0 0 0 2px #ffcf6e33;
+  transition: transform 0.12s linear;
+}
+.susp-corner {
+  position: relative;
+  padding: 4px 5px 5px;
+  border-radius: 6px;
+  background: #ffffff0a;
+}
+.susp-name {
+  color: #9fb2bf;
+  font-size: 9px;
+  letter-spacing: 0.3px;
+}
+.susp-load {
+  margin: 1px 0 3px;
+  color: #aebfcb;
+}
+.susp-load b {
+  color: #f1f5f7;
   font-size: 15px;
-  font-weight: 500;
-  text-anchor: middle;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.wheel-travel {
-  fill: #afc6d5;
-  font-size: 13px;
-  text-anchor: middle;
+.susp-loadbar {
+  position: relative;
+  height: 5px;
+  border-radius: 3px;
+  background: #a6bdcc26;
+  overflow: hidden;
+}
+.susp-loadbar i {
+  display: block;
+  height: 100%;
+  width: 50%;
+  border-radius: 3px;
+  background: #7fd0a4;
+}
+/* Load at rest is half the bar. */
+.susp-loadbar span {
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  bottom: -1px;
+  width: 1.5px;
+  background: #f1f5f7aa;
+}
+.susp-corner.heavy .susp-loadbar i {
+  background: #f0b45c;
+}
+.susp-corner.light .susp-loadbar i {
+  background: #8fb7d6;
+}
+.susp-travel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: #c9d6de;
   font-variant-numeric: tabular-nums;
 }
-.load-rail {
-  fill: #a6bdcc20;
+.susp-gauge {
+  position: relative;
+  width: 6px;
+  height: 22px;
+  border-radius: 3px;
+  background: #a6bdcc26;
 }
-.load-fill {
-  fill: #95c3db;
+/* Zero line in the middle; fill grows up for compression, down for rebound. */
+.susp-gauge::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 50%;
+  height: 1px;
+  background: #f1f5f7aa;
 }
-.suspension-link {
-  fill: none;
-  stroke: #9aaebb75;
-  stroke-width: 1;
+.susp-gauge i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-radius: 3px;
 }
-.spring-coil {
-  fill: none;
-  stroke: #b9cbd7;
-  stroke-width: 1.4;
-  stroke-linejoin: round;
+.susp-gauge i[data-direction='up'] {
+  bottom: 50%;
+  background: #f0b45c;
 }
-.damper-rod {
-  fill: none;
-  stroke: #d1dde4;
-  stroke-width: 1.5;
+.susp-gauge i[data-direction='down'] {
+  top: 50%;
+  background: #6fb3e0;
 }
-.damper-cylinder {
-  fill: #9eb8ca;
-  fill-opacity: 0.15;
-  stroke: #afc6d5;
-  stroke-width: 1.5;
+.susp-air {
+  display: none;
+  position: absolute;
+  right: 4px;
+  top: 3px;
+  padding: 0 4px;
+  border-radius: 3px;
+  color: #10161b;
+  background: #ffcf6e;
+  font-size: 8px;
+  font-weight: 700;
 }
-.tyre-outline {
-  fill: #0d151c50;
-  stroke: #adbfca;
-  stroke-width: 1.2;
+.susp-corner.air .susp-air {
+  display: block;
 }
-.tyre-tread {
-  fill: none;
-  stroke: #b1c3ce65;
-  stroke-width: 0.8;
+.susp-corner.air .susp-load b {
+  color: #8d9ba5;
 }
-body[data-capture='true'] header,
 body[data-capture='true'] .instrument-cluster,
+body[data-capture='true'] .minimap,
 body[data-capture='true'] .suspension-display,
 body[data-capture='true'] .settings,
 body[data-capture='true'] .credits {
@@ -439,24 +550,17 @@ body[data-capture='true'] .credits {
     width: min(410px, calc(100vw - 32px));
   }
   .suspension-display {
-    width: 170px;
+    width: 210px;
   }
 }
+/* Narrow screens keep the view clear: the instruments stay, the suspension
+   telemetry is hidden. */
 @media (max-width: 620px) {
   .suspension-display {
-    left: 12px;
-    width: 165px;
-    bottom: calc(min(410px, calc(100vw - 32px)) * 0.462 + 30px);
+    display: none;
   }
 }
 @media (max-width: 520px) {
-  header {
-    left: 16px;
-    top: 22px;
-  }
-  h1 {
-    font-size: 18px;
-  }
   .settings {
     top: 16px;
     right: 16px;
@@ -470,7 +574,7 @@ body[data-capture='true'] .credits {
   }
   #status {
     left: 16px;
-    top: 56px;
+    top: 18px;
   }
 }
 @media (max-height: 500px) {
@@ -483,8 +587,257 @@ body[data-capture='true'] .credits {
     top: 12px;
     right: 16px;
   }
-  header {
-    top: 16px;
-    left: 16px;
+}
+
+/* Time of day: top centre. The panel takes the colour of the sky: blue
+   by day, warm at sunset, deep blue at night (set from day-bar.js). */
+.day-bar {
+  --sky-top: #3b78c4;
+  --sky-bottom: #6fa7dc;
+  --sky-glow: 0;
+  --day-progress: 0.5;
+  position: fixed;
+  z-index: 1;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 8px 7px 12px;
+  border: 1px solid #ffffff2e;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, #ffffff1f, #ffffff00 55%),
+    linear-gradient(135deg, var(--sky-top), var(--sky-bottom));
+  background-blend-mode: normal;
+  box-shadow:
+    0 10px 28px #00000040,
+    inset 0 1px 0 #ffffff33,
+    0 0 calc(var(--sky-glow) * 26px) calc(var(--sky-glow) * 2px) #ff9a4a55;
+  backdrop-filter: blur(14px) saturate(1.2);
+  color: #fff;
+  user-select: none;
+  transition: background 0.8s;
+}
+.day-bar::after {
+  /* A dark veil keeps text and icons readable on the brightest sky. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #0a0f1859;
+}
+.day-graph {
+  width: 120px;
+  height: 42px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: none;
+  background: #00000033;
+  box-shadow: inset 0 0 0 1px #ffffff1a;
+}
+.day-graph svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.day-below {
+  fill: #0006;
+}
+.day-path {
+  fill: none;
+  stroke: #ffe2a8b0;
+  stroke-width: 1.2;
+  stroke-dasharray: 2 2.4;
+}
+.day-horizon {
+  stroke: #ffffff70;
+  stroke-width: 0.8;
+}
+.day-now {
+  stroke: #ffffff40;
+  stroke-width: 0.8;
+}
+.day-body {
+  fill: #ffd27d;
+  stroke: #fff4d6;
+  stroke-width: 1;
+  filter: drop-shadow(0 0 3px #ffbf5a);
+}
+.day-body.moon {
+  fill: #dfe8ff;
+  stroke: #ffffff;
+  filter: drop-shadow(0 0 3px #9fb8ff);
+}
+.day-readout {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 8px;
+  min-width: 96px;
+}
+.day-celestial {
+  grid-row: span 2;
+  width: 26px;
+  height: 26px;
+}
+.day-celestial circle,
+.day-celestial path {
+  transition: opacity 0.6s;
+}
+.day-celestial .sun {
+  fill: #ffd36b;
+  filter: drop-shadow(0 0 5px #ffb43a);
+}
+.day-celestial .moon {
+  fill: #e6edff;
+  filter: drop-shadow(0 0 5px #9fb8ff);
+}
+.day-clock {
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 6px #0006;
+}
+.day-phase {
+  color: #ffffffc4;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.day-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.day-presets {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 12px;
+  background: #00000040;
+  box-shadow: inset 0 0 0 1px #ffffff14;
+}
+.day-buttons button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #ffffffd9;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+}
+.day-buttons button:hover {
+  background: #ffffff1f;
+}
+.day-buttons button:focus-visible {
+  outline: 2px solid #ffffffcc;
+  outline-offset: 1px;
+}
+.day-presets button[aria-current='true'] {
+  background: #ffffff38;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 #ffffff40,
+    0 2px 6px #0003;
+}
+.day-rain,
+.day-run,
+.day-restart {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: #00000040 !important;
+  box-shadow: inset 0 0 0 1px #ffffff1f;
+}
+.day-rain[aria-pressed='true'] {
+  background: #2f7ddb66 !important;
+  color: #d6ecff;
+  box-shadow:
+    inset 0 0 0 1px #9fd0ff88,
+    0 0 14px #5fb2ff88;
+}
+/* The play button's ring shows how far the day has run. */
+.day-run {
+  background:
+    radial-gradient(closest-side, #0d1420d9 78%, transparent 80% 100%),
+    conic-gradient(#ffd27d calc(var(--day-progress) * 360deg), #ffffff26 0) !important;
+}
+.day-run[aria-pressed='true'] {
+  color: #ffd27d;
+}
+.day-buttons svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.day-buttons .day-run svg path {
+  fill: currentColor;
+}
+body[data-capture='true'] .day-bar {
+  display: none;
+}
+/* Narrow screens: no sun graph. */
+@media (max-width: 760px) {
+  .day-graph {
+    display: none;
+  }
+}
+/* Narrower still: top right, clock and buttons only. */
+@media (max-width: 700px) {
+  .day-bar {
+    top: 14px;
+    left: auto;
+    right: 16px;
+    transform: none;
+    gap: 8px;
+    padding: 6px 6px 6px 10px;
+  }
+  .day-readout {
+    min-width: 0;
+  }
+  .day-celestial {
+    width: 20px;
+    height: 20px;
+  }
+  .day-clock {
+    font-size: 16px;
+  }
+  .day-phase {
+    display: none;
+  }
+  .day-buttons button {
+    width: 28px;
+    height: 28px;
+  }
+  .day-rain,
+  .day-run,
+  .day-restart {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+/* Phones: below the road map. */
+@media (max-width: 460px) {
+  .day-bar {
+    top: 168px;
   }
 }

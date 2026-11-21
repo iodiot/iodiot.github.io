@@ -12,3 +12,46 @@ https://creativecommons.org/licenses/by/4.0/
 The original GLB remains unmodified. The viewer adapts its scale and orientation,
 separates wheels and rear lamps at runtime, and adds driving, suspension and brake
 light behavior.
+
+# Sky photograph
+
+File: `sky/sky-day.jpg`
+
+Title: Sunflowers
+
+Author: Sergej Majboroda, Poly Haven
+
+Source: https://polyhaven.com/a/sunflowers
+
+License: CC0 1.0 Universal (public domain), https://creativecommons.org/publicdomain/zero/1.0/
+
+Adaptation: the tonemapped JPEG was scaled to 4096 wide and cropped from the
+zenith to 5.98° below the horizon, 4096 × 1092.
+
+# Ground textures
+
+Files: `ground/asphalt.jpg`, `ground/asphalt-normal.jpg`, `ground/asphalt-arm.jpg`,
+`ground/asphalt-height.jpg`, `ground/grass.jpg`, `ground/gravel.jpg`
+
+Titles: Asphalt Track (Dimitrios Savva), Leafy Grass (Charlotte Baglioni), Rocks Ground 02
+(Rob Tuytel), Poly Haven
+
+Sources: https://polyhaven.com/a/asphalt_track, https://polyhaven.com/a/leafy_grass,
+https://polyhaven.com/a/rocks_ground_02
+
+License: CC0 1.0 Universal (public domain), https://creativecommons.org/publicdomain/zero/1.0/
+
+Adaptation: the asphalt colour and normal maps were re-encoded at 2048 × 2048, and
+the normal map high-pass filtered (broad tilts removed, fine relief kept);
+the roughness/occlusion (ARM) and height maps are the 1024 × 1024 originals.
+The viewer lightens and desaturates the asphalt colour at runtime.
+
+# Skidding-car (DSC) symbol
+
+Used in: `public/instruments.js` (the DSC warning light in the cluster)
+
+Source: Material Design Icons, `car-traction-control` (@mdi/svg 7.4.47), https://pictogrammers.com/library/mdi/icon/car-traction-control/
+
+License: Apache License 2.0, https://www.apache.org/licenses/LICENSE-2.0
+
+Adaptation: the path is drawn in amber inside the cluster's SVG.

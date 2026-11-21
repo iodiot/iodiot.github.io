@@ -26,7 +26,7 @@ It is an audio adaptation for the simulation, not a factory BMW M5 F10 recording
 - Recording: **Rain_Loop.wav**, a field recording made with a Zoom H2N, by **Snoopy20111**.
 - Source: https://freesound.org/people/Snoopy20111/sounds/399072/
 - License: **CC0 1.0**, https://creativecommons.org/publicdomain/zero/1.0/
-- Changes: excerpt, mono conversion, filtering, normalization and loop crossfade.
+- Changes: excerpt, mono conversion, filtering, normalization and loop crossfade. Background bird calls (narrow tonal events around 3 kHz) were removed with circular spectral attenuation, leaving the broadband rain intact.
 
 ## Tyres under hard braking
 
