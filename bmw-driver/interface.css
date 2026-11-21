@@ -986,3 +986,85 @@ body[data-touch-controls='true'] .suspension-display {
 body[data-capture='true'] .touch-controls {
   display: none;
 }
+/* While the car drives itself: how to take over. Gone once you drive;
+   back after Restart. */
+.drive-hint {
+  position: fixed;
+  z-index: 1;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #ffffffe6;
+  font:
+    500 12.5px/1.2 system-ui,
+    sans-serif;
+  white-space: nowrap;
+  background: #0b1018a6;
+  box-shadow: inset 0 0 0 1px #ffffff1f;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  animation: hint-in 0.4s ease-out;
+}
+body[data-autopilot='true'][data-driving='true'] .drive-hint {
+  display: flex;
+}
+.drive-hint b {
+  color: #7fc8ff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.drive-hint kbd {
+  display: inline-block;
+  min-width: 18px;
+  margin: 0 1px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font:
+    700 11px/16px system-ui,
+    sans-serif;
+  text-align: center;
+  background: #ffffff26;
+  box-shadow: inset 0 -1px 0 #0006;
+}
+.hint-touch,
+body[data-touch-controls='true'] .hint-keys {
+  display: none;
+}
+body[data-touch-controls='true'] .hint-touch {
+  display: inline;
+}
+body[data-capture='true'] .drive-hint {
+  display: none !important;
+}
+@keyframes hint-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drive-hint {
+    animation: none;
+  }
+}
+@media (max-width: 700px) {
+  .drive-hint {
+    top: 64px;
+    left: auto;
+    right: 16px;
+    transform: none;
+  }
+}
+@media (max-width: 460px) {
+  .drive-hint {
+    top: 218px;
+  }
+}
