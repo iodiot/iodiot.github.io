@@ -766,13 +766,41 @@ body[data-capture='true'] .credits {
   letter-spacing: 0.01em;
   text-shadow: 0 1px 6px #0006;
 }
-.day-phase {
-  color: #ffffffc4;
+/* Frames per second, under the clock: a coloured dot, the figure, FPS. */
+.day-fps {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffffffb0;
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
   white-space: nowrap;
+}
+.day-fps b {
+  min-width: 2ch;
+  color: #fff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.day-fps i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ee08a;
+  box-shadow: 0 0 6px #4ee08acc;
+  transition:
+    background 0.4s,
+    box-shadow 0.4s;
+}
+.day-fps[data-level='fair'] i {
+  background: #ffc846;
+  box-shadow: 0 0 6px #ffc846cc;
+}
+.day-fps[data-level='low'] i {
+  background: #ff5a4a;
+  box-shadow: 0 0 6px #ff5a4acc;
 }
 .day-buttons {
   display: flex;
@@ -907,7 +935,7 @@ body[data-capture='true'] .day-bar {
   .day-clock {
     font-size: 16px;
   }
-  .day-phase {
+  .day-fps {
     display: none;
   }
   .day-buttons button {
