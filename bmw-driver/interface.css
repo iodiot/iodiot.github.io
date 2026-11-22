@@ -222,7 +222,20 @@ button[aria-pressed='true'] {
   bottom: 18px;
   width: min(460px, calc(100vw - 32px));
   pointer-events: none;
+}
+/* The scales are drawn once (with their shadow); the needles turn on layers
+   of their own above them, so moving them repaints nothing. */
+.instrument-cluster svg[role='img'] {
   filter: drop-shadow(0 5px 6px #0002);
+}
+.instrument-cluster .cluster-needle,
+.instrument-cluster .cluster-hubs {
+  position: absolute;
+  inset: 0;
+}
+.instrument-cluster .cluster-needle {
+  transform: rotate(-120deg);
+  will-change: transform;
 }
 .instrument-cluster svg {
   display: block;
