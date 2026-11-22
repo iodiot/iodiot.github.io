@@ -57,6 +57,10 @@ canvas {
   opacity: 0;
   visibility: hidden;
 }
+/* A capture (?capture=1) shows the scene the moment it is ready. */
+body[data-capture='true'] #status.done {
+  transition: none;
+}
 .settings {
   position: fixed;
   z-index: 2;
@@ -951,12 +955,7 @@ body[data-capture='true'] .day-bar {
     height: 30px !important;
   }
 }
-/* Phones: below the road map. */
-@media (max-width: 460px) {
-  .day-bar {
-    top: 168px;
-  }
-}
+
 /* Touch driving: a steering track at the bottom left, pedals at the bottom
    right. Shown on touch screens only; the instruments move up above them. */
 .touch-controls {
@@ -1140,8 +1139,53 @@ body[data-capture='true'] .drive-hint {
     transform: none;
   }
 }
-@media (max-width: 460px) {
+
+/* Phones: the road stays in view. One slim row along the top (a small road
+   map, the clock and the essential buttons), the hint under it, and a
+   compact cluster centred above the touch controls. */
+@media (max-width: 520px) {
+  .minimap {
+    top: max(12px, env(safe-area-inset-top));
+    left: 12px;
+    width: 76px;
+    height: 88px;
+    border-radius: 10px;
+  }
+  .day-bar {
+    top: max(12px, env(safe-area-inset-top));
+    right: 12px;
+    gap: 6px;
+    padding: 5px 5px 5px 9px;
+    border-radius: 15px;
+  }
+  .day-presets,
+  .day-run {
+    display: none !important;
+  }
+  .day-celestial {
+    display: none;
+  }
+  .day-rain,
+  .day-camera,
+  .day-sound,
+  .day-restart {
+    width: 30px !important;
+    height: 30px !important;
+  }
   .drive-hint {
-    top: 218px;
+    top: calc(max(12px, env(safe-area-inset-top)) + 98px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 11.5px;
+  }
+  .instrument-cluster {
+    left: 50%;
+    right: auto;
+    width: min(236px, calc(100vw - 32px));
+    transform: translateX(-50%);
+  }
+  body[data-touch-controls='true'] .instrument-cluster {
+    bottom: calc(max(18px, env(safe-area-inset-bottom)) + 104px);
   }
 }
