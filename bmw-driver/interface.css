@@ -1461,3 +1461,75 @@ body[data-touch-controls='true'] .refuel-meter {
   top: calc(max(12px, env(safe-area-inset-top)) + 64px);
   bottom: auto;
 }
+
+/* A drift as it goes: the score, its multiplier and the angle. */
+.drift-meter {
+  position: fixed;
+  z-index: 2;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 18px 9px;
+  border-radius: 14px;
+  color: #fff;
+  background: #0b1018b8;
+  box-shadow:
+    inset 0 0 0 1px #ff9a3c80,
+    0 8px 20px #0005;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.drift-meter[hidden] {
+  display: none;
+}
+.drift-meter.fading {
+  opacity: 0.55;
+}
+.drift-meter .drift-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.drift-meter small {
+  color: #ffb36b;
+  font:
+    700 10.5px/1 system-ui,
+    sans-serif;
+  letter-spacing: 0.12em;
+}
+.drift-meter b {
+  font:
+    800 26px/1 system-ui,
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.drift-meter em {
+  color: #ffc56b;
+  font:
+    800 17px/1 system-ui,
+    sans-serif;
+  font-style: normal;
+}
+.drift-meter .drift-angle {
+  position: relative;
+  width: 150px;
+  height: 5px;
+  border-radius: 3px;
+  background: #ffffff26;
+}
+.drift-meter .drift-angle i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #ff9a3c, #ff5a3c);
+}
+body[data-touch-controls='true'] .drift-meter {
+  top: calc(max(12px, env(safe-area-inset-top)) + 64px);
+  bottom: auto;
+}
