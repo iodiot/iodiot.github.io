@@ -1589,3 +1589,152 @@ body[data-touch-controls='true'] .drift-meter {
 .weather-auto input {
   accent-color: #2f7ddb;
 }
+
+/* On the route: how far it still is to Kyiv, top right (see route-card.js). */
+.route-card {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  width: 214px;
+  padding: 11px 14px 12px;
+  box-sizing: border-box;
+  pointer-events: none;
+  color: #f3f7fa;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(180deg, #0c121a59, #0c121a85);
+  border: 1px solid #ffffff2b;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 22px #0000002e,
+    inset 0 1px 0 #ffffff26;
+  backdrop-filter: blur(4px);
+}
+.route-card-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #dce6eecc;
+}
+/* The road's number, as on its signs: white on red. */
+.route-card-shield {
+  padding: 1px 5px 0;
+  border-radius: 3px;
+  background: #c8262c;
+  color: #fff;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 0 0 1px #ffffff99;
+}
+.route-card-km {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 1px 0 7px;
+}
+.route-card-km b {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.route-card-km span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #dce6eecc;
+}
+.route-card-line {
+  position: relative;
+  height: 6px;
+  margin: 0 4px;
+  border-radius: 3px;
+  background: #ffffff2e;
+}
+.route-card-done {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #ffd34d, #4fb3ff);
+  transition: width 0.25s linear;
+}
+/* The villages the road runs through. */
+.route-card-line i {
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #ffffffb0;
+}
+/* The car. */
+.route-card-car {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 3px #4fb3ff,
+    0 0 12px 3px #4fb3ffaa;
+  transition: left 0.25s linear;
+}
+.route-card-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #dce6eebf;
+}
+.route-card-next {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #ffffff1f;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.route-card[data-arrived='true'] .route-card-km b {
+  color: #ffd34d;
+}
+body[data-capture='true'] .route-card {
+  display: none;
+}
+/* Narrower: under the top panel, which moves to the right. */
+@media (max-width: 700px) {
+  .route-card {
+    top: 110px;
+    right: 16px;
+    width: 188px;
+  }
+}
+/* Phones: one slim row under the top panel, the kilometres and the line. */
+@media (max-width: 520px) {
+  .route-card {
+    top: calc(max(12px, env(safe-area-inset-top)) + 140px);
+    right: 12px;
+    width: 150px;
+    padding: 7px 10px 8px;
+    border-radius: 12px;
+  }
+  .route-card-km {
+    margin: 0 0 5px;
+  }
+  .route-card-km b {
+    font-size: 24px;
+  }
+  .route-card-ends,
+  .route-card-next {
+    display: none;
+  }
+}

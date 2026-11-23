@@ -55,3 +55,11 @@ Source: Material Design Icons, `car-traction-control` (@mdi/svg 7.4.47), https:/
 License: Apache License 2.0, https://www.apache.org/licenses/LICENSE-2.0
 
 Adaptation: the path is drawn in amber inside the cluster's SVG.
+
+## Route: Zhytomyr – Kyiv (route-m06.json)
+
+Road geometry and place names: © OpenStreetMap contributors, available under the Open Database License (ODbL), https://www.openstreetmap.org/copyright. Routed with the OSRM demo server (https://project-osrm.org/).
+
+Heights: SRTM 30 m (NASA / USGS, public domain), queried through OpenTopoData (https://www.opentopodata.org/).
+
+Adaptation: the route is resampled, its bends unbent into the game's road along one axis and its heights smoothed (see `tools/route-m06/build.py`).
