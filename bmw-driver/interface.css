@@ -392,13 +392,17 @@ button[aria-pressed='true'] {
   position: fixed;
   top: 16px;
   left: 18px;
-  width: 120px;
-  height: 140px;
+  width: 168px;
+  height: 252px;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 78%, #0e141a99, #0e141a55);
-  border: 1px solid #9aafbd2e;
-  border-radius: 12px;
-  backdrop-filter: blur(4px);
+  /* See-through: the scene shows behind, only a little darkened. */
+  background: linear-gradient(180deg, #0c121a40, #0c121a66);
+  border: 1px solid #ffffff2b;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 22px #0000002e,
+    inset 0 1px 0 #ffffff26;
+  backdrop-filter: blur(3px);
   overflow: hidden;
 }
 .minimap canvas {
