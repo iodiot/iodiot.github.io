@@ -1738,3 +1738,77 @@ body[data-capture='true'] .route-card {
     display: none;
   }
 }
+
+/* Phones: the instruments and the road map give the road their room, and
+   the top panel holds every option, as on a computer: the clock above,
+   then the times of day, the weather, pause, paint, camera, sound and
+   restart in one row of buttons big enough to touch. */
+@media (max-width: 520px) {
+  .minimap,
+  .instrument-cluster {
+    display: none !important;
+  }
+  .day-bar {
+    top: max(10px, env(safe-area-inset-top));
+    left: 10px;
+    right: 10px;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+    padding: 7px 8px 8px;
+    border-radius: 18px;
+  }
+  .day-celestial {
+    display: block;
+  }
+  .day-buttons {
+    width: 100%;
+    justify-content: space-between;
+    gap: 2px;
+  }
+  .day-presets {
+    display: flex !important;
+  }
+  .day-run {
+    display: grid !important;
+  }
+  .day-buttons button,
+  .day-rain,
+  .day-camera,
+  .day-paint,
+  .day-sound,
+  .day-restart {
+    width: 36px !important;
+    height: 34px !important;
+  }
+  .day-presets button {
+    width: 34px !important;
+  }
+  .drive-hint {
+    top: calc(max(10px, env(safe-area-inset-top)) + 100px);
+  }
+  .route-card {
+    top: calc(max(10px, env(safe-area-inset-top)) + 140px);
+  }
+  .toasts {
+    top: calc(max(10px, env(safe-area-inset-top)) + 196px);
+  }
+  /* Its panels open under it, scrolling if they are long. */
+  .look-picker {
+    top: calc(max(10px, env(safe-area-inset-top)) + 98px);
+    left: 10px;
+    right: 10px;
+    width: auto;
+    transform: none;
+    max-height: calc(100dvh - 210px);
+    overflow-y: auto;
+  }
+}
+/* Phones on their side: no instruments or map either. */
+@media (pointer: coarse) and (max-height: 500px) {
+  .minimap,
+  .instrument-cluster {
+    display: none !important;
+  }
+}
