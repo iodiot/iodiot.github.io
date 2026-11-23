@@ -1402,3 +1402,62 @@ body[data-capture='true'] .toasts {
   color: #fff;
   box-shadow: inset 0 0 0 1px #ffffff66;
 }
+
+/* At a pump: the litres and the cost running up, as on the pump's display. */
+.refuel-meter {
+  position: fixed;
+  z-index: 2;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 16px;
+  border-radius: 14px;
+  color: #fff;
+  font:
+    600 13px/1.2 system-ui,
+    sans-serif;
+  background: #0b1018c7;
+  box-shadow:
+    inset 0 0 0 1px #2fb36a88,
+    0 8px 20px #0005;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.refuel-meter[hidden] {
+  display: none;
+}
+.refuel-meter .pump {
+  font-size: 20px;
+}
+.refuel-meter b {
+  color: #ffb21c;
+  font:
+    700 20px/1 'Courier New',
+    ui-monospace,
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.refuel-meter small {
+  color: #ffffffa0;
+  font-size: 11px;
+}
+.refuel-meter .bar {
+  width: 70px;
+  height: 6px;
+  border-radius: 3px;
+  background: #ffffff26;
+  overflow: hidden;
+}
+.refuel-meter .bar i {
+  display: block;
+  height: 100%;
+  background: #2fb36a;
+}
+/* With touch controls the bottom is taken: under the top panel instead. */
+body[data-touch-controls='true'] .refuel-meter {
+  top: calc(max(12px, env(safe-area-inset-top)) + 64px);
+  bottom: auto;
+}
