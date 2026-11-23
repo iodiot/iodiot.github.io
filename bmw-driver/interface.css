@@ -1189,3 +1189,98 @@ body[data-capture='true'] .drive-hint {
     bottom: calc(max(18px, env(safe-area-inset-bottom)) + 104px);
   }
 }
+
+/* Notices under the top panel: a run's time, a speed camera's fine. */
+.toasts {
+  position: fixed;
+  z-index: 2;
+  top: 122px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 14px;
+  border-radius: 12px;
+  color: #ffffffeb;
+  font:
+    500 13px/1.25 system-ui,
+    sans-serif;
+  white-space: nowrap;
+  background: #0b1018b8;
+  box-shadow: inset 0 0 0 1px #ffffff1f;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: toast-in 0.3s ease-out;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+}
+.toast b {
+  color: #7fc8ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.toast .toast-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.toast small {
+  color: #ffffff99;
+  font-size: 11.5px;
+}
+.toast.record b,
+.toast.record small {
+  color: #7ee2a0;
+}
+.toast.fine b {
+  color: #ff8c7a;
+}
+.toast.leaving {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+body[data-capture='true'] .toasts {
+  display: none;
+}
+/* A speed camera's flash. */
+.camera-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  background: #fff;
+  pointer-events: none;
+  animation: camera-flash 0.6s ease-out forwards;
+}
+@keyframes camera-flash {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  .toasts {
+    top: 96px;
+    left: auto;
+    right: 16px;
+    transform: none;
+    align-items: flex-end;
+  }
+}
