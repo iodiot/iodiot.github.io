@@ -56,7 +56,7 @@ License: Apache License 2.0, https://www.apache.org/licenses/LICENSE-2.0
 
 Adaptation: the path is drawn in amber inside the cluster's SVG.
 
-## Route: Zhytomyr – Kyiv (route-m06.json)
+## Routes: Zhytomyr – Kyiv (route-m06.json) and Dnipro – Zaporizhzhia (route-n08.json)
 
 Road geometry and place names: © OpenStreetMap contributors, available under the Open Database License (ODbL), https://www.openstreetmap.org/copyright. Routed with the OSRM demo server (https://project-osrm.org/).
 
