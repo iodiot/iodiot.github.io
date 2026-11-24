@@ -58,8 +58,8 @@ Adaptation: the path is drawn in amber inside the cluster's SVG.
 
 ## Routes: Zhytomyr – Kyiv (route-m06.json) and Dnipro – Zaporizhzhia (route-n08.json)
 
-Road geometry and place names: © OpenStreetMap contributors, available under the Open Database License (ODbL), https://www.openstreetmap.org/copyright. Routed with the OSRM demo server (https://project-osrm.org/).
+Road geometry, place names and, for the N-08, the buildings and ponds beside it: © OpenStreetMap contributors, available under the Open Database License (ODbL), https://www.openstreetmap.org/copyright. Routed with the OSRM demo server (https://project-osrm.org/).
 
 Heights: SRTM 30 m (NASA / USGS, public domain), queried through OpenTopoData (https://www.opentopodata.org/).
 
-Adaptation: the route is resampled, its bends unbent into the game's road along one axis and its heights smoothed (see `tools/route-m06/build.py`).
+Adaptation: the route is resampled, its bends unbent into the game's road along one axis and its heights smoothed (see `tools/routes/build.py`); the buildings are reduced to rectangles with a height and kind, and both they and the ponds are placed in the road's frame.
