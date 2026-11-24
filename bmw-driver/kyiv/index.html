@@ -1,71 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="utf-8" />
-    <base href="../" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>BMW M5 F10 · Житомир → Київ</title>
     <meta name="description" content="116,8 км трасою М-06: справжні повороти, висоти й села, а скільки до Києва — на приладовій панелі." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="BMW M5 F10 · Житомир → Київ" />
     <meta property="og:description" content="116,8 км трасою М-06: справжні повороти, висоти й села, а скільки до Києва — на приладовій панелі." />
     <meta name="twitter:card" content="summary" />
-    <link rel="stylesheet" href="./interface.css?v=9774953" />
+    <link rel="canonical" href="../?kyiv" />
+    <meta http-equiv="refresh" content="0; url=../?kyiv" />
+    <script>
+      const rest = location.search.slice(1);
+      location.replace('../?kyiv' + (rest ? '&' + rest : '') + location.hash);
+    </script>
   </head>
   <body>
-    <p id="status" role="status">Loading the car and the road…</p>
-    <!-- Settings are hidden for now; remove `hidden` to bring them back. -->
-    <details class="settings" id="settings" hidden>
-      <summary>
-        <svg viewBox="0 0 20 20" aria-hidden="true">
-          <path d="M3 5h14M3 10h14M3 15h14" />
-          <path d="M7 2v6M13 7v6M8 12v6" stroke-width="3" stroke="#161d25" />
-          <path d="M7 2v6M13 7v6M8 12v6" />
-        </svg>
-        Settings
-        <svg class="chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 4 4 4 4-4" /></svg>
-      </summary>
-      <div class="settings-panel" aria-label="Viewer controls">
-        <h2 class="settings-heading">Simulation</h2>
-        <div class="simulation-actions">
-          <button id="pause" disabled>Drive</button>
-          <button id="restart" disabled>Restart</button>
-        </div>
-        <h2 class="settings-heading">Scene</h2>
-        <div class="scene-options">
-          <label for="orbit">Orbit <input type="checkbox" id="orbit" /></label>
-          <label for="night">Night <input type="checkbox" id="night" /></label>
-          <label for="rain">Rain <input type="checkbox" id="rain" /></label>
-          <label for="weather-cycle"
-            >Weather changes <input type="checkbox" id="weather-cycle" checked
-          /></label>
-          <label for="wireframe">Wireframe <input type="checkbox" id="wireframe" /></label>
-        </div>
-        <div class="sound-options">
-          <label for="sound">Sound <input type="checkbox" id="sound" checked /></label>
-          <label class="volume-label" for="volume"
-            >Volume <input type="range" id="volume" min="0" max="100" value="55"
-          /></label>
-          <p id="audio-status">Click the scene to enable sound.</p>
-          <a href="./assets/audio/ATTRIBUTION.md" target="_blank" rel="noopener">Sound credits</a>
-        </div>
-      </div>
-    </details>
-    <div class="minimap" id="minimap" aria-label="Road map ahead"></div>
-    <div class="day-bar" id="day-bar" role="group" aria-label="Time of day"></div>
-    <p class="drive-hint" aria-live="polite">
-      <b>Autopilot</b>
-      <span class="hint-keys"
-        >Press <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to take the wheel</span
-      >
-      <span class="hint-touch">Touch the wheel or pedals to drive</span>
-    </p>
-    <div class="suspension-display" id="suspension-display" aria-label="Suspension telemetry"></div>
-    <div class="instrument-cluster" id="instruments" aria-label="Vehicle instruments"></div>
-    <script type="importmap">{"imports":{"three":"./vendor/three.js","three/addons/controls/OrbitControls.js":"./vendor/OrbitControls.js","three/addons/loaders/GLTFLoader.js":"./vendor/GLTFLoader.js","three/addons/utils/BufferGeometryUtils.js":"./vendor/BufferGeometryUtils.js"}}</script>
-    <script type="module" src="./demo.js?v=9774953"></script>
-
-  <a class="credits" href="./assets/ATTRIBUTION.md" target="_blank" rel="noopener"
-     aria-label="Model credits and license" style="position:fixed;bottom:5px;right:10px;color:#9aa8b8;font:10px system-ui;opacity:.7">Model credits</a>
-</body>
+    <a href="../?kyiv">BMW M5 F10 · Житомир → Київ</a>
+  </body>
 </html>
