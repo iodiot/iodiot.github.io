@@ -863,6 +863,7 @@ body[data-capture='true'] .credits {
 .day-camera,
 .day-capture,
 .day-paint,
+.day-radio,
 .day-sound,
 .day-restart {
   width: 34px !important;
@@ -885,6 +886,24 @@ body[data-capture='true'] .credits {
   box-shadow:
     inset 0 0 0 1px #9fd0ff88,
     0 0 14px #5fb2ff88;
+}
+/* The radio, lit while a station plays; tuning in, it pulses. */
+.day-radio[aria-pressed='true'] {
+  background: #e0a42f55 !important;
+  color: #ffe6b0;
+  box-shadow:
+    inset 0 0 0 1px #ffd27d88,
+    0 0 14px #ffb84d77;
+}
+.day-radio[data-state='tuning'],
+.day-radio[data-state='waiting'] {
+  animation: sound-waiting 1.2s ease-in-out infinite;
+}
+.day-radio[data-state='muted'],
+.day-radio[data-state='error'] {
+  color: #ffffff8c;
+  background: #00000040 !important;
+  box-shadow: inset 0 0 0 1px #ffd27d55;
 }
 /* The capture button: a ring with a dot; recording, red with the seconds
    left counting down in it. */
@@ -995,6 +1014,7 @@ body[data-capture='true'] .credits {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .day-radio,
   .day-sound[data-state='waiting'] {
     animation: none;
   }
@@ -1049,6 +1069,7 @@ body[data-capture='true'] .day-bar {
   .day-camera,
   .day-capture,
   .day-paint,
+  .day-radio,
   .day-sound,
   .day-restart {
     width: 30px !important;
@@ -1267,6 +1288,7 @@ body[data-capture='true'] .drive-hint {
   .day-rain,
   .day-camera,
   .day-paint,
+  .day-radio,
   .day-sound,
   .day-restart {
     width: 30px !important;
@@ -1865,6 +1887,7 @@ body[data-capture='true'] .route-card {
   .day-rain,
   .day-camera,
   .day-paint,
+  .day-radio,
   .day-sound,
   .day-restart {
     width: 36px !important;
