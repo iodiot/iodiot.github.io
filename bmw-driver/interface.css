@@ -861,6 +861,7 @@ body[data-capture='true'] .credits {
 .day-rain,
 .day-run,
 .day-camera,
+.day-capture,
 .day-paint,
 .day-sound,
 .day-restart {
@@ -885,6 +886,97 @@ body[data-capture='true'] .credits {
 }
 .day-run[aria-pressed='true'] {
   color: #ffd27d;
+}
+/* The capture button: a ring with a dot; recording, red with the seconds
+   left counting down in it. */
+.day-capture {
+  position: relative;
+}
+.day-capture .dot {
+  fill: currentColor;
+  stroke: none;
+}
+.day-capture b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font:
+    700 12px/1 -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: #fff;
+}
+.day-capture[data-recording='true'] {
+  background: #e0353599 !important;
+  box-shadow:
+    inset 0 0 0 1px #ff9a9a88,
+    0 0 14px #ff4d4d88;
+  animation: capture-recording 1s ease-in-out infinite;
+}
+.day-capture[data-recording='true'] svg {
+  opacity: 0;
+}
+@keyframes capture-recording {
+  50% {
+    box-shadow:
+      inset 0 0 0 1px #ff9a9a88,
+      0 0 4px #ff4d4d44;
+  }
+}
+/* Its menu: a photo or a video, under the top panel. */
+.capture-menu {
+  width: min(250px, calc(100vw - 32px));
+  padding: 6px;
+  display: grid;
+  gap: 2px;
+}
+.capture-menu[hidden] {
+  display: none;
+}
+.capture-menu button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+.capture-menu button:hover:not([disabled]) {
+  background: #ffffff1f;
+}
+.capture-menu button[disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
+.capture-menu svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.capture-menu .dot {
+  fill: #ff4d4d;
+  stroke: none;
+}
+.capture-menu span {
+  display: grid;
+  gap: 2px;
+}
+.capture-menu b {
+  font-size: 13px;
+  font-weight: 600;
+}
+.capture-menu small {
+  font-size: 11px;
+  color: #ffffffa6;
 }
 .day-camera:not([data-view='chase']) {
   color: #ffd27d;
@@ -959,6 +1051,7 @@ body[data-capture='true'] .day-bar {
   .day-rain,
   .day-run,
   .day-camera,
+  .day-capture,
   .day-paint,
   .day-sound,
   .day-restart {
@@ -1809,6 +1902,14 @@ body[data-capture='true'] .route-card {
 @media (pointer: coarse) and (max-height: 500px) {
   .minimap,
   .instrument-cluster {
+    display: none !important;
+  }
+}
+
+/* Photos and videos are for a computer's screen: on a phone the top row
+   has no room for the button. */
+@media (max-width: 520px) {
+  .day-capture {
     display: none !important;
   }
 }
