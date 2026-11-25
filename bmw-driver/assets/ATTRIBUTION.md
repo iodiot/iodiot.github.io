@@ -46,6 +46,19 @@ the normal map high-pass filtered (broad tilts removed, fine relief kept);
 the roughness/occlusion (ARM) and height maps are the 1024 × 1024 originals.
 The viewer lightens and desaturates the asphalt colour at runtime.
 
+# Concrete texture
+
+Files: `concrete/concrete.jpg`, `concrete/concrete-normal.jpg`, `concrete/concrete-arm.jpg`
+
+Title: Concrete Wall 006 (Charlotte Baglioni, Dario Barresi), Poly Haven
+
+Source: https://polyhaven.com/a/concrete_wall_006
+
+License: CC0 1.0 Universal (public domain), https://creativecommons.org/publicdomain/zero/1.0/
+
+Adaptation: the 1024 × 1024 originals; the viewer tints the colour pale grey
+or red for the checkpoints' blocks.
+
 # Skidding-car (DSC) symbol
 
 Used in: `public/instruments.js` (the DSC warning light in the cluster)
